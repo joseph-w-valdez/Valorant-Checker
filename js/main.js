@@ -38,7 +38,23 @@ function handleViewSwap(event) {
     $dataViewAttribute = 'homepage';
   }
   $dataViewAttribute = $dataViewAttribute.toLowerCase();
+  var $apiValue = $dataViewAttribute;
   $dataViewAttribute = '[data-view=' + $dataViewAttribute + ']';
   $dataViewAttribute = document.querySelector($dataViewAttribute);
   $dataViewAttribute.classList.remove('hidden');
+
+  if ($apiValue === 'homepage') {
+    return undefined;
+  } else {
+    useApi($apiValue);
+  }
+
+}
+
+function useApi(value) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://valorant-api.com/v1/' + value);
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {});
+  xhr.send();
 }
