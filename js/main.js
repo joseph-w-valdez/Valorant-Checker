@@ -48,13 +48,26 @@ function handleViewSwap(event) {
   } else {
     useApi($apiValue);
   }
-
 }
+
+var $agentsTable = document.querySelector('.agents-table');
 
 function useApi(value) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://valorant-api.com/v1/' + value);
   xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {});
+  if (value === 'agents') {
+    xhr.addEventListener('load', function () {
+      for (let agent = 0; agent < xhr.response.data.length; agent++) {
+        if (xhr.response.data[agent].isPlayableCharacter === true) {
+          var $newAgent = document.createElement('h1');
+          $newAgent.textContent = xhr.response.data[agent].displayName;
+          $agentsTable.appendChild($newAgent);
+        }
+
+      }
+    });
+  }
+
   xhr.send();
 }
