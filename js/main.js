@@ -64,7 +64,6 @@ function useApi(value) {
           $newAgent.textContent = xhr.response.data[agent].displayName;
           $agentsTable.appendChild($newAgent);
         }
-
       }
     });
   }

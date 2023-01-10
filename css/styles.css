@@ -77,6 +77,32 @@ label {
   font-size: 20px;
 }
 
+table {
+  padding-left: 20px;
+  border-collapse: collapse;
+}
+
+tr {
+  height: 50px;
+}
+
+tr:nth-child(odd) {
+  background-color: #282828;
+}
+
+tr:nth-child(even) {
+  background-color: #929292;
+}
+
+td {
+  padding: 0 20px;
+  width: 80%;
+}
+
+tr:nth-child(even) > td {
+  color: black;
+}
+
 @media screen and (min-width: 500px) {
   .homepage-header {
     font-size: 100px;
