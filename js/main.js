@@ -58,13 +58,33 @@ function useApi(value) {
   xhr.responseType = 'json';
   if (value === 'agents') {
     xhr.addEventListener('load', function () {
+      var $tbody = document.querySelector('tbody');
+      if ($tbody) {
+        $tbody.remove();
+      }
+      var $newTbody = document.createElement('tbody');
       for (let agent = 0; agent < xhr.response.data.length; agent++) {
+
         if (xhr.response.data[agent].isPlayableCharacter === true) {
-          var $newAgent = document.createElement('h1');
-          $newAgent.textContent = xhr.response.data[agent].displayName;
-          $agentsTable.appendChild($newAgent);
+          var $newAgent = document.createElement('tr');
+          var $newAgentName = document.createElement('td');
+          var $newAgentProfile = document.createElement('td');
+          var $newAgentProfileUrl = document.createElement('img');
+          var $newPortraitFrame = document.createElement('div');
+          $newPortraitFrame.setAttribute('class', 'table-portrait');
+
+          $newAgentProfileUrl.setAttribute('src', xhr.response.data[agent].killfeedPortrait);
+          $newPortraitFrame.appendChild($newAgentProfileUrl);
+          $newAgentProfile.appendChild($newPortraitFrame);
+          $newAgentName.textContent = xhr.response.data[agent].displayName;
+          $newAgent.appendChild($newAgentName);
+          $newAgent.appendChild($newAgentProfile);
+
+          $newTbody.appendChild($newAgent);
+
         }
       }
+      $agentsTable.appendChild($newTbody);
     });
   }
 

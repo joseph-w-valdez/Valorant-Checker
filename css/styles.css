@@ -80,18 +80,20 @@ label {
 table {
   padding-left: 20px;
   border-collapse: collapse;
+  width: 100%;
 }
 
 tr {
   height: 50px;
 }
 
-tr:nth-child(odd) {
-  background-color: #282828;
+tbody > tr {
+  background-color: rgb(45, 45, 45);
 }
 
-tr:nth-child(even) {
+tbody > tr:nth-child(odd) {
   background-color: #929292;
+  color: black;
 }
 
 td {
@@ -99,8 +101,17 @@ td {
   width: 80%;
 }
 
-tr:nth-child(even) > td {
+tbody > tr:nth-child(odd) > td {
   color: black;
+}
+
+.table-portrait {
+  height: 50px;
+  width: 100px;
+}
+
+table img {
+  object-fit: cover;
 }
 
 @media screen and (min-width: 500px) {
