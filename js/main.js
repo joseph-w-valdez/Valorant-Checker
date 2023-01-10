@@ -20,3 +20,25 @@ $controllers.addEventListener('click', handleCheckedBox);
 $duelists.addEventListener('click', handleCheckedBox);
 $initiators.addEventListener('click', handleCheckedBox);
 $sentinels.addEventListener('click', handleCheckedBox);
+
+var $viewNodes = document.querySelectorAll('.view');
+var $navBar = document.querySelector('.navbar');
+
+$navBar.addEventListener('click', handleViewSwap);
+
+function handleViewSwap(event) {
+  if (event.target.matches('.navbar-item') === false) {
+    return undefined;
+  }
+  for (let view = 0; view < $viewNodes.length; view++) {
+    $viewNodes[view].classList.add('hidden');
+  }
+  var $dataViewAttribute = event.target.textContent;
+  if ($dataViewAttribute === 'ValoFuze') {
+    $dataViewAttribute = 'homepage';
+  }
+  $dataViewAttribute = $dataViewAttribute.toLowerCase();
+  $dataViewAttribute = '[data-view=' + $dataViewAttribute + ']';
+  $dataViewAttribute = document.querySelector($dataViewAttribute);
+  $dataViewAttribute.classList.remove('hidden');
+}
