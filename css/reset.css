@@ -3,6 +3,7 @@
 }
 
 body,
-p {
+p,
+.filter-header {
   margin: 0;
 }

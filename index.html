@@ -16,13 +16,66 @@
     <div class="container">
       <div class="row">
         <div class="col-full navbar">
-          <h2 class="inline">ValoFuze</h2>
-          <span class="inline">Agents</span>
+          <h3 class="navbar-item inline">ValoFuze</h3>
+          <span class="navbar-item inline">Agents</span>
         </div>
       </div>
-      <div class="row wrap">
-        <div class="col-full"><p class="homepage-header ta-center">Homepage</p></div>
-        <div class="col-full"><div class="logo-frame"><img src="./images/Valorant Logo.png" alt="Valorant Logo"></div></div>
+      <div class="view hidden" data-view="homepage">
+        <div class="row wrap">
+          <div class="col-full"><p class="homepage-header ta-center">Homepage</p></div>
+          <div class="col-full"><div class="logo-frame"><img src="./images/Valorant Logo.png" alt="Valorant Logo"></div></div>
+        </div>
+      </div>
+      <div class="view" data-view="agents">
+        <div class="row wrap">
+          <div class="col-full">
+            <p class="homepage-header ta-center">Agents</p>
+          </div>
+          <div class="filter-table">
+            <div class="row wrap ai-center">
+              <div class="col-50 filter-column">
+                <div class="filter-option">
+                  <h4 class="filter-header">Filter by Role</h4>
+                </div>
+                <div class="filter-option row ai-center" id="controllers">
+                  <div>
+                    <div class="checkbox inline-block checkbox-controllers"></div>
+                  </div>
+                  <div class="role-icon-frame inline-block"><img src="./images/ControllerClassSymbol.webp" alt=""></div>
+                  <div><label class="label-controllers">Controllers</label></div>
+                </div>
+                <div class="filter-option row ai-center" id="initiators">
+                  <div>
+                    <div class="checkbox inline-block checkbox-initiators"></div>
+                  </div>
+                  <div class="role-icon-frame inline-block"><img src="./images/InitiatorClassSymbol.webp" alt=""></div>
+                  <div><label class="label-initiators">Initiators</label></div>
+                </div>
+              </div>
+              <div class="col-50">
+                <div class="filter-option row ai-center" id="no-filter">
+                  <div>
+                    <div class="checkbox checked-box inline-block checkbox-no-filter"></div>
+                  </div>
+                  <div><label class="label-no-filter">No Filter</label></div>
+                </div>
+                <div class="filter-option row ai-center" id="duelists">
+                  <div>
+                    <div class="checkbox inline-block checkbox-duelists"></div>
+                  </div>
+                  <div class="role-icon-frame inline-block"><img src="./images/DuelistClassSymbol.webp" alt=""></div>
+                  <div><label class="label-duelists">Duelists</label></div>
+                </div>
+                <div class="filter-option row ai-center" id="sentinels">
+                  <div>
+                    <div class="checkbox inline-block checkbox-sentinels"></div>
+                  </div>
+                  <div class="role-icon-frame inline-block"><img src="./images/SentinelClassSymbol.webp" alt=""></div>
+                  <div><label class="label-sentinels">Sentinels</label></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </main>

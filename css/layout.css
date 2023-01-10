@@ -27,12 +27,20 @@ html {
   width: 100%;
 }
 
+.col-50 {
+  width: 50%;
+}
+
 .ta-center {
   text-align: center;
 }
 
-@media screen and (min-width: 500px) {
-  h1 {
-    font-size: 70px;
-  }
+.ai-center {
+  align-items: center;
+}
+
+label,
+.role-icon-frame,
+.checkbox {
+  cursor: pointer;
 }
