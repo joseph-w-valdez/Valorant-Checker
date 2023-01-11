@@ -2,6 +2,8 @@
   box-sizing: border-box;
 }
 
-body {
+body,
+p,
+.filter-header {
   margin: 0;
 }

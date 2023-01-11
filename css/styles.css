@@ -1,0 +1,139 @@
+.navbar {
+  background-color: #ff5152;
+  padding: 15px 10vw;
+}
+
+.inline {
+  display: inline;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
+}
+
+.navbar-item {
+  padding: 10px 15px 10px 0;
+  margin: 0;
+}
+
+.homepage-header {
+  font-size: 55px;
+  padding: 20px 0 30px;
+  margin: 20px 10vw;
+}
+
+img {
+  width: 100%;
+}
+
+.logo-frame {
+  width: 250px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.checkbox {
+  height: 15px;
+  width: 15px;
+  border: 2px solid rgba(255, 255, 255);
+  border-radius: 2px;
+  margin-right: 5px;
+}
+
+.role-icon-frame {
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+}
+
+.checked-box {
+  background-image: url("../images/checked-box.png");
+  background-size: cover;
+}
+
+.filter-table {
+  width: 300px;
+  text-align: left;
+  margin: auto;
+}
+
+.second-filter-col {
+  padding-left: 15px;
+}
+
+.filters {
+  text-align: center;
+}
+
+.filter-header {
+  margin-left: 10px;
+}
+
+.filter-option {
+  margin: 10px 0;
+}
+
+label {
+  font-size: 20px;
+}
+
+table {
+  padding-left: 20px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tr {
+  height: 50px;
+}
+
+tbody > tr {
+  background-color: rgb(45, 45, 45);
+}
+
+tbody > tr:nth-child(odd) {
+  background-color: #929292;
+  color: black;
+}
+
+td {
+  padding: 0 10vw;
+  width: 80%;
+}
+
+tbody > tr:nth-child(odd) > td {
+  color: black;
+}
+
+.table-portrait {
+  height: 50px;
+  width: 100px;
+}
+
+table img {
+  object-fit: cover;
+}
+
+@media screen and (min-width: 500px) {
+  .homepage-header {
+    font-size: 80px;
+  }
+
+  .logo-frame {
+    width: 400px;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .homepage-header {
+    font-size: 110px;
+  }
+
+  .logo-frame {
+    width: 550px;
+  }
+}

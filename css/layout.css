@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+  color: white;
+}
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  background-color: #212121;
+}
+
+.container {
+  max-width: 2000px;
+}
+
+.row {
+  display: flex;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.col-full {
+  width: 100%;
+}
+
+.col-50 {
+  width: 50%;
+}
+
+.ta-center {
+  text-align: center;
+}
+
+.ai-center {
+  align-items: center;
+}
+
+.navbar-item,
+label,
+.role-icon-frame,
+.checkbox {
+  cursor: pointer;
+}
