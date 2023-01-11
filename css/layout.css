@@ -27,8 +27,16 @@ html {
   width: 100%;
 }
 
+.col-25 {
+  width: calc(100%/3);
+}
+
 .col-50 {
   width: 50%;
+}
+
+.col-75 {
+  width: calc(200%/3);
 }
 
 .ta-center {

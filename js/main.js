@@ -50,13 +50,14 @@ function handleViewSwap(event, pageView) {
     $viewNodes[view].classList.add('hidden');
   }
   if ($dataViewAttribute === 'valofuze') {
+
     $dataViewAttribute = 'homepage';
   }
   $dataViewAttribute = '[data-view=' + $dataViewAttribute + ']';
   $dataViewAttribute = document.querySelector($dataViewAttribute);
   $dataViewAttribute.classList.remove('hidden');
 
-  if ($apiValue === 'homepage') {
+  if ($dataViewAttribute.getAttribute('data-view') === 'homepage') {
     return undefined;
   } else if ($apiValue === 'agents') {
     var $allCheckboxes = document.querySelectorAll('.checkbox');

@@ -22,7 +22,6 @@
 
 .homepage-header {
   font-size: 55px;
-  padding: 20px 0 30px;
   margin: 20px 10vw;
 }
 
@@ -34,6 +33,37 @@ img {
   width: 250px;
   margin: 0 auto;
   padding: 0;
+}
+
+.bio {
+  margin: 0 40px;
+}
+
+.individual-agent-frame {
+  padding: 0;
+  position: relative;
+}
+
+.individual-agent {
+  position: relative;
+  top: -50px;
+  width: 350px;
+  height: 400px;
+}
+
+.individual-agent-portrait {
+  width: 150%;
+  z-index: 1;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+}
+
+.individual-agent-background {
+  position: absolute;
+  top: 65px;
+  right: 50px;
+  opacity: 0.75;
 }
 
 .checkbox {
