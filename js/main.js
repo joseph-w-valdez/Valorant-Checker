@@ -7,6 +7,7 @@ function handleCheckedBox(event) {
   $checkboxTarget = '.checkbox-' + $checkboxTarget;
   $checkboxTarget = document.querySelector($checkboxTarget);
   $checkboxTarget.classList.add('checked-box');
+  useApi('agents');
 }
 
 var $noFilter = document.querySelector('#no-filter');
@@ -20,6 +21,9 @@ $controllers.addEventListener('click', handleCheckedBox);
 $duelists.addEventListener('click', handleCheckedBox);
 $initiators.addEventListener('click', handleCheckedBox);
 $sentinels.addEventListener('click', handleCheckedBox);
+
+var $checkedBox = document.querySelector('.checked-box');
+$checkedBox = $checkedBox.getAttribute('id');
 
 var $viewNodes = document.querySelectorAll('.view');
 var $navBar = document.querySelector('.navbar');
@@ -63,14 +67,33 @@ function useApi(value) {
         $tbody.remove();
       }
       var $newTbody = document.createElement('tbody');
-      for (let agent = 0; agent < xhr.response.data.length; agent++) {
+      $checkedBox = document.querySelector('.checked-box');
+      $checkedBox = $checkedBox.getAttribute('id');
 
-        if (xhr.response.data[agent].isPlayableCharacter === true) {
+      for (let agent = 0; agent < xhr.response.data.length; agent++) {
+        if (xhr.response.data[agent].isPlayableCharacter === true && $checkedBox === 'none') {
           var $newAgent = document.createElement('tr');
           var $newAgentName = document.createElement('td');
           var $newAgentProfile = document.createElement('td');
           var $newAgentProfileUrl = document.createElement('img');
           var $newPortraitFrame = document.createElement('div');
+          $newPortraitFrame.setAttribute('class', 'table-portrait');
+
+          $newAgentProfileUrl.setAttribute('src', xhr.response.data[agent].killfeedPortrait);
+          $newPortraitFrame.appendChild($newAgentProfileUrl);
+          $newAgentProfile.appendChild($newPortraitFrame);
+          $newAgentName.textContent = xhr.response.data[agent].displayName;
+          $newAgent.appendChild($newAgentName);
+          $newAgent.appendChild($newAgentProfile);
+
+          $newTbody.appendChild($newAgent);
+
+        } else if (xhr.response.data[agent].isPlayableCharacter === true && xhr.response.data[agent].role.displayName === $checkedBox) {
+          $newAgent = document.createElement('tr');
+          $newAgentName = document.createElement('td');
+          $newAgentProfile = document.createElement('td');
+          $newAgentProfileUrl = document.createElement('img');
+          $newPortraitFrame = document.createElement('div');
           $newPortraitFrame.setAttribute('class', 'table-portrait');
 
           $newAgentProfileUrl.setAttribute('src', xhr.response.data[agent].killfeedPortrait);
