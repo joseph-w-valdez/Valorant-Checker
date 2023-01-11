@@ -30,19 +30,28 @@ var $navBar = document.querySelector('.navbar');
 
 $navBar.addEventListener('click', handleViewSwap);
 
-function handleViewSwap(event) {
-  if (event.target.matches('.navbar-item') === false) {
-    return undefined;
+function handleViewSwap(event, pageView) {
+  var $dataViewAttribute;
+  var $apiValue;
+  if (pageView) {
+    $dataViewAttribute = pageView;
+    $apiValue = 'agents';
+  } else {
+    if (!event.target.matches('.navbar-item')) {
+      return undefined;
+    } else {
+      $dataViewAttribute = event.target.textContent;
+      $dataViewAttribute = $dataViewAttribute.toLowerCase();
+      $apiValue = $dataViewAttribute;
+
+    }
   }
   for (let view = 0; view < $viewNodes.length; view++) {
     $viewNodes[view].classList.add('hidden');
   }
-  var $dataViewAttribute = event.target.textContent;
-  if ($dataViewAttribute === 'ValoFuze') {
+  if ($dataViewAttribute === 'valofuze') {
     $dataViewAttribute = 'homepage';
   }
-  $dataViewAttribute = $dataViewAttribute.toLowerCase();
-  var $apiValue = $dataViewAttribute;
   $dataViewAttribute = '[data-view=' + $dataViewAttribute + ']';
   $dataViewAttribute = document.querySelector($dataViewAttribute);
   $dataViewAttribute.classList.remove('hidden');
@@ -66,7 +75,7 @@ var $agentsTable = document.querySelector('.agents-table');
 var $tbody = document.querySelector('tbody');
 
 function handleIndividualAgent(event) {
-
+  handleViewSwap('click', 'individual-agent');
 }
 
 function useApi(value) {
