@@ -1,6 +1,6 @@
 .navbar {
   background-color: #ff5152;
-  padding: 15px 10px;
+  padding: 15px 10vw;
 }
 
 .inline {
@@ -16,13 +16,14 @@
 }
 
 .navbar-item {
-  padding: 10px 15px;
+  padding: 10px 15px 10px 0;
   margin: 0;
 }
 
 .homepage-header {
-  font-size: 65px;
+  font-size: 55px;
   padding: 20px 0 30px;
+  margin: 20px 10vw;
 }
 
 img {
@@ -30,10 +31,9 @@ img {
 }
 
 .logo-frame {
-  width: 100vw;
-  max-width: 375px;
+  width: 250px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0;
 }
 
 .checkbox {
@@ -61,6 +61,10 @@ img {
   margin: auto;
 }
 
+.second-filter-col {
+  padding-left: 15px;
+}
+
 .filters {
   text-align: center;
 }
@@ -79,8 +83,8 @@ label {
 
 table {
   padding-left: 20px;
-  border-collapse: collapse;
   width: 100%;
+  border-collapse: collapse;
 }
 
 tr {
@@ -97,7 +101,7 @@ tbody > tr:nth-child(odd) {
 }
 
 td {
-  padding: 0 20px;
+  padding: 0 10vw;
   width: 80%;
 }
 
@@ -116,10 +120,20 @@ table img {
 
 @media screen and (min-width: 500px) {
   .homepage-header {
-    font-size: 100px;
+    font-size: 80px;
   }
 
   .logo-frame {
-    max-width: 500px;
+    width: 400px;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .homepage-header {
+    font-size: 110px;
+  }
+
+  .logo-frame {
+    width: 550px;
   }
 }
