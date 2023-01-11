@@ -4,6 +4,7 @@
 
 body,
 p,
-.filter-header {
+.filter-header,
+.view h3 {
   margin: 0;
 }

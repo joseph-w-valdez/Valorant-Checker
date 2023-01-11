@@ -80,6 +80,16 @@ img {
   margin-right: 5px;
 }
 
+.agent-icon-frame {
+  height: 60px;
+  width: 60px;
+  display: inline-block;
+}
+
+.view h3 {
+  font-size: 17px;
+}
+
 .checked-box {
   background-image: url("../images/checked-box.png");
   background-size: cover;

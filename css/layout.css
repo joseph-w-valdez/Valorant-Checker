@@ -47,6 +47,10 @@ html {
   align-items: center;
 }
 
+.jc-space-around {
+  justify-content: space-around;
+}
+
 .navbar-item,
 label,
 .role-icon-frame,
