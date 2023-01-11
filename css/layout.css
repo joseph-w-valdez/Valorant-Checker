@@ -42,6 +42,7 @@ html {
 .navbar-item,
 label,
 .role-icon-frame,
-.checkbox {
+.checkbox,
+tbody {
   cursor: pointer;
 }

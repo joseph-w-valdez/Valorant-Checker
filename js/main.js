@@ -63,13 +63,19 @@ function handleViewSwap(event) {
 
 var $agentsTable = document.querySelector('.agents-table');
 
+var $tbody = document.querySelector('tbody');
+
+function handleIndividualAgent(event) {
+
+}
+
 function useApi(value) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://valorant-api.com/v1/' + value);
   xhr.responseType = 'json';
   if (value === 'agents') {
     xhr.addEventListener('load', function () {
-      var $tbody = document.querySelector('tbody');
+      $tbody = document.querySelector('tbody');
       if ($tbody) {
         $tbody.remove();
       }
@@ -90,13 +96,14 @@ function useApi(value) {
           $newPortraitFrame.appendChild($newAgentProfileUrl);
           $newAgentProfile.appendChild($newPortraitFrame);
           $newAgentName.textContent = xhr.response.data[agent].displayName;
+          $newAgent.setAttribute('id', xhr.response.data[agent].displayName);
           $newAgent.appendChild($newAgentName);
           $newAgent.appendChild($newAgentProfile);
 
           $newTbody.appendChild($newAgent);
-
         } else if (xhr.response.data[agent].isPlayableCharacter === true && xhr.response.data[agent].role.displayName === $checkedBox) {
           $newAgent = document.createElement('tr');
+
           $newAgentName = document.createElement('td');
           $newAgentProfile = document.createElement('td');
           $newAgentProfileUrl = document.createElement('img');
@@ -107,14 +114,16 @@ function useApi(value) {
           $newPortraitFrame.appendChild($newAgentProfileUrl);
           $newAgentProfile.appendChild($newPortraitFrame);
           $newAgentName.textContent = xhr.response.data[agent].displayName;
+          $newAgent.setAttribute('id', xhr.response.data[agent].displayName);
           $newAgent.appendChild($newAgentName);
           $newAgent.appendChild($newAgentProfile);
 
           $newTbody.appendChild($newAgent);
-
         }
       }
       $agentsTable.appendChild($newTbody);
+      $tbody = document.querySelector('tbody');
+      $tbody.addEventListener('click', handleIndividualAgent);
     });
   }
 
