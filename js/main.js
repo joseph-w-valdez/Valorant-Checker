@@ -49,9 +49,16 @@ function handleViewSwap(event) {
 
   if ($apiValue === 'homepage') {
     return undefined;
-  } else {
-    useApi($apiValue);
+  } else if ($apiValue === 'agents') {
+    var $allCheckboxes = document.querySelectorAll('.checkbox');
+    for (let checkbox = 0; checkbox < $allCheckboxes.length; checkbox++) {
+      $allCheckboxes[checkbox].classList.remove('checked-box');
+    }
+    var $noFilterCheckbox = document.querySelector('.checkbox-no-filter');
+    $noFilterCheckbox.classList.add('checked-box');
   }
+  useApi($apiValue);
+
 }
 
 var $agentsTable = document.querySelector('.agents-table');
