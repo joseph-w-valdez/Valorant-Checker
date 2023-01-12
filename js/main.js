@@ -162,6 +162,27 @@ function renderIndividualAgent(name) {
         var $agentBackground = document.querySelector('.agent-background');
         var $agentBackgroundUrl = xhr.response.data[agent].background;
         $agentBackground.setAttribute('src', $agentBackgroundUrl);
+        var $ability1Text = document.querySelector('.ability-1-text');
+        $ability1Text.textContent = xhr.response.data[agent].abilities[0].displayName;
+        var $ability1Icon = document.querySelector('.ability-1-icon');
+        var $ability1IconUrl = xhr.response.data[agent].abilities[0].displayIcon;
+        $ability1Icon.setAttribute('src', $ability1IconUrl);
+        var $ability2Text = document.querySelector('.ability-2-text');
+        $ability2Text.textContent = xhr.response.data[agent].abilities[1].displayName;
+        var $ability2Icon = document.querySelector('.ability-2-icon');
+        var $ability2IconUrl = xhr.response.data[agent].abilities[1].displayIcon;
+        $ability2Icon.setAttribute('src', $ability2IconUrl);
+        var $grenadeText = document.querySelector('.grenade-text');
+        $grenadeText.textContent = xhr.response.data[agent].abilities[2].displayName;
+        var $grenadeIcon = document.querySelector('.grenade-icon');
+        var $grenadeIconUrl = xhr.response.data[agent].abilities[2].displayIcon;
+        $grenadeIcon.setAttribute('src', $grenadeIconUrl);
+        var $ultimateText = document.querySelector('.ultimate-text');
+        $ultimateText.textContent = xhr.response.data[agent].abilities[3].displayName;
+        var $ultimateIcon = document.querySelector('.ultimate-icon');
+        var $ultimateIconUrl = xhr.response.data[agent].abilities[3].displayIcon;
+        $ultimateIcon.setAttribute('src', $ultimateIconUrl);
+
       }
     }
   });

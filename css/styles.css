@@ -57,11 +57,12 @@ img {
 }
 
 .agent-background {
-  width: 120%;
-  height: 120%;
+  width: 110%;
+  height: 110%;
   object-fit: cover;
   position: absolute;
   top: -40px;
+  opacity: 0.8;
 }
 
 .checkbox {
