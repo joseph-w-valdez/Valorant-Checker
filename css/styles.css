@@ -21,8 +21,8 @@
 }
 
 .homepage-header {
-  font-size: 55px;
-  margin: 20px 10vw;
+  font-size: 40px;
+  margin: 20px 10px;
 }
 
 img {
@@ -163,18 +163,27 @@ table img {
 }
 
 @media screen and (min-width: 500px) {
-  .homepage-header {
-    font-size: 80px;
-  }
-
   .logo-frame {
     width: 400px;
+  }
+
+  [data-view="individual-agent"] > .row > .col-full:nth-child(1),
+  [data-view="individual-agent"] > .row > .col-full:nth-child(2),
+  .ability-container,
+  .abilities,
+  .portrait {
+    width: 50%;
+  }
+
+  .ability-container img {
+    width: 100px;
+    height: 100px;
   }
 }
 
 @media screen and (min-width: 700px) {
   .homepage-header {
-    font-size: 110px;
+    font-size: 60px;
   }
 
   .logo-frame {
