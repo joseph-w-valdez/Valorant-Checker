@@ -148,7 +148,7 @@ function renderIndividualAgent(name) {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     for (let agent = 0; agent < xhr.response.data.length; agent++) {
-      if (xhr.response.data[agent].displayName === name) {
+      if (xhr.response.data[agent].isPlayableCharacter === true && xhr.response.data[agent].displayName === name) {
         var $agentName = document.querySelector('.agent-name');
         $agentName.textContent = xhr.response.data[agent].displayName;
         var $agentBio = document.querySelector('.bio');
