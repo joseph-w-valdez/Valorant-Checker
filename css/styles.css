@@ -247,14 +247,14 @@ table img {
 
     .portrait,
     .agent-name {
-      padding-left: 5vw;
+      padding-left: 10vw;
     }
   }
 
   @media screen and (min-width: 800px) {
     .portrait {
       transform: scale(1.2);
-      padding-left: 8vw;
+      padding-left: 12vw;
       padding-top: 70px;
     }
   }
@@ -271,7 +271,12 @@ table img {
 
     .portrait,
     .agent-name {
-      padding-left: 10vw;
+      padding-left: 15vw;
+    }
+
+    .portrait {
+      transform: scale(1.3);
+      padding-top: 70px;
     }
   }
 
@@ -286,13 +291,25 @@ table img {
     }
 
     .portrait {
-      transform: scale(1.3);
-      margin-top: 20px;
+      transform: scale(1.5);
+      margin-top: 40px;
     }
 
     .portrait,
     .agent-name {
       padding-left: 20vw;
     }
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .portrait {
+    transform: scale(1.5);
+    margin-top: 50px;
+  }
+
+  .portrait,
+  .agent-name {
+    padding-left: 25vw;
   }
 }
