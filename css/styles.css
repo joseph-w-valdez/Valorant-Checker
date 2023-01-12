@@ -20,9 +20,18 @@
   margin: 0;
 }
 
+.agent-name {
+  font-size: 40px;
+}
+
 .homepage-header {
   font-size: 40px;
-  margin: 20px 10px 0 0;
+  margin: 20px 10px 10px 0;
+}
+
+.agent-header {
+  margin: 20px 0;
+  justify-content: space-evenly;
 }
 
 img {
@@ -206,7 +215,6 @@ table img {
 
   .agent-icon-frame {
     padding-right: 5px;
-    margin: auto;
   }
 
   .bio {
@@ -238,7 +246,7 @@ table img {
     }
 
     .portrait,
-    .homepage-header {
+    .agent-name {
       padding-left: 5vw;
     }
   }
@@ -252,11 +260,8 @@ table img {
   }
 
   @media screen and (min-width: 1000px) {
-    .agent-header {
-      justify-content: center;
-    }
-
     .agent-name {
+      justify-content: center;
       margin-right: 30px;
     }
 
@@ -265,7 +270,7 @@ table img {
     }
 
     .portrait,
-    .homepage-header {
+    .agent-name {
       padding-left: 10vw;
     }
   }
@@ -286,7 +291,7 @@ table img {
     }
 
     .portrait,
-    .homepage-header {
+    .agent-name {
       padding-left: 20vw;
     }
   }
