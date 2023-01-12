@@ -37,12 +37,14 @@ img {
 
 .bio {
   margin: 0 30px;
+  font-size: 14px;
 }
 
 .agent-frame {
   width: 100%;
   height: 400px;
   position: relative;
+  overflow: hidden;
 }
 
 .agent-portrait {

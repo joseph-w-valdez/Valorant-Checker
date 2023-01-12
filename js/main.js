@@ -7,7 +7,7 @@ function handleCheckedBox(event) {
   $checkboxTarget = '.checkbox-' + $checkboxTarget;
   $checkboxTarget = document.querySelector($checkboxTarget);
   $checkboxTarget.classList.add('checked-box');
-  useApi('agents');
+  renderAgentList('agents');
 }
 
 var $noFilter = document.querySelector('#no-filter');
@@ -67,7 +67,7 @@ function handleViewSwap(event, pageView) {
     var $noFilterCheckbox = document.querySelector('.checkbox-no-filter');
     $noFilterCheckbox.classList.add('checked-box');
   }
-  useApi($apiValue);
+  renderAgentList($apiValue);
 
 }
 
@@ -76,10 +76,12 @@ var $agentsTable = document.querySelector('.agents-table');
 var $tbody = document.querySelector('tbody');
 
 function handleIndividualAgent(event) {
+  var $agent = event.target.closest('tr').getAttribute('id');
+  renderIndividualAgent($agent);
   handleViewSwap('click', 'individual-agent');
 }
 
-function useApi(value) {
+function renderAgentList(value) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://valorant-api.com/v1/' + value);
   xhr.responseType = 'json';
@@ -137,5 +139,31 @@ function useApi(value) {
     });
   }
 
+  xhr.send();
+}
+
+function renderIndividualAgent(name) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://valorant-api.com/v1/agents');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    for (let agent = 0; agent < xhr.response.data.length; agent++) {
+      if (xhr.response.data[agent].displayName === name) {
+        var $agentName = document.querySelector('.agent-name');
+        $agentName.textContent = xhr.response.data[agent].displayName;
+        var $agentBio = document.querySelector('.bio');
+        $agentBio.textContent = xhr.response.data[agent].description;
+        var $agentRole = document.querySelector('.agent-role');
+        var $agentRoleIcon = xhr.response.data[agent].role.displayIcon;
+        $agentRole.setAttribute('src', $agentRoleIcon);
+        var $agentPortrait = document.querySelector('.agent-portrait');
+        var $agentPortraitUrl = xhr.response.data[agent].fullPortraitV2;
+        $agentPortrait.setAttribute('src', $agentPortraitUrl);
+        var $agentBackground = document.querySelector('.agent-background');
+        var $agentBackgroundUrl = xhr.response.data[agent].background;
+        $agentBackground.setAttribute('src', $agentBackgroundUrl);
+      }
+    }
+  });
   xhr.send();
 }
