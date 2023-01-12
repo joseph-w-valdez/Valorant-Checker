@@ -182,7 +182,16 @@ function renderIndividualAgent(name) {
         var $ultimateIcon = document.querySelector('.ultimate-icon');
         var $ultimateIconUrl = xhr.response.data[agent].abilities[3].displayIcon;
         $ultimateIcon.setAttribute('src', $ultimateIconUrl);
+        var $passiveContainer = document.querySelector('.passive-container');
+        if (xhr.response.data[agent].abilities[4]) {
+          $passiveContainer.classList.remove('hidden');
+          var $passiveIcon = document.querySelector('.passive-icon');
+          var $passiveIconUrl = xhr.response.data[agent].displayIcon;
+          $passiveIcon.setAttribute('src', $passiveIconUrl);
+        } else {
 
+          $passiveContainer.classList.add('hidden');
+        }
       }
     }
   });
