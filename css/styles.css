@@ -22,7 +22,7 @@
 
 .homepage-header {
   font-size: 40px;
-  margin: 20px 10px;
+  margin: 20px 10px 0 0;
 }
 
 img {
@@ -86,6 +86,10 @@ img {
   margin-right: 5px;
 }
 
+.agent-role {
+  object-fit: contain;
+}
+
 .role-icon-frame {
   height: 20px;
   width: 20px;
@@ -93,8 +97,8 @@ img {
 }
 
 .agent-icon-frame {
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
   display: inline-block;
 }
 
@@ -187,7 +191,7 @@ table img {
   }
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 430px) {
   .logo-frame {
     width: 400px;
   }
@@ -200,6 +204,11 @@ table img {
     width: 50%;
   }
 
+  .agent-icon-frame {
+    padding-right: 5px;
+    margin: auto;
+  }
+
   .bio {
     margin: 10px 0;
   }
@@ -209,9 +218,9 @@ table img {
     height: 100px;
   }
 
-  @media screen and (min-width: 700px) {
+  @media screen and (min-width: 600px) {
     .homepage-header {
-      font-size: 60px;
+      font-size: 50px;
     }
 
     .logo-frame {
@@ -221,6 +230,24 @@ table img {
     .ability-container img {
       width: 120px;
       height: 120px;
+    }
+
+    .portrait {
+      transform: scale(1.1);
+      padding-top: 5px;
+    }
+
+    .portrait,
+    .homepage-header {
+      padding-left: 5vw;
+    }
+  }
+
+  @media screen and (min-width: 800px) {
+    .portrait {
+      transform: scale(1.2);
+      padding-left: 8vw;
+      padding-top: 70px;
     }
   }
 
@@ -236,6 +263,11 @@ table img {
     .bio {
       font-size: 18px;
     }
+
+    .portrait,
+    .homepage-header {
+      padding-left: 10vw;
+    }
   }
 
   @media screen and (min-width: 1200px) {
@@ -246,6 +278,16 @@ table img {
     .ability-container img {
       width: 150px;
       height: 150px;
+    }
+
+    .portrait {
+      transform: scale(1.3);
+      margin-top: 20px;
+    }
+
+    .portrait,
+    .homepage-header {
+      padding-left: 20vw;
     }
   }
 }
