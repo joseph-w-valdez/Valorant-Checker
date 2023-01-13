@@ -75,11 +75,33 @@ var $agentsTable = document.querySelector('.agents-table');
 
 var $tbody = document.querySelector('tbody');
 
+/* var $abilities = document.querySelector('.abilities'); */
+
+/* $abilities.addEventListener('click', handleIndividualAbility); */
+
 function handleIndividualAgent(event) {
   var $agent = event.target.closest('tr').getAttribute('id');
   renderIndividualAgent($agent);
   handleViewSwap('click', 'individual-agent');
 }
+
+/* function handleIndividualAbility(event) {
+  var $abilityHeader = document.querySelector('[data-view="individual-ability"] p');
+  console.log('$abilityHeader value :  ', $abilityHeader);
+  var $abilityIcon = document.querySelector('[data-view="individual-ability"] img');
+  console.log('$abilityIcon value :  ', $abilityIcon);
+  handleViewSwap('click', 'individual-ability');
+}
+
+function renderIndividualAbility(agent, ability) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://valorant-api.com/v1/agents');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+
+  });
+  xhr.send();
+} */
 
 function renderAgentList(value) {
   var xhr = new XMLHttpRequest();

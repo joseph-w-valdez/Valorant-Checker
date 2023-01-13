@@ -59,6 +59,7 @@ html {
 label,
 .role-icon-frame,
 .checkbox,
-tbody {
+tbody,
+.ability-container {
   cursor: pointer;
 }
