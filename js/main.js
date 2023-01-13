@@ -7,7 +7,7 @@ function handleCheckedBox(event) {
   $checkboxTarget = '.checkbox-' + $checkboxTarget;
   $checkboxTarget = document.querySelector($checkboxTarget);
   $checkboxTarget.classList.add('checked-box');
-  useApi('agents');
+  renderAgentList('agents');
 }
 
 var $noFilter = document.querySelector('#no-filter');
@@ -30,24 +30,34 @@ var $navBar = document.querySelector('.navbar');
 
 $navBar.addEventListener('click', handleViewSwap);
 
-function handleViewSwap(event) {
-  if (event.target.matches('.navbar-item') === false) {
-    return undefined;
+function handleViewSwap(event, pageView) {
+  var $dataViewAttribute;
+  var $apiValue;
+  if (pageView) {
+    $dataViewAttribute = pageView;
+    $apiValue = 'agents';
+  } else {
+    if (!event.target.matches('.navbar-item')) {
+      return undefined;
+    } else {
+      $dataViewAttribute = event.target.textContent;
+      $dataViewAttribute = $dataViewAttribute.toLowerCase();
+      $apiValue = $dataViewAttribute;
+
+    }
   }
   for (let view = 0; view < $viewNodes.length; view++) {
     $viewNodes[view].classList.add('hidden');
   }
-  var $dataViewAttribute = event.target.textContent;
-  if ($dataViewAttribute === 'ValoFuze') {
+  if ($dataViewAttribute === 'valofuze') {
+
     $dataViewAttribute = 'homepage';
   }
-  $dataViewAttribute = $dataViewAttribute.toLowerCase();
-  var $apiValue = $dataViewAttribute;
   $dataViewAttribute = '[data-view=' + $dataViewAttribute + ']';
   $dataViewAttribute = document.querySelector($dataViewAttribute);
   $dataViewAttribute.classList.remove('hidden');
 
-  if ($apiValue === 'homepage') {
+  if ($dataViewAttribute.getAttribute('data-view') === 'homepage') {
     return undefined;
   } else if ($apiValue === 'agents') {
     var $allCheckboxes = document.querySelectorAll('.checkbox');
@@ -57,19 +67,27 @@ function handleViewSwap(event) {
     var $noFilterCheckbox = document.querySelector('.checkbox-no-filter');
     $noFilterCheckbox.classList.add('checked-box');
   }
-  useApi($apiValue);
+  renderAgentList($apiValue);
 
 }
 
 var $agentsTable = document.querySelector('.agents-table');
 
-function useApi(value) {
+var $tbody = document.querySelector('tbody');
+
+function handleIndividualAgent(event) {
+  var $agent = event.target.closest('tr').getAttribute('id');
+  renderIndividualAgent($agent);
+  handleViewSwap('click', 'individual-agent');
+}
+
+function renderAgentList(value) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://valorant-api.com/v1/' + value);
   xhr.responseType = 'json';
   if (value === 'agents') {
     xhr.addEventListener('load', function () {
-      var $tbody = document.querySelector('tbody');
+      $tbody = document.querySelector('tbody');
       if ($tbody) {
         $tbody.remove();
       }
@@ -90,13 +108,14 @@ function useApi(value) {
           $newPortraitFrame.appendChild($newAgentProfileUrl);
           $newAgentProfile.appendChild($newPortraitFrame);
           $newAgentName.textContent = xhr.response.data[agent].displayName;
+          $newAgent.setAttribute('id', xhr.response.data[agent].displayName);
           $newAgent.appendChild($newAgentName);
           $newAgent.appendChild($newAgentProfile);
 
           $newTbody.appendChild($newAgent);
-
         } else if (xhr.response.data[agent].isPlayableCharacter === true && xhr.response.data[agent].role.displayName === $checkedBox) {
           $newAgent = document.createElement('tr');
+
           $newAgentName = document.createElement('td');
           $newAgentProfile = document.createElement('td');
           $newAgentProfileUrl = document.createElement('img');
@@ -107,16 +126,74 @@ function useApi(value) {
           $newPortraitFrame.appendChild($newAgentProfileUrl);
           $newAgentProfile.appendChild($newPortraitFrame);
           $newAgentName.textContent = xhr.response.data[agent].displayName;
+          $newAgent.setAttribute('id', xhr.response.data[agent].displayName);
           $newAgent.appendChild($newAgentName);
           $newAgent.appendChild($newAgentProfile);
 
           $newTbody.appendChild($newAgent);
-
         }
       }
       $agentsTable.appendChild($newTbody);
+      $tbody = document.querySelector('tbody');
+      $tbody.addEventListener('click', handleIndividualAgent);
     });
   }
 
+  xhr.send();
+}
+
+function renderIndividualAgent(name) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://valorant-api.com/v1/agents');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    for (let agent = 0; agent < xhr.response.data.length; agent++) {
+      if (xhr.response.data[agent].isPlayableCharacter === true && xhr.response.data[agent].displayName === name) {
+        var $agentName = document.querySelector('.agent-name');
+        $agentName.textContent = xhr.response.data[agent].displayName;
+        var $agentBio = document.querySelector('.bio');
+        $agentBio.textContent = xhr.response.data[agent].description;
+        var $agentRole = document.querySelector('.agent-role');
+        var $agentRoleIcon = xhr.response.data[agent].role.displayIcon;
+        $agentRole.setAttribute('src', $agentRoleIcon);
+        var $agentPortrait = document.querySelector('.agent-portrait');
+        var $agentPortraitUrl = xhr.response.data[agent].fullPortraitV2;
+        $agentPortrait.setAttribute('src', $agentPortraitUrl);
+        var $agentBackground = document.querySelector('.agent-background');
+        var $agentBackgroundUrl = xhr.response.data[agent].background;
+        $agentBackground.setAttribute('src', $agentBackgroundUrl);
+        var $ability1Text = document.querySelector('.ability-1-text');
+        $ability1Text.textContent = xhr.response.data[agent].abilities[0].displayName;
+        var $ability1Icon = document.querySelector('.ability-1-icon');
+        var $ability1IconUrl = xhr.response.data[agent].abilities[0].displayIcon;
+        $ability1Icon.setAttribute('src', $ability1IconUrl);
+        var $ability2Text = document.querySelector('.ability-2-text');
+        $ability2Text.textContent = xhr.response.data[agent].abilities[1].displayName;
+        var $ability2Icon = document.querySelector('.ability-2-icon');
+        var $ability2IconUrl = xhr.response.data[agent].abilities[1].displayIcon;
+        $ability2Icon.setAttribute('src', $ability2IconUrl);
+        var $grenadeText = document.querySelector('.grenade-text');
+        $grenadeText.textContent = xhr.response.data[agent].abilities[2].displayName;
+        var $grenadeIcon = document.querySelector('.grenade-icon');
+        var $grenadeIconUrl = xhr.response.data[agent].abilities[2].displayIcon;
+        $grenadeIcon.setAttribute('src', $grenadeIconUrl);
+        var $ultimateText = document.querySelector('.ultimate-text');
+        $ultimateText.textContent = xhr.response.data[agent].abilities[3].displayName;
+        var $ultimateIcon = document.querySelector('.ultimate-icon');
+        var $ultimateIconUrl = xhr.response.data[agent].abilities[3].displayIcon;
+        $ultimateIcon.setAttribute('src', $ultimateIconUrl);
+        var $passiveContainer = document.querySelector('.passive-container');
+        if (xhr.response.data[agent].abilities[4]) {
+          $passiveContainer.classList.remove('hidden');
+          var $passiveIcon = document.querySelector('.passive-icon');
+          var $passiveIconUrl = xhr.response.data[agent].displayIcon;
+          $passiveIcon.setAttribute('src', $passiveIconUrl);
+        } else {
+
+          $passiveContainer.classList.add('hidden');
+        }
+      }
+    }
+  });
   xhr.send();
 }

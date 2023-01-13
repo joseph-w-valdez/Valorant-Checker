@@ -27,8 +27,16 @@ html {
   width: 100%;
 }
 
+.col-25 {
+  width: calc(100%/3);
+}
+
 .col-50 {
   width: 50%;
+}
+
+.col-75 {
+  width: calc(200%/3);
 }
 
 .ta-center {
@@ -39,9 +47,18 @@ html {
   align-items: center;
 }
 
+.jc-center {
+  justify-content: center;
+}
+
+.jc-space-around {
+  justify-content: space-around;
+}
+
 .navbar-item,
 label,
 .role-icon-frame,
-.checkbox {
+.checkbox,
+tbody {
   cursor: pointer;
 }
