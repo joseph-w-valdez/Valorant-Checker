@@ -250,8 +250,11 @@ function renderIndividualAgent(name) {
   xhr.send();
 }
 
-var $button = document.querySelector('button');
+var $buttonBackAbility = document.querySelector('.individual-agent');
+var $buttonBackAgent = document.querySelector('.agents');
 function handleButton(event) {
-  handleViewSwap('click', 'individual-agent');
+  var $viewBackSwap = event.target.className;
+  handleViewSwap('click', $viewBackSwap);
 }
-$button.addEventListener('click', handleButton);
+$buttonBackAbility.addEventListener('click', handleButton);
+$buttonBackAgent.addEventListener('click', handleButton);

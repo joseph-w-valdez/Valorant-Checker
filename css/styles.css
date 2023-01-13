@@ -30,12 +30,12 @@
 }
 
 .ability-name {
-  margin: auto;
   font-size: 36px;
+  margin: 0 30px;
 }
 
 .ability-header {
-  margin: 20px 0;
+  margin: 20px 10vw;
 }
 
 .agent-header {
@@ -234,12 +234,17 @@ button {
   font-size: 14px;
 }
 
-button:hover {
-  background-color: #ad2424;
+.back-arrow-frame {
+  height: 40px;
+  width: 40px;
 }
 
-button:active {
-  transform: translateY(10px);
+.individual-agent {
+  width: 100%;
+}
+
+.individual-agent:active {
+  transform: translateY(3px);
 }
 
 @media screen and (min-height: 600px) and (min-width: 600px) {
