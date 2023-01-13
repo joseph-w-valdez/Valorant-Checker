@@ -92,6 +92,14 @@ img {
   z-index: 1;
 }
 
+.ability-agent-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  z-index: 1;
+}
+
 .agent-background {
   width: 100%;
   height: 100%;
@@ -208,6 +216,14 @@ table img {
   text-align: center;
 }
 
+.individual-ability-agent-portrait {
+  display: none;
+}
+
+.individual-ability-icon {
+  margin: 40px 0;
+}
+
 button {
   background-color: #ff5152;
   font-family: sans-serif;
@@ -286,6 +302,25 @@ button:active {
     .portrait,
     .agent-name {
       padding-left: 10vw;
+    }
+
+    .individual-ability-agent-portrait {
+      display: block;
+    }
+
+    .individual-ability-portrait {
+      width: 50%;
+    }
+
+    .ability-frame {
+      width: 250px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .ability-description {
+      font-size: 20px;
+      margin: 10px;
     }
   }
 

@@ -105,7 +105,13 @@ function renderIndividualAbility(name, ability) {
     for (let agent = 0; agent < xhr.response.data.length; agent++) {
       if (xhr.response.data[agent].isPlayableCharacter === true && xhr.response.data[agent].displayName === name) {
         var $abilityHeader = document.querySelector('[data-view="individual-ability"] p');
-        var $abilityIcon = document.querySelector('[data-view="individual-ability"] img');
+        var $abilityIcon = document.querySelector('.individual-ability-icon');
+        var $abilityAgentPortrait = document.querySelector('.ability-agent-portrait');
+        var $abilityAgentBackground = document.querySelector('.ability-agent-background');
+        var $abilityAgentPortraitUrl = xhr.response.data[agent].fullPortraitV2;
+        $abilityAgentPortrait.setAttribute('src', $abilityAgentPortraitUrl);
+        var $abilityAgentBackgroundUrl = xhr.response.data[agent].background;
+        $abilityAgentBackground.setAttribute('src', $abilityAgentBackgroundUrl);
         for (let singleAbility = 0; singleAbility < xhr.response.data[agent].abilities.length; singleAbility++) {
           if (xhr.response.data[agent].abilities[singleAbility].slot === ability) {
             $abilityHeader.textContent = xhr.response.data[agent].abilities[singleAbility].displayName;
