@@ -238,3 +238,9 @@ function renderIndividualAgent(name) {
   });
   xhr.send();
 }
+
+var $button = document.querySelector('button');
+function handleButton(event) {
+  handleViewSwap('click', 'individual-agent');
+}
+$button.addEventListener('click', handleButton);

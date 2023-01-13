@@ -55,6 +55,10 @@ html {
   justify-content: space-around;
 }
 
+.jc-space-evenly {
+  justify-content: space-evenly;
+}
+
 .navbar-item,
 label,
 .role-icon-frame,
