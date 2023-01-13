@@ -1,7 +1,9 @@
 var $checkboxButtons = document.querySelectorAll('.checkbox');
 function handleCheckedBox(event) {
+
   for (let index = 0; index < $checkboxButtons.length; index++) {
     $checkboxButtons[index].classList.remove('checked-box');
+
   }
   var $checkboxTarget = event.target.parentNode.parentNode.getAttribute('id');
   $checkboxTarget = '.checkbox-' + $checkboxTarget;
@@ -142,7 +144,8 @@ function renderAgentList(value) {
   xhr.open('GET', 'https://valorant-api.com/v1/' + value);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    $tbody = document.querySelector('[data-view="weapons"] tbody');
+    var $tbody = document.querySelector('.agents-table-body');
+
     if ($tbody) {
       $tbody.remove();
     }
@@ -168,6 +171,7 @@ function renderAgentList(value) {
         $newAgent.appendChild($newAgentProfile);
 
         $newTbody.appendChild($newAgent);
+
       } else if (xhr.response.data[agent].isPlayableCharacter === true && xhr.response.data[agent].role.displayName === $checkedBox) {
         $newAgent = document.createElement('tr');
 
@@ -188,6 +192,8 @@ function renderAgentList(value) {
         $newTbody.appendChild($newAgent);
       }
     }
+    $newTbody.appendChild($newAgent);
+    $newTbody.classList.add('agents-table-body');
     $agentsTable.appendChild($newTbody);
     $tbody = document.querySelector('tbody');
     $tbody.addEventListener('click', handleIndividualAgent);
