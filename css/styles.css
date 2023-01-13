@@ -53,6 +53,12 @@ img {
   padding: 0;
 }
 
+.ability-frame {
+  width: 150px;
+  margin: 0 auto;
+  padding: 0;
+}
+
 .bio {
   margin: 0 30px;
   font-size: 14px;

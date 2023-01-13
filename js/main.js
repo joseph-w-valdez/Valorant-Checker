@@ -114,6 +114,9 @@ function renderIndividualAbility(name, ability) {
             if (xhr.response.data[agent].abilities[singleAbility].slot === 'Passive') {
               var $ability1IconUrl = xhr.response.data[agent].displayIcon;
               $abilityIcon.setAttribute('src', $ability1IconUrl);
+            } else {
+              $ability1IconUrl = xhr.response.data[agent].abilities[singleAbility].displayIcon;
+              $abilityIcon.setAttribute('src', $ability1IconUrl);
             }
           }
         }
