@@ -109,10 +109,12 @@ function renderIndividualAbility(name, ability) {
         for (let singleAbility = 0; singleAbility < xhr.response.data[agent].abilities.length; singleAbility++) {
           if (xhr.response.data[agent].abilities[singleAbility].slot === ability) {
             $abilityHeader.textContent = xhr.response.data[agent].abilities[singleAbility].displayName;
-            var $ability1IconUrl = xhr.response.data[agent].abilities[singleAbility].displayIcon;
-            $abilityIcon.setAttribute('src', $ability1IconUrl);
             var $abilityDescription = document.querySelector('.ability-description');
             $abilityDescription.textContent = xhr.response.data[agent].abilities[singleAbility].description;
+            if (xhr.response.data[agent].abilities[singleAbility].slot === 'Passive') {
+              var $ability1IconUrl = xhr.response.data[agent].displayIcon;
+              $abilityIcon.setAttribute('src', $ability1IconUrl);
+            }
           }
         }
 
