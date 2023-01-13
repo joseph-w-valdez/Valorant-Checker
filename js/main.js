@@ -80,7 +80,7 @@ function handleIndividualAgent(event) {
   renderIndividualAgent($agent);
   handleViewSwap('click', 'individual-agent');
 }
-/*
+
 var $abilities = document.querySelector('.abilities');
 $abilities.addEventListener('click', handleIndividualAbility);
 
@@ -106,15 +106,22 @@ function renderIndividualAbility(name, ability) {
       if (xhr.response.data[agent].isPlayableCharacter === true && xhr.response.data[agent].displayName === name) {
         var $abilityHeader = document.querySelector('[data-view="individual-ability"] p');
         var $abilityIcon = document.querySelector('[data-view="individual-ability"] img');
-        console.log('xhr.response.data[agent].abilities[$abilityIcon] value :  ', xhr.response.data[agent].abilities[$abilityIcon]);
-        $abilityHeader.textContent = ability;
-        var $abilityIconUrl = xhr.response.data[agent].abilities[$abilityIcon];
+        for (let singleAbility = 0; singleAbility < xhr.response.data[agent].abilities.length; singleAbility++) {
+          if (xhr.response.data[agent].abilities[singleAbility].slot === ability) {
+            $abilityHeader.textContent = xhr.response.data[agent].abilities[singleAbility].displayName;
+            var $ability1IconUrl = xhr.response.data[agent].abilities[singleAbility].displayIcon;
+            $abilityIcon.setAttribute('src', $ability1IconUrl);
+            var $abilityDescription = document.querySelector('.ability-description');
+            $abilityDescription.textContent = xhr.response.data[agent].abilities[singleAbility].description;
+          }
+        }
+
       }
     }
   });
   xhr.send();
 }
- */
+
 function renderAgentList(value) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://valorant-api.com/v1/' + value);

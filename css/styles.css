@@ -188,6 +188,11 @@ table img {
   object-fit: cover;
 }
 
+.ability-description {
+  margin: 20px;
+  text-align: center;
+}
+
 @media screen and (min-height: 600px) and (min-width: 600px) {
   .ability-container {
     margin: 20px 0;
