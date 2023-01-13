@@ -12,7 +12,7 @@ html {
 }
 
 .container {
-  max-width: 2000px;
+  max-width: 2500px;
 }
 
 .row {
@@ -55,10 +55,15 @@ html {
   justify-content: space-around;
 }
 
+.jc-space-evenly {
+  justify-content: space-evenly;
+}
+
 .navbar-item,
 label,
 .role-icon-frame,
 .checkbox,
-tbody {
+tbody,
+.ability-container {
   cursor: pointer;
 }

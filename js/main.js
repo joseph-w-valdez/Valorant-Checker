@@ -81,6 +81,58 @@ function handleIndividualAgent(event) {
   handleViewSwap('click', 'individual-agent');
 }
 
+var $abilities = document.querySelector('.abilities');
+$abilities.addEventListener('click', handleIndividualAbility);
+
+function handleIndividualAbility(event) {
+  if (!event.target.matches('h3') && !event.target.matches('img')) {
+    return undefined;
+  }
+  var $currentAgent = document.querySelector('[data-view="individual-agent"] .agent-name');
+  $currentAgent = $currentAgent.textContent;
+  var $clickedAbility = event.target.closest('div');
+  $clickedAbility = $clickedAbility.getAttribute('id');
+  renderIndividualAbility($currentAgent, $clickedAbility);
+  handleViewSwap('click', 'individual-ability');
+}
+
+function renderIndividualAbility(name, ability) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://valorant-api.com/v1/agents');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+
+    for (let agent = 0; agent < xhr.response.data.length; agent++) {
+      if (xhr.response.data[agent].isPlayableCharacter === true && xhr.response.data[agent].displayName === name) {
+        var $abilityHeader = document.querySelector('[data-view="individual-ability"] p');
+        var $abilityIcon = document.querySelector('.individual-ability-icon');
+        var $abilityAgentPortrait = document.querySelector('.ability-agent-portrait');
+        var $abilityAgentBackground = document.querySelector('.ability-agent-background');
+        var $abilityAgentPortraitUrl = xhr.response.data[agent].fullPortraitV2;
+        $abilityAgentPortrait.setAttribute('src', $abilityAgentPortraitUrl);
+        var $abilityAgentBackgroundUrl = xhr.response.data[agent].background;
+        $abilityAgentBackground.setAttribute('src', $abilityAgentBackgroundUrl);
+        for (let singleAbility = 0; singleAbility < xhr.response.data[agent].abilities.length; singleAbility++) {
+          if (xhr.response.data[agent].abilities[singleAbility].slot === ability) {
+            $abilityHeader.textContent = xhr.response.data[agent].abilities[singleAbility].displayName;
+            var $abilityDescription = document.querySelector('.ability-description');
+            $abilityDescription.textContent = xhr.response.data[agent].abilities[singleAbility].description;
+            if (xhr.response.data[agent].abilities[singleAbility].slot === 'Passive') {
+              var $ability1IconUrl = xhr.response.data[agent].displayIcon;
+              $abilityIcon.setAttribute('src', $ability1IconUrl);
+            } else {
+              $ability1IconUrl = xhr.response.data[agent].abilities[singleAbility].displayIcon;
+              $abilityIcon.setAttribute('src', $ability1IconUrl);
+            }
+          }
+        }
+
+      }
+    }
+  });
+  xhr.send();
+}
+
 function renderAgentList(value) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://valorant-api.com/v1/' + value);
@@ -197,3 +249,12 @@ function renderIndividualAgent(name) {
   });
   xhr.send();
 }
+
+var $buttonBackAbility = document.querySelector('.individual-agent');
+var $buttonBackAgent = document.querySelector('.agents');
+function handleButton(event) {
+  var $viewBackSwap = event.target.className;
+  handleViewSwap('click', $viewBackSwap);
+}
+$buttonBackAbility.addEventListener('click', handleButton);
+$buttonBackAgent.addEventListener('click', handleButton);
