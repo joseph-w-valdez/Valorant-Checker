@@ -67,7 +67,11 @@ function handleViewSwap(event, pageView) {
     var $noFilterCheckbox = document.querySelector('.checkbox-no-filter');
     $noFilterCheckbox.classList.add('checked-box');
   }
-  renderAgentList($apiValue);
+  if ($apiValue === 'agents') {
+    renderAgentList($apiValue);
+  } else if ($apiValue === 'weapons') {
+    renderWeaponList('weapons');
+  }
 
 }
 
@@ -137,59 +141,57 @@ function renderAgentList(value) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://valorant-api.com/v1/' + value);
   xhr.responseType = 'json';
-  if (value === 'agents') {
-    xhr.addEventListener('load', function () {
-      $tbody = document.querySelector('tbody');
-      if ($tbody) {
-        $tbody.remove();
+  xhr.addEventListener('load', function () {
+    $tbody = document.querySelector('[data-view="weapons"] tbody');
+    if ($tbody) {
+      $tbody.remove();
+    }
+    var $newTbody = document.createElement('tbody');
+    $checkedBox = document.querySelector('.checked-box');
+    $checkedBox = $checkedBox.getAttribute('id');
+
+    for (let agent = 0; agent < xhr.response.data.length; agent++) {
+      if (xhr.response.data[agent].isPlayableCharacter === true && $checkedBox === 'none') {
+        var $newAgent = document.createElement('tr');
+        var $newAgentName = document.createElement('td');
+        var $newAgentProfile = document.createElement('td');
+        var $newAgentProfileUrl = document.createElement('img');
+        var $newPortraitFrame = document.createElement('div');
+        $newPortraitFrame.setAttribute('class', 'table-portrait');
+
+        $newAgentProfileUrl.setAttribute('src', xhr.response.data[agent].killfeedPortrait);
+        $newPortraitFrame.appendChild($newAgentProfileUrl);
+        $newAgentProfile.appendChild($newPortraitFrame);
+        $newAgentName.textContent = xhr.response.data[agent].displayName;
+        $newAgent.setAttribute('id', xhr.response.data[agent].displayName);
+        $newAgent.appendChild($newAgentName);
+        $newAgent.appendChild($newAgentProfile);
+
+        $newTbody.appendChild($newAgent);
+      } else if (xhr.response.data[agent].isPlayableCharacter === true && xhr.response.data[agent].role.displayName === $checkedBox) {
+        $newAgent = document.createElement('tr');
+
+        $newAgentName = document.createElement('td');
+        $newAgentProfile = document.createElement('td');
+        $newAgentProfileUrl = document.createElement('img');
+        $newPortraitFrame = document.createElement('div');
+        $newPortraitFrame.setAttribute('class', 'table-portrait');
+
+        $newAgentProfileUrl.setAttribute('src', xhr.response.data[agent].killfeedPortrait);
+        $newPortraitFrame.appendChild($newAgentProfileUrl);
+        $newAgentProfile.appendChild($newPortraitFrame);
+        $newAgentName.textContent = xhr.response.data[agent].displayName;
+        $newAgent.setAttribute('id', xhr.response.data[agent].displayName);
+        $newAgent.appendChild($newAgentName);
+        $newAgent.appendChild($newAgentProfile);
+
+        $newTbody.appendChild($newAgent);
       }
-      var $newTbody = document.createElement('tbody');
-      $checkedBox = document.querySelector('.checked-box');
-      $checkedBox = $checkedBox.getAttribute('id');
-
-      for (let agent = 0; agent < xhr.response.data.length; agent++) {
-        if (xhr.response.data[agent].isPlayableCharacter === true && $checkedBox === 'none') {
-          var $newAgent = document.createElement('tr');
-          var $newAgentName = document.createElement('td');
-          var $newAgentProfile = document.createElement('td');
-          var $newAgentProfileUrl = document.createElement('img');
-          var $newPortraitFrame = document.createElement('div');
-          $newPortraitFrame.setAttribute('class', 'table-portrait');
-
-          $newAgentProfileUrl.setAttribute('src', xhr.response.data[agent].killfeedPortrait);
-          $newPortraitFrame.appendChild($newAgentProfileUrl);
-          $newAgentProfile.appendChild($newPortraitFrame);
-          $newAgentName.textContent = xhr.response.data[agent].displayName;
-          $newAgent.setAttribute('id', xhr.response.data[agent].displayName);
-          $newAgent.appendChild($newAgentName);
-          $newAgent.appendChild($newAgentProfile);
-
-          $newTbody.appendChild($newAgent);
-        } else if (xhr.response.data[agent].isPlayableCharacter === true && xhr.response.data[agent].role.displayName === $checkedBox) {
-          $newAgent = document.createElement('tr');
-
-          $newAgentName = document.createElement('td');
-          $newAgentProfile = document.createElement('td');
-          $newAgentProfileUrl = document.createElement('img');
-          $newPortraitFrame = document.createElement('div');
-          $newPortraitFrame.setAttribute('class', 'table-portrait');
-
-          $newAgentProfileUrl.setAttribute('src', xhr.response.data[agent].killfeedPortrait);
-          $newPortraitFrame.appendChild($newAgentProfileUrl);
-          $newAgentProfile.appendChild($newPortraitFrame);
-          $newAgentName.textContent = xhr.response.data[agent].displayName;
-          $newAgent.setAttribute('id', xhr.response.data[agent].displayName);
-          $newAgent.appendChild($newAgentName);
-          $newAgent.appendChild($newAgentProfile);
-
-          $newTbody.appendChild($newAgent);
-        }
-      }
-      $agentsTable.appendChild($newTbody);
-      $tbody = document.querySelector('tbody');
-      $tbody.addEventListener('click', handleIndividualAgent);
-    });
-  }
+    }
+    $agentsTable.appendChild($newTbody);
+    $tbody = document.querySelector('tbody');
+    $tbody.addEventListener('click', handleIndividualAgent);
+  });
 
   xhr.send();
 }
@@ -258,3 +260,40 @@ function handleButton(event) {
 }
 $buttonBackAbility.addEventListener('click', handleButton);
 $buttonBackAgent.addEventListener('click', handleButton);
+
+function renderWeaponList(value) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://valorant-api.com/v1/' + value);
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    $tbody = document.querySelector('[data-view="weapons"] tbody');
+    if ($tbody) {
+      $tbody.remove();
+    }
+    var $newTbody = document.createElement('tbody');
+
+    for (let weapon = 0; weapon < xhr.response.data.length; weapon++) {
+      var $newWeapon = document.createElement('tr');
+      var $newWeaponName = document.createElement('td');
+      var $newWeaponIcon = document.createElement('td');
+      var $newWeaponIconUrl = document.createElement('img');
+      var $newPortraitFrame = document.createElement('div');
+      $newPortraitFrame.setAttribute('class', 'table-portrait');
+
+      $newWeaponIconUrl.setAttribute('src', xhr.response.data[weapon].displayIcon);
+      $newPortraitFrame.appendChild($newWeaponIconUrl);
+      $newWeaponIcon.appendChild($newPortraitFrame);
+      $newWeaponName.textContent = xhr.response.data[weapon].displayName;
+      $newWeapon.setAttribute('id', xhr.response.data[weapon].displayName);
+      $newWeapon.appendChild($newWeaponName);
+      $newWeapon.appendChild($newWeaponIcon);
+
+      $newTbody.appendChild($newWeapon);
+    }
+    var $weaponsTable = document.querySelector('.weapons-table');
+
+    $weaponsTable.appendChild($newTbody);
+  });
+
+  xhr.send();
+}
