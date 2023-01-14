@@ -37,12 +37,6 @@ function handleWeaponCheckedBox(event) {
   renderWeaponList('weapons');
 }
 
-var $weaponNoFilter = document.querySelector('#weapon-no-filter');
-var $sidearms = document.querySelector('#sidearms');
-
-$weaponNoFilter.addEventListener('click', handleWeaponCheckedBox);
-$sidearms.addEventListener('click', handleWeaponCheckedBox);
-
 var $checkedBox = document.querySelector('.checked-box');
 $checkedBox = $checkedBox.getAttribute('id');
 
@@ -286,6 +280,24 @@ function handleButton(event) {
 $buttonBackAbility.addEventListener('click', handleButton);
 $buttonBackAgent.addEventListener('click', handleButton);
 
+var $weaponNoFilter = document.querySelector('#weapon-no-filter');
+var $sidearms = document.querySelector('#sidearms');
+var $smgs = document.querySelector('#smgs');
+var $shotguns = document.querySelector('#shotguns');
+var $rifles = document.querySelector('#rifles');
+var $sniperRifles = document.querySelector('#sniper-rifles');
+var $machineGuns = document.querySelector('#machine-guns');
+var $melee = document.querySelector('#knife');
+
+$weaponNoFilter.addEventListener('click', handleWeaponCheckedBox);
+$sidearms.addEventListener('click', handleWeaponCheckedBox);
+$smgs.addEventListener('click', handleWeaponCheckedBox);
+$shotguns.addEventListener('click', handleWeaponCheckedBox);
+$rifles.addEventListener('click', handleWeaponCheckedBox);
+$sniperRifles.addEventListener('click', handleWeaponCheckedBox);
+$machineGuns.addEventListener('click', handleWeaponCheckedBox);
+$melee.addEventListener('click', handleWeaponCheckedBox);
+
 function renderWeaponList(value) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://valorant-api.com/v1/' + value);
@@ -321,7 +333,6 @@ function renderWeaponList(value) {
       }
     } else {
       $checkedBox = 'EEquippableCategory::' + $checkedBox;
-      /* console.log('xhr.response.data[0].shopData.category value :  ', xhr.response.data[8].category); */
       for (let weapon = 0; weapon < xhr.response.data.length; weapon++) {
         if (xhr.response.data[weapon].category === $checkedBox) {
 
