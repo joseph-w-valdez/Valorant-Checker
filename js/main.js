@@ -1,5 +1,5 @@
 var $checkboxButtons = document.querySelectorAll('.checkbox');
-function handleCheckedBox(event) {
+function handleAgentCheckedBox(event) {
 
   for (let index = 0; index < $checkboxButtons.length; index++) {
     $checkboxButtons[index].classList.remove('checked-box');
@@ -18,11 +18,30 @@ var $duelists = document.querySelector('#duelists');
 var $initiators = document.querySelector('#initiators');
 var $sentinels = document.querySelector('#sentinels');
 
-$noFilter.addEventListener('click', handleCheckedBox);
-$controllers.addEventListener('click', handleCheckedBox);
-$duelists.addEventListener('click', handleCheckedBox);
-$initiators.addEventListener('click', handleCheckedBox);
-$sentinels.addEventListener('click', handleCheckedBox);
+$noFilter.addEventListener('click', handleAgentCheckedBox);
+$controllers.addEventListener('click', handleAgentCheckedBox);
+$duelists.addEventListener('click', handleAgentCheckedBox);
+$initiators.addEventListener('click', handleAgentCheckedBox);
+$sentinels.addEventListener('click', handleAgentCheckedBox);
+
+function handleWeaponCheckedBox(event) {
+
+  for (let index = 0; index < $checkboxButtons.length; index++) {
+    $checkboxButtons[index].classList.remove('checked-box');
+
+  }
+  var $checkboxTarget = event.target.parentNode.parentNode.getAttribute('id');
+  $checkboxTarget = '.checkbox-' + $checkboxTarget;
+  $checkboxTarget = document.querySelector($checkboxTarget);
+  $checkboxTarget.classList.add('checked-box');
+  renderWeaponList('weapons');
+}
+
+var $weaponNoFilter = document.querySelector('#weapon-no-filter');
+var $sidearms = document.querySelector('#sidearms');
+
+$weaponNoFilter.addEventListener('click', handleWeaponCheckedBox);
+$sidearms.addEventListener('click', handleWeaponCheckedBox);
 
 var $checkedBox = document.querySelector('.checked-box');
 $checkedBox = $checkedBox.getAttribute('id');
@@ -276,26 +295,34 @@ function renderWeaponList(value) {
     if ($tbody) {
       $tbody.remove();
     }
+    $checkedBox = document.querySelector('.checked-box');
+    $checkedBox = $checkedBox.getAttribute('id');
+
     var $newTbody = document.createElement('tbody');
 
-    for (let weapon = 0; weapon < xhr.response.data.length; weapon++) {
-      var $newWeapon = document.createElement('tr');
-      var $newWeaponName = document.createElement('td');
-      var $newWeaponIcon = document.createElement('td');
-      var $newWeaponIconUrl = document.createElement('img');
-      var $newPortraitFrame = document.createElement('div');
-      $newPortraitFrame.setAttribute('class', 'table-portrait');
+    if ($checkedBox === 'none' || $checkedBox === 'weapon-none') {
+      for (let weapon = 0; weapon < xhr.response.data.length; weapon++) {
+        var $newWeapon = document.createElement('tr');
+        var $newWeaponName = document.createElement('td');
+        var $newWeaponIcon = document.createElement('td');
+        var $newWeaponIconUrl = document.createElement('img');
+        var $newPortraitFrame = document.createElement('div');
+        $newPortraitFrame.setAttribute('class', 'table-portrait');
 
-      $newWeaponIconUrl.setAttribute('src', xhr.response.data[weapon].displayIcon);
-      $newPortraitFrame.appendChild($newWeaponIconUrl);
-      $newWeaponIcon.appendChild($newPortraitFrame);
-      $newWeaponName.textContent = xhr.response.data[weapon].displayName;
-      $newWeapon.setAttribute('id', xhr.response.data[weapon].displayName);
-      $newWeapon.appendChild($newWeaponName);
-      $newWeapon.appendChild($newWeaponIcon);
+        $newWeaponIconUrl.setAttribute('src', xhr.response.data[weapon].displayIcon);
+        $newPortraitFrame.appendChild($newWeaponIconUrl);
+        $newWeaponIcon.appendChild($newPortraitFrame);
+        $newWeaponName.textContent = xhr.response.data[weapon].displayName;
+        $newWeapon.setAttribute('id', xhr.response.data[weapon].displayName);
+        $newWeapon.appendChild($newWeaponName);
+        $newWeapon.appendChild($newWeaponIcon);
 
-      $newTbody.appendChild($newWeapon);
+        $newTbody.appendChild($newWeapon);
+      } /* else {
+        $checkedBox = ''
+      } */
     }
+
     var $weaponsTable = document.querySelector('.weapons-table');
 
     $weaponsTable.appendChild($newTbody);
