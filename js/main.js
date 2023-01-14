@@ -81,6 +81,13 @@ function handleViewSwap(event, pageView) {
     }
     var $noFilterCheckbox = document.querySelector('.checkbox-no-filter');
     $noFilterCheckbox.classList.add('checked-box');
+  } else if ($apiValue === 'weapons') {
+    $allCheckboxes = document.querySelectorAll('.checkbox');
+    for (let checkbox = 0; checkbox < $allCheckboxes.length; checkbox++) {
+      $allCheckboxes[checkbox].classList.remove('checked-box');
+    }
+    var $weaponNoFilterCheckbox = document.querySelector('.checkbox-weapon-no-filter');
+    $weaponNoFilterCheckbox.classList.add('checked-box');
   }
   if ($apiValue === 'agents') {
     renderAgentList($apiValue);
