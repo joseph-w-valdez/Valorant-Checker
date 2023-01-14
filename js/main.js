@@ -318,9 +318,32 @@ function renderWeaponList(value) {
         $newWeapon.appendChild($newWeaponIcon);
 
         $newTbody.appendChild($newWeapon);
-      } /* else {
-        $checkedBox = ''
-      } */
+      }
+    } else {
+      $checkedBox = 'EEquippableCategory::' + $checkedBox;
+      /* console.log('xhr.response.data[0].shopData.category value :  ', xhr.response.data[8].category); */
+      for (let weapon = 0; weapon < xhr.response.data.length; weapon++) {
+        if (xhr.response.data[weapon].category === $checkedBox) {
+
+          $newWeapon = document.createElement('tr');
+          $newWeaponName = document.createElement('td');
+          $newWeaponIcon = document.createElement('td');
+          $newWeaponIconUrl = document.createElement('img');
+          $newPortraitFrame = document.createElement('div');
+          $newPortraitFrame.setAttribute('class', 'table-portrait');
+
+          $newWeaponIconUrl.setAttribute('src', xhr.response.data[weapon].displayIcon);
+          $newPortraitFrame.appendChild($newWeaponIconUrl);
+          $newWeaponIcon.appendChild($newPortraitFrame);
+          $newWeaponName.textContent = xhr.response.data[weapon].displayName;
+          $newWeapon.setAttribute('id', xhr.response.data[weapon].displayName);
+          $newWeapon.appendChild($newWeaponName);
+          $newWeapon.appendChild($newWeaponIcon);
+
+          $newTbody.appendChild($newWeapon);
+        }
+
+      }
     }
 
     var $weaponsTable = document.querySelector('.weapons-table');
