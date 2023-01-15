@@ -148,10 +148,20 @@ img {
   background-size: cover;
 }
 
-.filter-table {
+.agent-filter-table {
   width: 300px;
   text-align: left;
   margin: auto;
+}
+
+.weapons-filter-table {
+  width: 300px;
+  text-align: left;
+  margin: auto;
+}
+
+.hidden-weapon {
+  opacity: 0;
 }
 
 .second-filter-col {

@@ -1,7 +1,9 @@
 var $checkboxButtons = document.querySelectorAll('.checkbox');
-function handleCheckedBox(event) {
+function handleAgentCheckedBox(event) {
+
   for (let index = 0; index < $checkboxButtons.length; index++) {
     $checkboxButtons[index].classList.remove('checked-box');
+
   }
   var $checkboxTarget = event.target.parentNode.parentNode.getAttribute('id');
   $checkboxTarget = '.checkbox-' + $checkboxTarget;
@@ -16,11 +18,24 @@ var $duelists = document.querySelector('#duelists');
 var $initiators = document.querySelector('#initiators');
 var $sentinels = document.querySelector('#sentinels');
 
-$noFilter.addEventListener('click', handleCheckedBox);
-$controllers.addEventListener('click', handleCheckedBox);
-$duelists.addEventListener('click', handleCheckedBox);
-$initiators.addEventListener('click', handleCheckedBox);
-$sentinels.addEventListener('click', handleCheckedBox);
+$noFilter.addEventListener('click', handleAgentCheckedBox);
+$controllers.addEventListener('click', handleAgentCheckedBox);
+$duelists.addEventListener('click', handleAgentCheckedBox);
+$initiators.addEventListener('click', handleAgentCheckedBox);
+$sentinels.addEventListener('click', handleAgentCheckedBox);
+
+function handleWeaponCheckedBox(event) {
+
+  for (let index = 0; index < $checkboxButtons.length; index++) {
+    $checkboxButtons[index].classList.remove('checked-box');
+
+  }
+  var $checkboxTarget = event.target.parentNode.parentNode.getAttribute('id');
+  $checkboxTarget = '.checkbox-' + $checkboxTarget;
+  $checkboxTarget = document.querySelector($checkboxTarget);
+  $checkboxTarget.classList.add('checked-box');
+  renderWeaponList('weapons');
+}
 
 var $checkedBox = document.querySelector('.checked-box');
 $checkedBox = $checkedBox.getAttribute('id');
@@ -66,6 +81,13 @@ function handleViewSwap(event, pageView) {
     }
     var $noFilterCheckbox = document.querySelector('.checkbox-no-filter');
     $noFilterCheckbox.classList.add('checked-box');
+  } else if ($apiValue === 'weapons') {
+    $allCheckboxes = document.querySelectorAll('.checkbox');
+    for (let checkbox = 0; checkbox < $allCheckboxes.length; checkbox++) {
+      $allCheckboxes[checkbox].classList.remove('checked-box');
+    }
+    var $weaponNoFilterCheckbox = document.querySelector('.checkbox-weapon-no-filter');
+    $weaponNoFilterCheckbox.classList.add('checked-box');
   }
   if ($apiValue === 'agents') {
     renderAgentList($apiValue);
@@ -142,7 +164,8 @@ function renderAgentList(value) {
   xhr.open('GET', 'https://valorant-api.com/v1/' + value);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    $tbody = document.querySelector('[data-view="weapons"] tbody');
+    var $tbody = document.querySelector('.agents-table-body');
+
     if ($tbody) {
       $tbody.remove();
     }
@@ -168,6 +191,7 @@ function renderAgentList(value) {
         $newAgent.appendChild($newAgentProfile);
 
         $newTbody.appendChild($newAgent);
+
       } else if (xhr.response.data[agent].isPlayableCharacter === true && xhr.response.data[agent].role.displayName === $checkedBox) {
         $newAgent = document.createElement('tr');
 
@@ -188,6 +212,8 @@ function renderAgentList(value) {
         $newTbody.appendChild($newAgent);
       }
     }
+    $newTbody.appendChild($newAgent);
+    $newTbody.classList.add('agents-table-body');
     $agentsTable.appendChild($newTbody);
     $tbody = document.querySelector('tbody');
     $tbody.addEventListener('click', handleIndividualAgent);
@@ -261,6 +287,24 @@ function handleButton(event) {
 $buttonBackAbility.addEventListener('click', handleButton);
 $buttonBackAgent.addEventListener('click', handleButton);
 
+var $weaponNoFilter = document.querySelector('#weapon-no-filter');
+var $sidearms = document.querySelector('#sidearms');
+var $smgs = document.querySelector('#smgs');
+var $shotguns = document.querySelector('#shotguns');
+var $rifles = document.querySelector('#rifles');
+var $sniperRifles = document.querySelector('#sniper-rifles');
+var $machineGuns = document.querySelector('#machine-guns');
+var $melee = document.querySelector('#knife');
+
+$weaponNoFilter.addEventListener('click', handleWeaponCheckedBox);
+$sidearms.addEventListener('click', handleWeaponCheckedBox);
+$smgs.addEventListener('click', handleWeaponCheckedBox);
+$shotguns.addEventListener('click', handleWeaponCheckedBox);
+$rifles.addEventListener('click', handleWeaponCheckedBox);
+$sniperRifles.addEventListener('click', handleWeaponCheckedBox);
+$machineGuns.addEventListener('click', handleWeaponCheckedBox);
+$melee.addEventListener('click', handleWeaponCheckedBox);
+
 function renderWeaponList(value) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://valorant-api.com/v1/' + value);
@@ -270,26 +314,56 @@ function renderWeaponList(value) {
     if ($tbody) {
       $tbody.remove();
     }
+    $checkedBox = document.querySelector('.checked-box');
+    $checkedBox = $checkedBox.getAttribute('id');
+
     var $newTbody = document.createElement('tbody');
 
-    for (let weapon = 0; weapon < xhr.response.data.length; weapon++) {
-      var $newWeapon = document.createElement('tr');
-      var $newWeaponName = document.createElement('td');
-      var $newWeaponIcon = document.createElement('td');
-      var $newWeaponIconUrl = document.createElement('img');
-      var $newPortraitFrame = document.createElement('div');
-      $newPortraitFrame.setAttribute('class', 'table-portrait');
+    if ($checkedBox === 'none' || $checkedBox === 'weapon-none') {
+      for (let weapon = 0; weapon < xhr.response.data.length; weapon++) {
+        var $newWeapon = document.createElement('tr');
+        var $newWeaponName = document.createElement('td');
+        var $newWeaponIcon = document.createElement('td');
+        var $newWeaponIconUrl = document.createElement('img');
+        var $newPortraitFrame = document.createElement('div');
+        $newPortraitFrame.setAttribute('class', 'table-portrait');
 
-      $newWeaponIconUrl.setAttribute('src', xhr.response.data[weapon].displayIcon);
-      $newPortraitFrame.appendChild($newWeaponIconUrl);
-      $newWeaponIcon.appendChild($newPortraitFrame);
-      $newWeaponName.textContent = xhr.response.data[weapon].displayName;
-      $newWeapon.setAttribute('id', xhr.response.data[weapon].displayName);
-      $newWeapon.appendChild($newWeaponName);
-      $newWeapon.appendChild($newWeaponIcon);
+        $newWeaponIconUrl.setAttribute('src', xhr.response.data[weapon].displayIcon);
+        $newPortraitFrame.appendChild($newWeaponIconUrl);
+        $newWeaponIcon.appendChild($newPortraitFrame);
+        $newWeaponName.textContent = xhr.response.data[weapon].displayName;
+        $newWeapon.setAttribute('id', xhr.response.data[weapon].displayName);
+        $newWeapon.appendChild($newWeaponName);
+        $newWeapon.appendChild($newWeaponIcon);
 
-      $newTbody.appendChild($newWeapon);
+        $newTbody.appendChild($newWeapon);
+      }
+    } else {
+      $checkedBox = 'EEquippableCategory::' + $checkedBox;
+      for (let weapon = 0; weapon < xhr.response.data.length; weapon++) {
+        if (xhr.response.data[weapon].category === $checkedBox) {
+
+          $newWeapon = document.createElement('tr');
+          $newWeaponName = document.createElement('td');
+          $newWeaponIcon = document.createElement('td');
+          $newWeaponIconUrl = document.createElement('img');
+          $newPortraitFrame = document.createElement('div');
+          $newPortraitFrame.setAttribute('class', 'table-portrait');
+
+          $newWeaponIconUrl.setAttribute('src', xhr.response.data[weapon].displayIcon);
+          $newPortraitFrame.appendChild($newWeaponIconUrl);
+          $newWeaponIcon.appendChild($newPortraitFrame);
+          $newWeaponName.textContent = xhr.response.data[weapon].displayName;
+          $newWeapon.setAttribute('id', xhr.response.data[weapon].displayName);
+          $newWeapon.appendChild($newWeaponName);
+          $newWeapon.appendChild($newWeaponIcon);
+
+          $newTbody.appendChild($newWeapon);
+        }
+
+      }
     }
+
     var $weaponsTable = document.querySelector('.weapons-table');
 
     $weaponsTable.appendChild($newTbody);
