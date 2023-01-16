@@ -257,6 +257,10 @@ button {
   transform: translateY(3px);
 }
 
+.z-index-1 {
+  z-index: 1;
+}
+
 @media screen and (min-height: 600px) and (min-width: 600px) {
   .ability-container {
     margin: 20px 0;
