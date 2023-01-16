@@ -215,8 +215,8 @@ function renderAgentList(value) {
     $newTbody.appendChild($newAgent);
     $newTbody.classList.add('agents-table-body');
     $agentsTable.appendChild($newTbody);
-    $tbody = document.querySelector('tbody');
-    $tbody.addEventListener('click', handleIndividualAgent);
+    var $agentsTbody = document.querySelector('.agents-table');
+    $agentsTbody.addEventListener('click', handleIndividualAgent);
   });
 
   xhr.send();
@@ -367,7 +367,33 @@ function renderWeaponList(value) {
     var $weaponsTable = document.querySelector('.weapons-table');
 
     $weaponsTable.appendChild($newTbody);
+    var $weaponsTbody = document.querySelector('.weapons-table');
+    $weaponsTbody.addEventListener('click', handleIndividualWeapon);
   });
 
+  xhr.send();
+}
+
+function handleIndividualWeapon(event) {
+  var $weapon = event.target.closest('tr').getAttribute('id');
+  renderIndividualWeapon($weapon);
+  handleViewSwap('click', 'individual-weapon');
+}
+
+function renderIndividualWeapon(weapon) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://valorant-api.com/v1/weapons');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    for (let singleWapon = 0; singleWapon < xhr.response.data.length; singleWapon++) {
+      if (xhr.response.data[singleWapon].displayName === weapon) {
+        var $weaponName = document.querySelector('.weapon-name');
+        $weaponName.textContent = xhr.response.data[singleWapon].displayName;
+        var $individualWeaponIcon = document.querySelector('.individual-weapon-icon');
+        var $individualWeaponIconUrl = xhr.response.data[singleWapon].displayIcon;
+        $individualWeaponIcon.setAttribute('src', $individualWeaponIconUrl);
+      }
+    }
+  });
   xhr.send();
 }
