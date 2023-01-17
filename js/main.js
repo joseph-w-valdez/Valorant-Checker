@@ -405,7 +405,16 @@ function renderIndividualWeapon(weapon) {
             if (xhr.response.data[singleWeapon].shopData.category === 'Shotguns' || xhr.response.data[singleWeapon].displayName === 'Shorty') {
               var $newWeaponStatRow = document.createElement('tr');
               var $newWeaponStat = document.createElement('td');
-              $newWeaponStat.textContent = singleStat;
+              var $fixedSingleStat = '';
+              $fixedSingleStat += singleStat[0].toUpperCase();
+              for (let index = 1; index < singleStat.length; index++) {
+                if (singleStat[index].toLowerCase() === singleStat[index]) {
+                  $fixedSingleStat += singleStat[index];
+                } else {
+                  $fixedSingleStat += ' ' + singleStat[index].toUpperCase();
+                }
+              }
+              $newWeaponStat.textContent = $fixedSingleStat;
               var $newWeaponValue = document.createElement('td');
               $newWeaponValue.textContent = xhr.response.data[singleWeapon].weaponStats[singleStat];
               $newWeaponStatRow.appendChild($newWeaponStat);
@@ -414,7 +423,17 @@ function renderIndividualWeapon(weapon) {
             } else if (singleStat !== 'shotgunPelletCount') {
               $newWeaponStatRow = document.createElement('tr');
               $newWeaponStat = document.createElement('td');
-              $newWeaponStat.textContent = singleStat;
+              $fixedSingleStat = '';
+              $fixedSingleStat += singleStat[0].toUpperCase();
+              for (let index = 1; index < singleStat.length; index++) {
+                if (singleStat[index].toLowerCase() === singleStat[index]) {
+                  $fixedSingleStat += singleStat[index];
+                } else {
+                  $fixedSingleStat += ' ' + singleStat[index].toUpperCase();
+                }
+              }
+              $newWeaponStat.textContent = $fixedSingleStat;
+
               $newWeaponValue = document.createElement('td');
               $newWeaponValue.textContent = xhr.response.data[singleWeapon].weaponStats[singleStat];
               $newWeaponStatRow.appendChild($newWeaponStat);
