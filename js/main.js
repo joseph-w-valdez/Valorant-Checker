@@ -399,82 +399,102 @@ function renderIndividualWeapon(weapon) {
         $individualWeaponIcon.setAttribute('src', $individualWeaponIconUrl);
 
         var $newTbody = document.createElement('tbody');
-        for (const singleStat in xhr.response.data[singleWeapon].weaponStats) {
-
-          if (typeof xhr.response.data[singleWeapon].weaponStats[singleStat] === typeof '' || typeof xhr.response.data[singleWeapon].weaponStats[singleStat] === typeof 1) {
-            if (xhr.response.data[singleWeapon].shopData.category === 'Shotguns' || xhr.response.data[singleWeapon].displayName === 'Shorty') {
-              var $newWeaponStatRow = document.createElement('tr');
-              var $newWeaponStat = document.createElement('td');
-              var $fixedSingleStat = '';
-              $fixedSingleStat += singleStat[0].toUpperCase();
-              for (let index = 1; index < singleStat.length; index++) {
-                if (singleStat[index].toLowerCase() === singleStat[index]) {
-                  $fixedSingleStat += singleStat[index];
-                } else {
-                  $fixedSingleStat += ' ' + singleStat[index].toUpperCase();
-                }
-              }
-              $newWeaponStat.textContent = $fixedSingleStat;
-              var $newWeaponValue = document.createElement('td');
-              var $weaponStatValue = xhr.response.data[singleWeapon].weaponStats[singleStat];
-              if (typeof $weaponStatValue !== typeof '') {
-                $newWeaponValue.textContent = $weaponStatValue;
-                $newWeaponStatRow.appendChild($newWeaponStat);
-                $newWeaponStatRow.appendChild($newWeaponValue);
-                $newTbody.appendChild($newWeaponStatRow);
-              } else {
-                var $fixedWeaponStatValue = '';
-                for (let index = 0; index < $weaponStatValue.length; index++) {
-                  if ($weaponStatValue[index] === ':') {
-                    $fixedWeaponStatValue = '';
-                  } else {
-                    $fixedWeaponStatValue += $weaponStatValue[index];
-                  }
-                }
-                $newWeaponValue.textContent = $fixedWeaponStatValue;
-                $newWeaponStatRow.appendChild($newWeaponStat);
-                $newWeaponStatRow.appendChild($newWeaponValue);
-                $newTbody.appendChild($newWeaponStatRow);
-              }
-            } else if (singleStat !== 'shotgunPelletCount') {
-              $newWeaponStatRow = document.createElement('tr');
-              $newWeaponStat = document.createElement('td');
-              $fixedSingleStat = '';
-              $fixedSingleStat += singleStat[0].toUpperCase();
-              for (let index = 1; index < singleStat.length; index++) {
-                if (singleStat[index].toLowerCase() === singleStat[index]) {
-                  $fixedSingleStat += singleStat[index];
-                } else {
-                  $fixedSingleStat += ' ' + singleStat[index].toUpperCase();
-                }
-              }
-              $newWeaponStat.textContent = $fixedSingleStat;
-
-              $newWeaponValue = document.createElement('td');
-              $weaponStatValue = xhr.response.data[singleWeapon].weaponStats[singleStat];
-              if (typeof $weaponStatValue !== typeof '') {
-                $newWeaponValue.textContent = $weaponStatValue;
-                $newWeaponStatRow.appendChild($newWeaponStat);
-                $newWeaponStatRow.appendChild($newWeaponValue);
-                $newTbody.appendChild($newWeaponStatRow);
-              } else {
-                $fixedWeaponStatValue = '';
-                for (let index = 0; index < $weaponStatValue.length; index++) {
-                  if ($weaponStatValue[index] === ':') {
-                    $fixedWeaponStatValue = '';
-                  } else {
-                    $fixedWeaponStatValue += $weaponStatValue[index];
-                  }
-                }
-                $newWeaponValue.textContent = $fixedWeaponStatValue;
-                $newWeaponStatRow.appendChild($newWeaponStat);
-                $newWeaponStatRow.appendChild($newWeaponValue);
-                $newTbody.appendChild($newWeaponStatRow);
-              }
-
-            }
+        if (xhr.response.data[singleWeapon].displayName === 'Melee') {
+          var meleeStats = {
+            'Primary Fire Front Stab': 50,
+            'Primary Fire Back Stab': 100,
+            'Alt Fire Front Stab': 75,
+            'Alt Fire Back Stab': 150
+          };
+          for (const singleStat in meleeStats) {
+            var $newWeaponStatRow = document.createElement('tr');
+            var $newWeaponStat = document.createElement('td');
+            var $newWeaponValue = document.createElement('td');
+            $newWeaponStat.textContent = singleStat;
+            $newWeaponValue.textContent = meleeStats[singleStat];
+            $newWeaponStatRow.appendChild($newWeaponStat);
+            $newWeaponStatRow.appendChild($newWeaponValue);
+            $newTbody.appendChild($newWeaponStatRow);
           }
 
+        } else {
+          for (const singleStat in xhr.response.data[singleWeapon].weaponStats) {
+
+            if (typeof xhr.response.data[singleWeapon].weaponStats[singleStat] === typeof '' || typeof xhr.response.data[singleWeapon].weaponStats[singleStat] === typeof 1) {
+              if (xhr.response.data[singleWeapon].shopData.category === 'Shotguns' || xhr.response.data[singleWeapon].displayName === 'Shorty') {
+                $newWeaponStatRow = document.createElement('tr');
+                $newWeaponStat = document.createElement('td');
+                var $fixedSingleStat = '';
+                $fixedSingleStat += singleStat[0].toUpperCase();
+                for (let index = 1; index < singleStat.length; index++) {
+                  if (singleStat[index].toLowerCase() === singleStat[index]) {
+                    $fixedSingleStat += singleStat[index];
+                  } else {
+                    $fixedSingleStat += ' ' + singleStat[index].toUpperCase();
+                  }
+                }
+                $newWeaponStat.textContent = $fixedSingleStat;
+                $newWeaponValue = document.createElement('td');
+                var $weaponStatValue = xhr.response.data[singleWeapon].weaponStats[singleStat];
+                if (typeof $weaponStatValue !== typeof '') {
+                  $newWeaponValue.textContent = $weaponStatValue;
+                  $newWeaponStatRow.appendChild($newWeaponStat);
+                  $newWeaponStatRow.appendChild($newWeaponValue);
+                  $newTbody.appendChild($newWeaponStatRow);
+                } else {
+                  var $fixedWeaponStatValue = '';
+                  for (let index = 0; index < $weaponStatValue.length; index++) {
+                    if ($weaponStatValue[index] === ':') {
+                      $fixedWeaponStatValue = '';
+                    } else {
+                      $fixedWeaponStatValue += $weaponStatValue[index];
+                    }
+                  }
+                  $newWeaponValue.textContent = $fixedWeaponStatValue;
+                  $newWeaponStatRow.appendChild($newWeaponStat);
+                  $newWeaponStatRow.appendChild($newWeaponValue);
+                  $newTbody.appendChild($newWeaponStatRow);
+                }
+              } else if (singleStat !== 'shotgunPelletCount') {
+                $newWeaponStatRow = document.createElement('tr');
+                $newWeaponStat = document.createElement('td');
+                $fixedSingleStat = '';
+                $fixedSingleStat += singleStat[0].toUpperCase();
+                for (let index = 1; index < singleStat.length; index++) {
+                  if (singleStat[index].toLowerCase() === singleStat[index]) {
+                    $fixedSingleStat += singleStat[index];
+                  } else {
+                    $fixedSingleStat += ' ' + singleStat[index].toUpperCase();
+                  }
+                }
+                $newWeaponStat.textContent = $fixedSingleStat;
+
+                $newWeaponValue = document.createElement('td');
+                $weaponStatValue = xhr.response.data[singleWeapon].weaponStats[singleStat];
+                if (typeof $weaponStatValue !== typeof '') {
+                  $newWeaponValue.textContent = $weaponStatValue;
+                  $newWeaponStatRow.appendChild($newWeaponStat);
+                  $newWeaponStatRow.appendChild($newWeaponValue);
+                  $newTbody.appendChild($newWeaponStatRow);
+                } else {
+                  $fixedWeaponStatValue = '';
+                  for (let index = 0; index < $weaponStatValue.length; index++) {
+                    if ($weaponStatValue[index] === ':') {
+                      $fixedWeaponStatValue = '';
+                    } else {
+                      $fixedWeaponStatValue += $weaponStatValue[index];
+                    }
+                  }
+                  $newWeaponValue.textContent = $fixedWeaponStatValue;
+                  $newWeaponStatRow.appendChild($newWeaponStat);
+                  $newWeaponStatRow.appendChild($newWeaponValue);
+                  $newTbody.appendChild($newWeaponStatRow);
+                }
+
+              }
+            }
+
+          }
         }
 
         var $individualWeaponTable = document.querySelector('.individual-weapons-table');
