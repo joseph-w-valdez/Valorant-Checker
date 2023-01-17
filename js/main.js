@@ -402,7 +402,7 @@ function renderIndividualWeapon(weapon) {
         for (const singleStat in xhr.response.data[singleWeapon].weaponStats) {
 
           if (typeof xhr.response.data[singleWeapon].weaponStats[singleStat] === typeof '' || typeof xhr.response.data[singleWeapon].weaponStats[singleStat] === typeof 1) {
-            if (xhr.response.data[singleWeapon].shopData.category === 'Shotguns') {
+            if (xhr.response.data[singleWeapon].shopData.category === 'Shotguns' || xhr.response.data[singleWeapon].displayName === 'Shorty') {
               var $newWeaponStatRow = document.createElement('tr');
               var $newWeaponStat = document.createElement('td');
               $newWeaponStat.textContent = singleStat;
