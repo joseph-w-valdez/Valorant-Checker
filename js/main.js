@@ -401,6 +401,7 @@ function renderIndividualWeapon(weapon) {
         var $newTbody = document.createElement('tbody');
         if (xhr.response.data[singleWeapon].displayName === 'Melee') {
           var meleeStats = {
+            Range: '0-8 meters',
             'Primary Fire Front Stab': 50,
             'Primary Fire Back Stab': 100,
             'Alt Fire Front Stab': 75,
@@ -437,12 +438,22 @@ function renderIndividualWeapon(weapon) {
                 $newWeaponValue = document.createElement('td');
                 var $weaponStatValue = xhr.response.data[singleWeapon].weaponStats[singleStat];
                 if (typeof $weaponStatValue !== typeof '') {
-                  $newWeaponValue.textContent = $weaponStatValue;
-                  $newWeaponStatRow.appendChild($newWeaponStat);
-                  $newWeaponStatRow.appendChild($newWeaponValue);
-                  $newTbody.appendChild($newWeaponStatRow);
+                  if (singleStat === 'firstBulletAccuracy') {
+                    var $fixedWeaponStatValue = 100 - $weaponStatValue + '%';
+                    $newWeaponValue.textContent = $fixedWeaponStatValue;
+
+                    $newWeaponStatRow.appendChild($newWeaponStat);
+                    $newWeaponStatRow.appendChild($newWeaponValue);
+                    $newTbody.appendChild($newWeaponStatRow);
+                  } else {
+                    $newWeaponValue.textContent = $weaponStatValue;
+                    $newWeaponStatRow.appendChild($newWeaponStat);
+                    $newWeaponStatRow.appendChild($newWeaponValue);
+                    $newTbody.appendChild($newWeaponStatRow);
+                  }
+
                 } else {
-                  var $fixedWeaponStatValue = '';
+                  $fixedWeaponStatValue = '';
                   for (let index = 0; index < $weaponStatValue.length; index++) {
                     if ($weaponStatValue[index] === ':') {
                       $fixedWeaponStatValue = '';
@@ -450,10 +461,12 @@ function renderIndividualWeapon(weapon) {
                       $fixedWeaponStatValue += $weaponStatValue[index];
                     }
                   }
+
                   $newWeaponValue.textContent = $fixedWeaponStatValue;
                   $newWeaponStatRow.appendChild($newWeaponStat);
                   $newWeaponStatRow.appendChild($newWeaponValue);
                   $newTbody.appendChild($newWeaponStatRow);
+
                 }
               } else if (singleStat !== 'shotgunPelletCount') {
                 $newWeaponStatRow = document.createElement('tr');
@@ -472,10 +485,19 @@ function renderIndividualWeapon(weapon) {
                 $newWeaponValue = document.createElement('td');
                 $weaponStatValue = xhr.response.data[singleWeapon].weaponStats[singleStat];
                 if (typeof $weaponStatValue !== typeof '') {
-                  $newWeaponValue.textContent = $weaponStatValue;
-                  $newWeaponStatRow.appendChild($newWeaponStat);
-                  $newWeaponStatRow.appendChild($newWeaponValue);
-                  $newTbody.appendChild($newWeaponStatRow);
+                  if (singleStat === 'firstBulletAccuracy') {
+                    $fixedWeaponStatValue = 100 - $weaponStatValue + '%';
+                    $newWeaponValue.textContent = $fixedWeaponStatValue;
+
+                    $newWeaponStatRow.appendChild($newWeaponStat);
+                    $newWeaponStatRow.appendChild($newWeaponValue);
+                    $newTbody.appendChild($newWeaponStatRow);
+                  } else {
+                    $newWeaponValue.textContent = $weaponStatValue;
+                    $newWeaponStatRow.appendChild($newWeaponStat);
+                    $newWeaponStatRow.appendChild($newWeaponValue);
+                    $newTbody.appendChild($newWeaponStatRow);
+                  }
                 } else {
                   $fixedWeaponStatValue = '';
                   for (let index = 0; index < $weaponStatValue.length; index++) {
