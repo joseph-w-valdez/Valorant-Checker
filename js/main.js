@@ -385,13 +385,30 @@ function renderIndividualWeapon(weapon) {
   xhr.open('GET', 'https://valorant-api.com/v1/weapons');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    for (let singleWapon = 0; singleWapon < xhr.response.data.length; singleWapon++) {
-      if (xhr.response.data[singleWapon].displayName === weapon) {
+    for (let singleWeapon = 0; singleWeapon < xhr.response.data.length; singleWeapon++) {
+      if (xhr.response.data[singleWeapon].displayName === weapon) {
         var $weaponName = document.querySelector('.weapon-name');
-        $weaponName.textContent = xhr.response.data[singleWapon].displayName;
+        $weaponName.textContent = xhr.response.data[singleWeapon].displayName;
         var $individualWeaponIcon = document.querySelector('.individual-weapon-icon');
-        var $individualWeaponIconUrl = xhr.response.data[singleWapon].displayIcon;
+        var $individualWeaponIconUrl = xhr.response.data[singleWeapon].displayIcon;
         $individualWeaponIcon.setAttribute('src', $individualWeaponIconUrl);
+
+        var $newTbody = document.createElement('tbody');
+        for (const singleStat in xhr.response.data[singleWeapon].weaponStats) {
+
+          if (typeof xhr.response.data[singleWeapon].weaponStats[singleStat] === typeof '' || typeof xhr.response.data[singleWeapon].weaponStats[singleStat] === typeof 1) {
+            var $newWeaponStatRow = document.createElement('tr');
+            /* var $newWeaponStat = document.createElement('td'); */
+            var $newWeaponValue = document.createElement('td');
+            $newWeaponValue.textContent = xhr.response.data[singleWeapon].weaponStats[singleStat];
+            $newWeaponStatRow.appendChild($newWeaponValue);
+            $newTbody.appendChild($newWeaponStatRow);
+          }
+
+        }
+
+        var $individualWeaponTable = document.querySelector('.individual-weapons-table');
+        $individualWeaponTable.appendChild($newTbody);
       }
     }
   });
