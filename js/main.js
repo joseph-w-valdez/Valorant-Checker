@@ -514,8 +514,25 @@ function renderIndividualWeapon(weapon) {
                 }
 
               }
+
             }
 
+          }
+          // USE THIS ONE
+          if (xhr.response.data[singleWeapon].weaponStats.damageRanges) {
+            var damageRanges = xhr.response.data[singleWeapon].weaponStats.damageRanges;
+            for (let index = 0; index < damageRanges.length; index++) {
+              for (const damageRange in damageRanges[index]) {
+                $newWeaponStatRow = document.createElement('tr');
+                $newWeaponStat = document.createElement('td');
+                $newWeaponValue = document.createElement('td');
+                $newWeaponStat.textContent = damageRange;
+                $newWeaponValue.textContent = damageRanges[index][damageRange];
+                $newWeaponStatRow.appendChild($newWeaponStat);
+                $newWeaponStatRow.appendChild($newWeaponValue);
+                $newTbody.appendChild($newWeaponStatRow);
+              }
+            }
           }
         }
 
