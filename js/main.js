@@ -398,9 +398,11 @@ function renderIndividualWeapon(weapon) {
 
           if (typeof xhr.response.data[singleWeapon].weaponStats[singleStat] === typeof '' || typeof xhr.response.data[singleWeapon].weaponStats[singleStat] === typeof 1) {
             var $newWeaponStatRow = document.createElement('tr');
-            /* var $newWeaponStat = document.createElement('td'); */
+            var $newWeaponStat = document.createElement('td');
+            $newWeaponStat.textContent = singleStat;
             var $newWeaponValue = document.createElement('td');
             $newWeaponValue.textContent = xhr.response.data[singleWeapon].weaponStats[singleStat];
+            $newWeaponStatRow.appendChild($newWeaponStat);
             $newWeaponStatRow.appendChild($newWeaponValue);
             $newTbody.appendChild($newWeaponStatRow);
           }
