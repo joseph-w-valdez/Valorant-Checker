@@ -280,12 +280,14 @@ function renderIndividualAgent(name) {
 
 var $buttonBackAbility = document.querySelector('.individual-agent');
 var $buttonBackAgent = document.querySelector('.agents');
+var $buttonBackWeapons = document.querySelector('.weapons');
 function handleButton(event) {
   var $viewBackSwap = event.target.className;
   handleViewSwap('click', $viewBackSwap);
 }
 $buttonBackAbility.addEventListener('click', handleButton);
 $buttonBackAgent.addEventListener('click', handleButton);
+$buttonBackWeapons.addEventListener('click', handleButton);
 
 var $weaponNoFilter = document.querySelector('#weapon-no-filter');
 var $sidearms = document.querySelector('#sidearms');
