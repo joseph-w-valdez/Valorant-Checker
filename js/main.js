@@ -526,7 +526,6 @@ function renderIndividualWeapon(weapon) {
             }
 
           }
-          // USE THIS ONE
           if (xhr.response.data[singleWeapon].weaponStats.damageRanges) {
             var damageRanges = xhr.response.data[singleWeapon].weaponStats.damageRanges;
             for (let index = 0; index < damageRanges.length; index++) {
@@ -550,7 +549,16 @@ function renderIndividualWeapon(weapon) {
                     }
                   }
                   $newWeaponStat.textContent = $fixedDamageStat + ' (' + rangeStart + '-' + rangeEnd + ' meters)';
-                  $newWeaponValue.textContent = damageRanges[index][damageRange];
+                  var damageRangeValue = damageRanges[index][damageRange];
+                  var damageRangeValueString = damageRangeValue + '';
+                  if (damageRangeValueString.length > 5) {
+                    var flattenedDamageRangeValue = '';
+                    for (let index = 0; index < 5; index++) {
+                      flattenedDamageRangeValue += damageRangeValueString[index];
+                    }
+                    damageRangeValue = flattenedDamageRangeValue * 1;
+                  }
+                  $newWeaponValue.textContent = damageRangeValue;
                   $newWeaponStatRow.appendChild($newWeaponStat);
                   $newWeaponStatRow.appendChild($newWeaponValue);
                   $newTbody.appendChild($newWeaponStatRow);
