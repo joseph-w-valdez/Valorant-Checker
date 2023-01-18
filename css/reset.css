@@ -1,10 +1,10 @@
-* {
-  box-sizing: border-box;
-}
-
 body,
 p,
 .filter-header,
 .view h3 {
   margin: 0;
+}
+
+button {
+  padding: 0;
 }
