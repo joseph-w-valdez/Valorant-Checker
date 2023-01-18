@@ -454,6 +454,7 @@ function renderIndividualWeapon(weapon) {
                     $newWeaponStatRow.appendChild($newWeaponValue);
                     $newTbody.appendChild($newWeaponStatRow);
                   } else {
+
                     $newWeaponValue.textContent = $weaponStatValue;
                     $newWeaponStatRow.appendChild($newWeaponStat);
                     $newWeaponStatRow.appendChild($newWeaponValue);
@@ -469,8 +470,16 @@ function renderIndividualWeapon(weapon) {
                       $fixedWeaponStatValue += $weaponStatValue[index];
                     }
                   }
+                  $weaponStatValue = $fixedWeaponStatValue[0];
+                  for (let index = 1; index < $fixedWeaponStatValue.length; index++) {
+                    if ($fixedWeaponStatValue[index] === $fixedWeaponStatValue[index].toUpperCase() && $fixedWeaponStatValue[index - 1] === $fixedWeaponStatValue[index - 1].toLowerCase()) {
+                      $weaponStatValue += ' ' + $fixedWeaponStatValue[index];
+                    } else {
+                      $weaponStatValue += $fixedWeaponStatValue[index];
+                    }
+                  }
 
-                  $newWeaponValue.textContent = $fixedWeaponStatValue;
+                  $newWeaponValue.textContent = $weaponStatValue;
                   $newWeaponStatRow.appendChild($newWeaponStat);
                   $newWeaponStatRow.appendChild($newWeaponValue);
                   $newTbody.appendChild($newWeaponStatRow);
@@ -515,7 +524,16 @@ function renderIndividualWeapon(weapon) {
                       $fixedWeaponStatValue += $weaponStatValue[index];
                     }
                   }
-                  $newWeaponValue.textContent = $fixedWeaponStatValue;
+                  $weaponStatValue = $fixedWeaponStatValue[0];
+                  for (let index = 1; index < $fixedWeaponStatValue.length; index++) {
+                    if ($fixedWeaponStatValue[index] === $fixedWeaponStatValue[index].toUpperCase() && $fixedWeaponStatValue[index - 1] === $fixedWeaponStatValue[index - 1].toLowerCase()) {
+                      $weaponStatValue += ' ' + $fixedWeaponStatValue[index];
+                    } else {
+                      $weaponStatValue += $fixedWeaponStatValue[index];
+                    }
+                  }
+
+                  $newWeaponValue.textContent = $weaponStatValue;
                   $newWeaponStatRow.appendChild($newWeaponStat);
                   $newWeaponStatRow.appendChild($newWeaponValue);
                   $newTbody.appendChild($newWeaponStatRow);
