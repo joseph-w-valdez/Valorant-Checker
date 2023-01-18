@@ -523,14 +523,31 @@ function renderIndividualWeapon(weapon) {
             var damageRanges = xhr.response.data[singleWeapon].weaponStats.damageRanges;
             for (let index = 0; index < damageRanges.length; index++) {
               for (const damageRange in damageRanges[index]) {
-                $newWeaponStatRow = document.createElement('tr');
-                $newWeaponStat = document.createElement('td');
-                $newWeaponValue = document.createElement('td');
-                $newWeaponStat.textContent = damageRange;
-                $newWeaponValue.textContent = damageRanges[index][damageRange];
-                $newWeaponStatRow.appendChild($newWeaponStat);
-                $newWeaponStatRow.appendChild($newWeaponValue);
-                $newTbody.appendChild($newWeaponStatRow);
+                if (damageRange.includes('Start')) {
+                  var rangeStart = damageRanges[index][damageRange];
+                } else if (damageRange.includes('End')) {
+                  var rangeEnd = damageRanges[index][damageRange];
+                }
+                if (!damageRange.includes('range')) {
+                  $newWeaponStatRow = document.createElement('tr');
+                  $newWeaponStat = document.createElement('td');
+                  $newWeaponValue = document.createElement('td');
+                  var $fixedDamageStat = '';
+                  $fixedDamageStat += damageRange[0].toUpperCase();
+                  for (let index = 1; index < damageRange.length; index++) {
+                    if (damageRange[index].toLowerCase() === damageRange[index]) {
+                      $fixedDamageStat += damageRange[index];
+                    } else {
+                      $fixedDamageStat += ' ' + damageRange[index].toUpperCase();
+                    }
+                  }
+                  $newWeaponStat.textContent = $fixedDamageStat + ' (' + rangeStart + '-' + rangeEnd + ' meters)';
+                  $newWeaponValue.textContent = damageRanges[index][damageRange];
+                  $newWeaponStatRow.appendChild($newWeaponStat);
+                  $newWeaponStatRow.appendChild($newWeaponValue);
+                  $newTbody.appendChild($newWeaponStatRow);
+                }
+
               }
             }
           }
