@@ -419,6 +419,14 @@ function renderIndividualWeapon(weapon) {
           }
 
         } else {
+          $newWeaponStatRow = document.createElement('tr');
+          $newWeaponStat = document.createElement('td');
+          $newWeaponValue = document.createElement('td');
+          $newWeaponStat.textContent = 'Cost';
+          $newWeaponValue.textContent = xhr.response.data[singleWeapon].shopData.cost;
+          $newWeaponStatRow.appendChild($newWeaponStat);
+          $newWeaponStatRow.appendChild($newWeaponValue);
+          $newTbody.appendChild($newWeaponStatRow);
           for (const singleStat in xhr.response.data[singleWeapon].weaponStats) {
 
             if (typeof xhr.response.data[singleWeapon].weaponStats[singleStat] === typeof '' || typeof xhr.response.data[singleWeapon].weaponStats[singleStat] === typeof 1) {
@@ -551,6 +559,7 @@ function renderIndividualWeapon(weapon) {
               }
             }
           }
+
         }
 
         var $individualWeaponTable = document.querySelector('.individual-weapons-table');
