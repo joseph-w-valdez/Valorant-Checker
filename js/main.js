@@ -528,6 +528,8 @@ function renderIndividualWeapon(weapon) {
                   for (let index = 1; index < $fixedWeaponStatValue.length; index++) {
                     if ($fixedWeaponStatValue[index] === $fixedWeaponStatValue[index].toUpperCase() && $fixedWeaponStatValue[index - 1] === $fixedWeaponStatValue[index - 1].toLowerCase()) {
                       $weaponStatValue += ' ' + $fixedWeaponStatValue[index];
+                    } else if ($fixedWeaponStatValue[index] === $fixedWeaponStatValue[index].toUpperCase() && $fixedWeaponStatValue[index - 1] === $fixedWeaponStatValue[index - 1].toUpperCase() && $fixedWeaponStatValue[index + 1] && $fixedWeaponStatValue[index + 1] === $fixedWeaponStatValue[index + 1].toLowerCase()) {
+                      $weaponStatValue += ' ' + $fixedWeaponStatValue[index];
                     } else {
                       $weaponStatValue += $fixedWeaponStatValue[index];
                     }
