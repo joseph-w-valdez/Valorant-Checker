@@ -108,6 +108,13 @@ img {
   z-index: 1;
 }
 
+.ability-agent-background {
+  transform: scale(0.85);
+  height: 100%;
+  width: 100%;
+  opacity: 0.8;
+}
+
 .agent-background {
   width: 100%;
   height: 100%;
@@ -382,6 +389,10 @@ button:active {
       transform: scale(1.2);
       padding-left: 12vw;
       padding-top: 70px;
+    }
+
+    .agent-frame {
+      overflow: hidden;
     }
 
     .logo-frame {
