@@ -1,6 +1,6 @@
 var $checkboxButtons = document.querySelectorAll('.checkbox');
 function handleAgentCheckedBox(event) {
-
+  $overlay.classList.remove('hidden');
   for (let index = 0; index < $checkboxButtons.length; index++) {
     $checkboxButtons[index].classList.remove('checked-box');
 
@@ -9,6 +9,8 @@ function handleAgentCheckedBox(event) {
   $checkboxTarget = '.checkbox-' + $checkboxTarget;
   $checkboxTarget = document.querySelector($checkboxTarget);
   $checkboxTarget.classList.add('checked-box');
+  $overlay.classList.remove('hidden');
+
   renderAgentList('agents');
 }
 
@@ -25,7 +27,7 @@ $initiators.addEventListener('click', handleAgentCheckedBox);
 $sentinels.addEventListener('click', handleAgentCheckedBox);
 
 function handleWeaponCheckedBox(event) {
-
+  $overlay.classList.remove('hidden');
   for (let index = 0; index < $checkboxButtons.length; index++) {
     $checkboxButtons[index].classList.remove('checked-box');
 
@@ -48,6 +50,7 @@ $navBar.addEventListener('click', handleViewSwap);
 function handleViewSwap(event, pageView) {
   var $dataViewAttribute;
   var $apiValue;
+
   if (pageView) {
     $dataViewAttribute = pageView;
     $apiValue = 'agents';
@@ -90,8 +93,10 @@ function handleViewSwap(event, pageView) {
     $weaponNoFilterCheckbox.classList.add('checked-box');
   }
   if ($apiValue === 'agents') {
+    $overlay.classList.remove('hidden');
     renderAgentList($apiValue);
   } else if ($apiValue === 'weapons') {
+    $overlay.classList.remove('hidden');
     renderWeaponList('weapons');
   }
 
@@ -103,6 +108,7 @@ var $tbody = document.querySelector('tbody');
 
 function handleIndividualAgent(event) {
   var $agent = event.target.closest('tr').getAttribute('id');
+  $overlay.classList.remove('hidden');
   renderIndividualAgent($agent);
   handleViewSwap('click', 'individual-agent');
 }
@@ -118,6 +124,7 @@ function handleIndividualAbility(event) {
   $currentAgent = $currentAgent.textContent;
   var $clickedAbility = event.target.closest('div');
   $clickedAbility = $clickedAbility.getAttribute('id');
+  $overlay.classList.remove('hidden');
   renderIndividualAbility($currentAgent, $clickedAbility);
   handleViewSwap('click', 'individual-ability');
 }
@@ -155,6 +162,7 @@ function renderIndividualAbility(name, ability) {
 
       }
     }
+    $overlay.classList.add('hidden');
   });
   xhr.send();
 }
@@ -217,10 +225,12 @@ function renderAgentList(value) {
     $agentsTable.appendChild($newTbody);
     var $agentsTbody = document.querySelector('.agents-table-body');
     $agentsTbody.addEventListener('click', handleIndividualAgent);
+    $overlay.classList.add('hidden');
   });
 
   xhr.send();
 }
+var $overlay = document.querySelector('.overlay');
 
 function renderIndividualAgent(name) {
   var xhr = new XMLHttpRequest();
@@ -274,6 +284,7 @@ function renderIndividualAgent(name) {
         }
       }
     }
+    $overlay.classList.add('hidden');
   });
   xhr.send();
 }
@@ -373,6 +384,7 @@ function renderWeaponList(value) {
     $weaponsTable.appendChild($newTbody);
     var $weaponsTbody = document.querySelector('.weapons-table-body');
     $weaponsTbody.addEventListener('click', handleIndividualWeapon);
+    $overlay.classList.add('hidden');
   });
 
   xhr.send();
@@ -380,6 +392,7 @@ function renderWeaponList(value) {
 
 function handleIndividualWeapon(event) {
   var $weapon = event.target.closest('tr').getAttribute('id');
+  $overlay.classList.remove('hidden');
   renderIndividualWeapon($weapon);
   handleViewSwap('click', 'individual-weapon');
 }
@@ -599,6 +612,7 @@ function renderIndividualWeapon(weapon) {
         $individualWeaponTable.appendChild($newTbody);
       }
     }
+    $overlay.classList.add('hidden');
   });
   xhr.send();
 }
