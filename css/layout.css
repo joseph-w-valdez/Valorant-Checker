@@ -66,3 +66,7 @@ tbody,
 .ability-container {
   cursor: pointer;
 }
+
+.individual-weapons-table td {
+  cursor: default;
+}

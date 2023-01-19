@@ -64,7 +64,7 @@ function handleViewSwap(event, pageView) {
   for (let view = 0; view < $viewNodes.length; view++) {
     $viewNodes[view].classList.add('hidden');
   }
-  if ($dataViewAttribute === 'valofuze') {
+  if ($dataViewAttribute === 'valochecker') {
 
     $dataViewAttribute = 'homepage';
   }
@@ -215,7 +215,7 @@ function renderAgentList(value) {
     $newTbody.appendChild($newAgent);
     $newTbody.classList.add('agents-table-body');
     $agentsTable.appendChild($newTbody);
-    var $agentsTbody = document.querySelector('.agents-table');
+    var $agentsTbody = document.querySelector('.agents-table-body');
     $agentsTbody.addEventListener('click', handleIndividualAgent);
   });
 
@@ -339,6 +339,7 @@ function renderWeaponList(value) {
         $newWeapon.appendChild($newWeaponIcon);
 
         $newTbody.appendChild($newWeapon);
+        $newTbody.classList.add('weapons-table-body');
       }
     } else {
       $checkedBox = 'EEquippableCategory::' + $checkedBox;
@@ -361,6 +362,7 @@ function renderWeaponList(value) {
           $newWeapon.appendChild($newWeaponIcon);
 
           $newTbody.appendChild($newWeapon);
+          $newTbody.classList.add('weapons-table-body');
         }
 
       }
@@ -369,7 +371,7 @@ function renderWeaponList(value) {
     var $weaponsTable = document.querySelector('.weapons-table');
 
     $weaponsTable.appendChild($newTbody);
-    var $weaponsTbody = document.querySelector('.weapons-table');
+    var $weaponsTbody = document.querySelector('.weapons-table-body');
     $weaponsTbody.addEventListener('click', handleIndividualWeapon);
   });
 
@@ -584,6 +586,7 @@ function renderIndividualWeapon(weapon) {
                   $newWeaponStatRow.appendChild($newWeaponStat);
                   $newWeaponStatRow.appendChild($newWeaponValue);
                   $newTbody.appendChild($newWeaponStatRow);
+                  $newTbody.classList.add('weapons-tbody');
                 }
 
               }
