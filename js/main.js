@@ -1,23 +1,49 @@
 var $checkboxButtons = document.querySelectorAll('.checkbox');
 function handleAgentCheckedBox(event) {
   $overlay.classList.remove('hidden');
-  for (let index = 0; index < $checkboxButtons.length; index++) {
-    $checkboxButtons[index].classList.remove('checked-box');
-
-  }
   if (event.target.matches('.filter-option')) {
     var $checkboxTarget = event.target.getAttribute('id');
+    var $checkbox = document.querySelector('.checked-box');
+    if (event.target.contains($checkbox)) {
+      $checkbox.classList.remove('checked-box');
+      var $none = document.querySelector('#none');
+      $none.classList.add('checked-box');
+      $overlay.classList.remove('hidden');
+      renderAgentList('agents');
+    } else {
+      for (let index = 0; index < $checkboxButtons.length; index++) {
+        $checkboxButtons[index].classList.remove('checked-box');
+
+      }
+
+      $checkboxTarget = '.checkbox-' + $checkboxTarget;
+      $checkboxTarget = document.querySelector($checkboxTarget);
+      $checkboxTarget.classList.add('checked-box');
+      $overlay.classList.remove('hidden');
+      renderAgentList('agents');
+    }
 
   } else {
     $checkboxTarget = event.target.parentNode.parentNode.getAttribute('id');
-
+    $checkbox = document.querySelector('.checked-box');
+    if ($checkbox.parentNode.parentNode === event.target.parentNode.parentNode) {
+      $checkbox.classList.remove('checked-box');
+      $none = document.querySelector('#none');
+      $none.classList.add('checked-box');
+      $overlay.classList.remove('hidden');
+      renderAgentList('agents');
+    } else {
+      for (let index = 0; index < $checkboxButtons.length; index++) {
+        $checkboxButtons[index].classList.remove('checked-box');
+      }
+      $checkboxTarget = '.checkbox-' + $checkboxTarget;
+      $checkboxTarget = document.querySelector($checkboxTarget);
+      $checkboxTarget.classList.add('checked-box');
+      $overlay.classList.remove('hidden');
+      renderAgentList('agents');
+    }
   }
-  $checkboxTarget = '.checkbox-' + $checkboxTarget;
-  $checkboxTarget = document.querySelector($checkboxTarget);
-  $checkboxTarget.classList.add('checked-box');
-  $overlay.classList.remove('hidden');
 
-  renderAgentList('agents');
 }
 
 var $noFilter = document.querySelector('#no-filter');
