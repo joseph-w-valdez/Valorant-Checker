@@ -462,8 +462,10 @@ function renderIndividualWeapon(weapon) {
             $newWeaponValue.textContent = meleeStats[singleStat];
             $newWeaponStatRow.appendChild($newWeaponStat);
             $newWeaponStatRow.appendChild($newWeaponValue);
+
             $newTbody.appendChild($newWeaponStatRow);
           }
+          $newTbody.classList.add('weapons-tbody');
 
         } else {
           $newWeaponStatRow = document.createElement('tr');
