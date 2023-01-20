@@ -140,7 +140,9 @@ function renderIndividualAbility(name, ability) {
         var $abilityHeader = document.querySelector('[data-view="individual-ability"] p');
         var $abilityIcon = document.querySelector('.individual-ability-icon');
         var $abilityAgentPortrait = document.querySelector('.ability-agent-portrait');
+        $abilityAgentPortrait.addEventListener('error', handlePortraitImageError);
         var $abilityAgentBackground = document.querySelector('.ability-agent-background');
+        $abilityAgentBackground.addEventListener('error', handleBackgroundImageError);
         var $abilityAgentPortraitUrl = xhr.response.data[agent].fullPortraitV2;
         $abilityAgentPortrait.setAttribute('src', $abilityAgentPortraitUrl);
         var $abilityAgentBackgroundUrl = xhr.response.data[agent].background;
@@ -152,10 +154,13 @@ function renderIndividualAbility(name, ability) {
             $abilityDescription.textContent = xhr.response.data[agent].abilities[singleAbility].description;
             if (xhr.response.data[agent].abilities[singleAbility].slot === 'Passive') {
               var $ability1IconUrl = xhr.response.data[agent].displayIcon;
+              $abilityIcon.addEventListener('error', handleImageError);
               $abilityIcon.setAttribute('src', $ability1IconUrl);
             } else {
               $ability1IconUrl = xhr.response.data[agent].abilities[singleAbility].displayIcon;
               $abilityIcon.setAttribute('src', $ability1IconUrl);
+              $abilityIcon.addEventListener('error', handleImageError);
+
             }
           }
         }
@@ -187,10 +192,12 @@ function renderAgentList(value) {
         var $newAgentName = document.createElement('td');
         var $newAgentProfile = document.createElement('td');
         var $newAgentProfileUrl = document.createElement('img');
+        $newAgentProfileUrl.addEventListener('error', handleImageError);
         var $newPortraitFrame = document.createElement('div');
         $newPortraitFrame.setAttribute('class', 'table-portrait');
 
         $newAgentProfileUrl.setAttribute('src', xhr.response.data[agent].killfeedPortrait);
+        $newAgentProfileUrl.addEventListener('error', handleImageError);
         $newPortraitFrame.appendChild($newAgentProfileUrl);
         $newAgentProfile.appendChild($newPortraitFrame);
         $newAgentName.textContent = xhr.response.data[agent].displayName;
@@ -206,6 +213,7 @@ function renderAgentList(value) {
         $newAgentName = document.createElement('td');
         $newAgentProfile = document.createElement('td');
         $newAgentProfileUrl = document.createElement('img');
+        $newAgentProfileUrl.addEventListener('error', handleImageError);
         $newPortraitFrame = document.createElement('div');
         $newPortraitFrame.setAttribute('class', 'table-portrait');
 
@@ -244,32 +252,39 @@ function renderIndividualAgent(name) {
         var $agentBio = document.querySelector('.bio');
         $agentBio.textContent = xhr.response.data[agent].description;
         var $agentRole = document.querySelector('.agent-role');
+        $agentRole.addEventListener('error', handleImageError);
         var $agentRoleIcon = xhr.response.data[agent].role.displayIcon;
         $agentRole.setAttribute('src', $agentRoleIcon);
         var $agentPortrait = document.querySelector('.agent-portrait');
+        $agentPortrait.addEventListener('error', handlePortraitImageError);
         var $agentPortraitUrl = xhr.response.data[agent].fullPortraitV2;
         $agentPortrait.setAttribute('src', $agentPortraitUrl);
         var $agentBackground = document.querySelector('.agent-background');
+        $agentBackground.addEventListener('error', handleBackgroundImageError);
         var $agentBackgroundUrl = xhr.response.data[agent].background;
         $agentBackground.setAttribute('src', $agentBackgroundUrl);
         var $ability1Text = document.querySelector('.ability-1-text');
         $ability1Text.textContent = xhr.response.data[agent].abilities[0].displayName;
         var $ability1Icon = document.querySelector('.ability-1-icon');
+        $ability1Icon.addEventListener('error', handleImageError);
         var $ability1IconUrl = xhr.response.data[agent].abilities[0].displayIcon;
         $ability1Icon.setAttribute('src', $ability1IconUrl);
         var $ability2Text = document.querySelector('.ability-2-text');
         $ability2Text.textContent = xhr.response.data[agent].abilities[1].displayName;
         var $ability2Icon = document.querySelector('.ability-2-icon');
+        $ability2Icon.addEventListener('error', handleImageError);
         var $ability2IconUrl = xhr.response.data[agent].abilities[1].displayIcon;
         $ability2Icon.setAttribute('src', $ability2IconUrl);
         var $grenadeText = document.querySelector('.grenade-text');
         $grenadeText.textContent = xhr.response.data[agent].abilities[2].displayName;
         var $grenadeIcon = document.querySelector('.grenade-icon');
+        $grenadeIcon.addEventListener('error', handleImageError);
         var $grenadeIconUrl = xhr.response.data[agent].abilities[2].displayIcon;
         $grenadeIcon.setAttribute('src', $grenadeIconUrl);
         var $ultimateText = document.querySelector('.ultimate-text');
         $ultimateText.textContent = xhr.response.data[agent].abilities[3].displayName;
         var $ultimateIcon = document.querySelector('.ultimate-icon');
+        $ultimateIcon.addEventListener('error', handleImageError);
         var $ultimateIconUrl = xhr.response.data[agent].abilities[3].displayIcon;
         $ultimateIcon.setAttribute('src', $ultimateIconUrl);
         var $passiveContainer = document.querySelector('.passive-container');
@@ -338,6 +353,7 @@ function renderWeaponList(value) {
         var $newWeaponName = document.createElement('td');
         var $newWeaponIcon = document.createElement('td');
         var $newWeaponIconUrl = document.createElement('img');
+        $newWeaponIconUrl.addEventListener('error', handleImageError);
         var $newPortraitFrame = document.createElement('div');
         $newPortraitFrame.setAttribute('class', 'table-portrait');
 
@@ -361,6 +377,7 @@ function renderWeaponList(value) {
           $newWeaponName = document.createElement('td');
           $newWeaponIcon = document.createElement('td');
           $newWeaponIconUrl = document.createElement('img');
+          $newWeaponIconUrl.addEventListener('error', handleImageError);
           $newPortraitFrame = document.createElement('div');
           $newPortraitFrame.setAttribute('class', 'table-portrait');
 
@@ -412,6 +429,7 @@ function renderIndividualWeapon(weapon) {
         var $weaponName = document.querySelector('.weapon-name');
         $weaponName.textContent = xhr.response.data[singleWeapon].displayName;
         var $individualWeaponIcon = document.querySelector('.individual-weapon-icon');
+        $individualWeaponIcon.addEventListener('error', handleImageError);
         var $individualWeaponIconUrl = xhr.response.data[singleWeapon].displayIcon;
         $individualWeaponIcon.setAttribute('src', $individualWeaponIconUrl);
 
@@ -615,4 +633,18 @@ function renderIndividualWeapon(weapon) {
     $overlay.classList.add('hidden');
   });
   xhr.send();
+}
+
+function handleImageError(event) {
+  event.target.setAttribute('src', './images/error.webp');
+}
+
+function handlePortraitImageError(event) {
+  event.target.setAttribute('src', './images/portrait-error.webp');
+
+}
+
+function handleBackgroundImageError(event) {
+  event.target.setAttribute('src', './images/background-error.webp');
+
 }
