@@ -5,7 +5,13 @@ function handleAgentCheckedBox(event) {
     $checkboxButtons[index].classList.remove('checked-box');
 
   }
-  var $checkboxTarget = event.target.parentNode.parentNode.getAttribute('id');
+  if (event.target.matches('.filter-option')) {
+    var $checkboxTarget = event.target.getAttribute('id');
+
+  } else {
+    $checkboxTarget = event.target.parentNode.parentNode.getAttribute('id');
+
+  }
   $checkboxTarget = '.checkbox-' + $checkboxTarget;
   $checkboxTarget = document.querySelector($checkboxTarget);
   $checkboxTarget.classList.add('checked-box');
@@ -32,7 +38,13 @@ function handleWeaponCheckedBox(event) {
     $checkboxButtons[index].classList.remove('checked-box');
 
   }
-  var $checkboxTarget = event.target.parentNode.parentNode.getAttribute('id');
+  if (event.target.matches('.filter-option')) {
+    var $checkboxTarget = event.target.getAttribute('id');
+
+  } else {
+    $checkboxTarget = event.target.parentNode.parentNode.getAttribute('id');
+
+  }
   $checkboxTarget = '.checkbox-' + $checkboxTarget;
   $checkboxTarget = document.querySelector($checkboxTarget);
   $checkboxTarget.classList.add('checked-box');
