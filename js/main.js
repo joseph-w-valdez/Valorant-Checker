@@ -43,7 +43,6 @@ function handleAgentCheckedBox(event) {
       renderAgentList('agents');
     }
   }
-
 }
 
 var $noFilter = document.querySelector('#no-filter');
@@ -60,21 +59,48 @@ $sentinels.addEventListener('click', handleAgentCheckedBox);
 
 function handleWeaponCheckedBox(event) {
   $overlay.classList.remove('hidden');
-  for (let index = 0; index < $checkboxButtons.length; index++) {
-    $checkboxButtons[index].classList.remove('checked-box');
-
-  }
   if (event.target.matches('.filter-option')) {
     var $checkboxTarget = event.target.getAttribute('id');
+    var $checkbox = document.querySelector('.checked-box');
+    if (event.target.contains($checkbox)) {
+      $checkbox.classList.remove('checked-box');
+      var $none = document.querySelector('#weapon-none');
+      $none.classList.add('checked-box');
+      $overlay.classList.remove('hidden');
+      renderWeaponList('weapons');
+    } else {
+      for (let index = 0; index < $checkboxButtons.length; index++) {
+        $checkboxButtons[index].classList.remove('checked-box');
+
+      }
+
+      $checkboxTarget = '.checkbox-' + $checkboxTarget;
+      $checkboxTarget = document.querySelector($checkboxTarget);
+      $checkboxTarget.classList.add('checked-box');
+      $overlay.classList.remove('hidden');
+      renderWeaponList('weapons');
+    }
 
   } else {
     $checkboxTarget = event.target.parentNode.parentNode.getAttribute('id');
-
+    $checkbox = document.querySelector('.checked-box');
+    if ($checkbox.parentNode.parentNode === event.target.parentNode.parentNode) {
+      $checkbox.classList.remove('checked-box');
+      $none = document.querySelector('#weapon-none');
+      $none.classList.add('checked-box');
+      $overlay.classList.remove('hidden');
+      renderWeaponList('weapons');
+    } else {
+      for (let index = 0; index < $checkboxButtons.length; index++) {
+        $checkboxButtons[index].classList.remove('checked-box');
+      }
+      $checkboxTarget = '.checkbox-' + $checkboxTarget;
+      $checkboxTarget = document.querySelector($checkboxTarget);
+      $checkboxTarget.classList.add('checked-box');
+      $overlay.classList.remove('hidden');
+      renderWeaponList('weapons');
+    }
   }
-  $checkboxTarget = '.checkbox-' + $checkboxTarget;
-  $checkboxTarget = document.querySelector($checkboxTarget);
-  $checkboxTarget.classList.add('checked-box');
-  renderWeaponList('weapons');
 }
 
 var $checkedBox = document.querySelector('.checked-box');
