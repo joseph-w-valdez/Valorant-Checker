@@ -14,9 +14,12 @@
   </header>
   <main>
     <div class="container">
+      <div class="overlay hidden">
+        <div class="lds-hourglass"></div>
+      </div>
       <div class="row">
         <div class="col-full navbar">
-          <h3 class="navbar-item inline">ValoFuze</h3>
+          <h3 class="navbar-item inline">ValoChecker</h3>
           <span class="navbar-item inline">Agents</span>
           <span class="navbar-item inline">Weapons</span>
         </div>
@@ -24,10 +27,11 @@
       <div class="view" data-view="homepage">
         <div class="row wrap">
           <div class="col-full"><p class="homepage-header ta-center ">Homepage</p></div>
-          <div class="col-full"><div class="logo-frame"><img src="./images/valorant-logo.png" alt="Valorant Logo"></div></div>
+          <div class="col-full"><div class="logo-frame"><img src="./images/valorant-logo.webp" alt="Valorant Logo"></div></div>
         </div>
       </div>
       <div class="view hidden" data-view="agents">
+
         <div class="row wrap">
           <div class="col-full">
             <p class="homepage-header ta-center">Agents</p>
@@ -35,7 +39,7 @@
           <div class="agent-filter-table">
             <div class="row wrap ai-center">
               <div class="col-50 filter-column">
-                <div class="filter-option">
+                <div class="filter-option filter-header-container">
                   <h4 class="filter-header">Filter by Role</h4>
                 </div>
                 <div class="filter-option row ai-center" id="controllers">
@@ -95,7 +99,7 @@
             <div class="row ai-center agent-header">
               <form action="">
                 <button type="button" class="back-arrow-frame">
-                  <img class="agents" src="./images/back-arrow.png"></img>
+                  <img class="agents" src="./images/back-arrow.webp"></img>
                 </button>
               </form>
               <p class="ta-center inline-block agent-name"></p>
@@ -144,7 +148,7 @@
           <div class="col-full z-index-1">
             <div class="row jc-flex-start ai-center ability-header">
               <form action="">
-                <button type="button" class="back-arrow-frame"><img class="individual-agent" src="./images/back-arrow.png"></img></button>
+                <button type="button" class="back-arrow-frame"><img class="individual-agent" src="./images/back-arrow.webp"></img></button>
               </form>
               <p class=" homepage-header ta-center inline ability-name"></p>
             </div>
@@ -174,7 +178,7 @@
           <div class="weapons-filter-table">
             <div class="row wrap ai-center">
               <div class="col-50 filter-column">
-                <div class="filter-option">
+                <div class="filter-option filter-header-container">
                   <h4 class="filter-header">Filter by Role</h4>
                 </div>
                 <div class="filter-option row ai-center" id="weapon-no-filter">
@@ -255,7 +259,7 @@
           <div class="col-full">
             <div class="row jc-center ai-center ability-header">
               <form action="">
-                <button type="button" class="back-arrow-frame"><img class="weapons" src="./images/back-arrow.png"></img></button>
+                <button type="button" class="back-arrow-frame"><img class="weapons" src="./images/back-arrow.webp"></img></button>
               </form>
               <p class="ta-center weapon-name "></p>
             </div>

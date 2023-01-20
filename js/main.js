@@ -1,15 +1,48 @@
 var $checkboxButtons = document.querySelectorAll('.checkbox');
 function handleAgentCheckedBox(event) {
+  $overlay.classList.remove('hidden');
+  if (event.target.matches('.filter-option')) {
+    var $checkboxTarget = event.target.getAttribute('id');
+    var $checkbox = document.querySelector('.checked-box');
+    if (event.target.contains($checkbox)) {
+      $checkbox.classList.remove('checked-box');
+      var $none = document.querySelector('#none');
+      $none.classList.add('checked-box');
+      $overlay.classList.remove('hidden');
+      renderAgentList('agents');
+    } else {
+      for (let index = 0; index < $checkboxButtons.length; index++) {
+        $checkboxButtons[index].classList.remove('checked-box');
 
-  for (let index = 0; index < $checkboxButtons.length; index++) {
-    $checkboxButtons[index].classList.remove('checked-box');
+      }
 
+      $checkboxTarget = '.checkbox-' + $checkboxTarget;
+      $checkboxTarget = document.querySelector($checkboxTarget);
+      $checkboxTarget.classList.add('checked-box');
+      $overlay.classList.remove('hidden');
+      renderAgentList('agents');
+    }
+
+  } else {
+    $checkboxTarget = event.target.parentNode.parentNode.getAttribute('id');
+    $checkbox = document.querySelector('.checked-box');
+    if ($checkbox.parentNode.parentNode === event.target.parentNode.parentNode) {
+      $checkbox.classList.remove('checked-box');
+      $none = document.querySelector('#none');
+      $none.classList.add('checked-box');
+      $overlay.classList.remove('hidden');
+      renderAgentList('agents');
+    } else {
+      for (let index = 0; index < $checkboxButtons.length; index++) {
+        $checkboxButtons[index].classList.remove('checked-box');
+      }
+      $checkboxTarget = '.checkbox-' + $checkboxTarget;
+      $checkboxTarget = document.querySelector($checkboxTarget);
+      $checkboxTarget.classList.add('checked-box');
+      $overlay.classList.remove('hidden');
+      renderAgentList('agents');
+    }
   }
-  var $checkboxTarget = event.target.parentNode.parentNode.getAttribute('id');
-  $checkboxTarget = '.checkbox-' + $checkboxTarget;
-  $checkboxTarget = document.querySelector($checkboxTarget);
-  $checkboxTarget.classList.add('checked-box');
-  renderAgentList('agents');
 }
 
 var $noFilter = document.querySelector('#no-filter');
@@ -25,16 +58,49 @@ $initiators.addEventListener('click', handleAgentCheckedBox);
 $sentinels.addEventListener('click', handleAgentCheckedBox);
 
 function handleWeaponCheckedBox(event) {
+  $overlay.classList.remove('hidden');
+  if (event.target.matches('.filter-option')) {
+    var $checkboxTarget = event.target.getAttribute('id');
+    var $checkbox = document.querySelector('.checked-box');
+    if (event.target.contains($checkbox)) {
+      $checkbox.classList.remove('checked-box');
+      var $none = document.querySelector('#weapon-none');
+      $none.classList.add('checked-box');
+      $overlay.classList.remove('hidden');
+      renderWeaponList('weapons');
+    } else {
+      for (let index = 0; index < $checkboxButtons.length; index++) {
+        $checkboxButtons[index].classList.remove('checked-box');
 
-  for (let index = 0; index < $checkboxButtons.length; index++) {
-    $checkboxButtons[index].classList.remove('checked-box');
+      }
 
+      $checkboxTarget = '.checkbox-' + $checkboxTarget;
+      $checkboxTarget = document.querySelector($checkboxTarget);
+      $checkboxTarget.classList.add('checked-box');
+      $overlay.classList.remove('hidden');
+      renderWeaponList('weapons');
+    }
+
+  } else {
+    $checkboxTarget = event.target.parentNode.parentNode.getAttribute('id');
+    $checkbox = document.querySelector('.checked-box');
+    if ($checkbox.parentNode.parentNode === event.target.parentNode.parentNode) {
+      $checkbox.classList.remove('checked-box');
+      $none = document.querySelector('#weapon-none');
+      $none.classList.add('checked-box');
+      $overlay.classList.remove('hidden');
+      renderWeaponList('weapons');
+    } else {
+      for (let index = 0; index < $checkboxButtons.length; index++) {
+        $checkboxButtons[index].classList.remove('checked-box');
+      }
+      $checkboxTarget = '.checkbox-' + $checkboxTarget;
+      $checkboxTarget = document.querySelector($checkboxTarget);
+      $checkboxTarget.classList.add('checked-box');
+      $overlay.classList.remove('hidden');
+      renderWeaponList('weapons');
+    }
   }
-  var $checkboxTarget = event.target.parentNode.parentNode.getAttribute('id');
-  $checkboxTarget = '.checkbox-' + $checkboxTarget;
-  $checkboxTarget = document.querySelector($checkboxTarget);
-  $checkboxTarget.classList.add('checked-box');
-  renderWeaponList('weapons');
 }
 
 var $checkedBox = document.querySelector('.checked-box');
@@ -48,6 +114,7 @@ $navBar.addEventListener('click', handleViewSwap);
 function handleViewSwap(event, pageView) {
   var $dataViewAttribute;
   var $apiValue;
+
   if (pageView) {
     $dataViewAttribute = pageView;
     $apiValue = 'agents';
@@ -64,7 +131,7 @@ function handleViewSwap(event, pageView) {
   for (let view = 0; view < $viewNodes.length; view++) {
     $viewNodes[view].classList.add('hidden');
   }
-  if ($dataViewAttribute === 'valofuze') {
+  if ($dataViewAttribute === 'valochecker') {
 
     $dataViewAttribute = 'homepage';
   }
@@ -90,8 +157,10 @@ function handleViewSwap(event, pageView) {
     $weaponNoFilterCheckbox.classList.add('checked-box');
   }
   if ($apiValue === 'agents') {
+    $overlay.classList.remove('hidden');
     renderAgentList($apiValue);
   } else if ($apiValue === 'weapons') {
+    $overlay.classList.remove('hidden');
     renderWeaponList('weapons');
   }
 
@@ -103,6 +172,7 @@ var $tbody = document.querySelector('tbody');
 
 function handleIndividualAgent(event) {
   var $agent = event.target.closest('tr').getAttribute('id');
+  $overlay.classList.remove('hidden');
   renderIndividualAgent($agent);
   handleViewSwap('click', 'individual-agent');
 }
@@ -118,6 +188,7 @@ function handleIndividualAbility(event) {
   $currentAgent = $currentAgent.textContent;
   var $clickedAbility = event.target.closest('div');
   $clickedAbility = $clickedAbility.getAttribute('id');
+  $overlay.classList.remove('hidden');
   renderIndividualAbility($currentAgent, $clickedAbility);
   handleViewSwap('click', 'individual-ability');
 }
@@ -133,7 +204,9 @@ function renderIndividualAbility(name, ability) {
         var $abilityHeader = document.querySelector('[data-view="individual-ability"] p');
         var $abilityIcon = document.querySelector('.individual-ability-icon');
         var $abilityAgentPortrait = document.querySelector('.ability-agent-portrait');
+        $abilityAgentPortrait.addEventListener('error', handlePortraitImageError);
         var $abilityAgentBackground = document.querySelector('.ability-agent-background');
+        $abilityAgentBackground.addEventListener('error', handleBackgroundImageError);
         var $abilityAgentPortraitUrl = xhr.response.data[agent].fullPortraitV2;
         $abilityAgentPortrait.setAttribute('src', $abilityAgentPortraitUrl);
         var $abilityAgentBackgroundUrl = xhr.response.data[agent].background;
@@ -145,16 +218,20 @@ function renderIndividualAbility(name, ability) {
             $abilityDescription.textContent = xhr.response.data[agent].abilities[singleAbility].description;
             if (xhr.response.data[agent].abilities[singleAbility].slot === 'Passive') {
               var $ability1IconUrl = xhr.response.data[agent].displayIcon;
+              $abilityIcon.addEventListener('error', handleImageError);
               $abilityIcon.setAttribute('src', $ability1IconUrl);
             } else {
               $ability1IconUrl = xhr.response.data[agent].abilities[singleAbility].displayIcon;
               $abilityIcon.setAttribute('src', $ability1IconUrl);
+              $abilityIcon.addEventListener('error', handleImageError);
+
             }
           }
         }
 
       }
     }
+    $overlay.classList.add('hidden');
   });
   xhr.send();
 }
@@ -179,10 +256,12 @@ function renderAgentList(value) {
         var $newAgentName = document.createElement('td');
         var $newAgentProfile = document.createElement('td');
         var $newAgentProfileUrl = document.createElement('img');
+        $newAgentProfileUrl.addEventListener('error', handleImageError);
         var $newPortraitFrame = document.createElement('div');
         $newPortraitFrame.setAttribute('class', 'table-portrait');
 
         $newAgentProfileUrl.setAttribute('src', xhr.response.data[agent].killfeedPortrait);
+        $newAgentProfileUrl.addEventListener('error', handleImageError);
         $newPortraitFrame.appendChild($newAgentProfileUrl);
         $newAgentProfile.appendChild($newPortraitFrame);
         $newAgentName.textContent = xhr.response.data[agent].displayName;
@@ -198,6 +277,7 @@ function renderAgentList(value) {
         $newAgentName = document.createElement('td');
         $newAgentProfile = document.createElement('td');
         $newAgentProfileUrl = document.createElement('img');
+        $newAgentProfileUrl.addEventListener('error', handleImageError);
         $newPortraitFrame = document.createElement('div');
         $newPortraitFrame.setAttribute('class', 'table-portrait');
 
@@ -215,12 +295,14 @@ function renderAgentList(value) {
     $newTbody.appendChild($newAgent);
     $newTbody.classList.add('agents-table-body');
     $agentsTable.appendChild($newTbody);
-    var $agentsTbody = document.querySelector('.agents-table');
+    var $agentsTbody = document.querySelector('.agents-table-body');
     $agentsTbody.addEventListener('click', handleIndividualAgent);
+    $overlay.classList.add('hidden');
   });
 
   xhr.send();
 }
+var $overlay = document.querySelector('.overlay');
 
 function renderIndividualAgent(name) {
   var xhr = new XMLHttpRequest();
@@ -234,32 +316,39 @@ function renderIndividualAgent(name) {
         var $agentBio = document.querySelector('.bio');
         $agentBio.textContent = xhr.response.data[agent].description;
         var $agentRole = document.querySelector('.agent-role');
+        $agentRole.addEventListener('error', handleImageError);
         var $agentRoleIcon = xhr.response.data[agent].role.displayIcon;
         $agentRole.setAttribute('src', $agentRoleIcon);
         var $agentPortrait = document.querySelector('.agent-portrait');
+        $agentPortrait.addEventListener('error', handlePortraitImageError);
         var $agentPortraitUrl = xhr.response.data[agent].fullPortraitV2;
         $agentPortrait.setAttribute('src', $agentPortraitUrl);
         var $agentBackground = document.querySelector('.agent-background');
+        $agentBackground.addEventListener('error', handleBackgroundImageError);
         var $agentBackgroundUrl = xhr.response.data[agent].background;
         $agentBackground.setAttribute('src', $agentBackgroundUrl);
         var $ability1Text = document.querySelector('.ability-1-text');
         $ability1Text.textContent = xhr.response.data[agent].abilities[0].displayName;
         var $ability1Icon = document.querySelector('.ability-1-icon');
+        $ability1Icon.addEventListener('error', handleImageError);
         var $ability1IconUrl = xhr.response.data[agent].abilities[0].displayIcon;
         $ability1Icon.setAttribute('src', $ability1IconUrl);
         var $ability2Text = document.querySelector('.ability-2-text');
         $ability2Text.textContent = xhr.response.data[agent].abilities[1].displayName;
         var $ability2Icon = document.querySelector('.ability-2-icon');
+        $ability2Icon.addEventListener('error', handleImageError);
         var $ability2IconUrl = xhr.response.data[agent].abilities[1].displayIcon;
         $ability2Icon.setAttribute('src', $ability2IconUrl);
         var $grenadeText = document.querySelector('.grenade-text');
         $grenadeText.textContent = xhr.response.data[agent].abilities[2].displayName;
         var $grenadeIcon = document.querySelector('.grenade-icon');
+        $grenadeIcon.addEventListener('error', handleImageError);
         var $grenadeIconUrl = xhr.response.data[agent].abilities[2].displayIcon;
         $grenadeIcon.setAttribute('src', $grenadeIconUrl);
         var $ultimateText = document.querySelector('.ultimate-text');
         $ultimateText.textContent = xhr.response.data[agent].abilities[3].displayName;
         var $ultimateIcon = document.querySelector('.ultimate-icon');
+        $ultimateIcon.addEventListener('error', handleImageError);
         var $ultimateIconUrl = xhr.response.data[agent].abilities[3].displayIcon;
         $ultimateIcon.setAttribute('src', $ultimateIconUrl);
         var $passiveContainer = document.querySelector('.passive-container');
@@ -274,6 +363,7 @@ function renderIndividualAgent(name) {
         }
       }
     }
+    $overlay.classList.add('hidden');
   });
   xhr.send();
 }
@@ -327,6 +417,7 @@ function renderWeaponList(value) {
         var $newWeaponName = document.createElement('td');
         var $newWeaponIcon = document.createElement('td');
         var $newWeaponIconUrl = document.createElement('img');
+        $newWeaponIconUrl.addEventListener('error', handleImageError);
         var $newPortraitFrame = document.createElement('div');
         $newPortraitFrame.setAttribute('class', 'table-portrait');
 
@@ -339,6 +430,7 @@ function renderWeaponList(value) {
         $newWeapon.appendChild($newWeaponIcon);
 
         $newTbody.appendChild($newWeapon);
+        $newTbody.classList.add('weapons-table-body');
       }
     } else {
       $checkedBox = 'EEquippableCategory::' + $checkedBox;
@@ -349,6 +441,7 @@ function renderWeaponList(value) {
           $newWeaponName = document.createElement('td');
           $newWeaponIcon = document.createElement('td');
           $newWeaponIconUrl = document.createElement('img');
+          $newWeaponIconUrl.addEventListener('error', handleImageError);
           $newPortraitFrame = document.createElement('div');
           $newPortraitFrame.setAttribute('class', 'table-portrait');
 
@@ -361,6 +454,7 @@ function renderWeaponList(value) {
           $newWeapon.appendChild($newWeaponIcon);
 
           $newTbody.appendChild($newWeapon);
+          $newTbody.classList.add('weapons-table-body');
         }
 
       }
@@ -369,8 +463,9 @@ function renderWeaponList(value) {
     var $weaponsTable = document.querySelector('.weapons-table');
 
     $weaponsTable.appendChild($newTbody);
-    var $weaponsTbody = document.querySelector('.weapons-table');
+    var $weaponsTbody = document.querySelector('.weapons-table-body');
     $weaponsTbody.addEventListener('click', handleIndividualWeapon);
+    $overlay.classList.add('hidden');
   });
 
   xhr.send();
@@ -378,6 +473,7 @@ function renderWeaponList(value) {
 
 function handleIndividualWeapon(event) {
   var $weapon = event.target.closest('tr').getAttribute('id');
+  $overlay.classList.remove('hidden');
   renderIndividualWeapon($weapon);
   handleViewSwap('click', 'individual-weapon');
 }
@@ -397,6 +493,7 @@ function renderIndividualWeapon(weapon) {
         var $weaponName = document.querySelector('.weapon-name');
         $weaponName.textContent = xhr.response.data[singleWeapon].displayName;
         var $individualWeaponIcon = document.querySelector('.individual-weapon-icon');
+        $individualWeaponIcon.addEventListener('error', handleImageError);
         var $individualWeaponIconUrl = xhr.response.data[singleWeapon].displayIcon;
         $individualWeaponIcon.setAttribute('src', $individualWeaponIconUrl);
 
@@ -417,8 +514,10 @@ function renderIndividualWeapon(weapon) {
             $newWeaponValue.textContent = meleeStats[singleStat];
             $newWeaponStatRow.appendChild($newWeaponStat);
             $newWeaponStatRow.appendChild($newWeaponValue);
+
             $newTbody.appendChild($newWeaponStatRow);
           }
+          $newTbody.classList.add('weapons-tbody');
 
         } else {
           $newWeaponStatRow = document.createElement('tr');
@@ -584,6 +683,7 @@ function renderIndividualWeapon(weapon) {
                   $newWeaponStatRow.appendChild($newWeaponStat);
                   $newWeaponStatRow.appendChild($newWeaponValue);
                   $newTbody.appendChild($newWeaponStatRow);
+                  $newTbody.classList.add('weapons-tbody');
                 }
 
               }
@@ -596,6 +696,21 @@ function renderIndividualWeapon(weapon) {
         $individualWeaponTable.appendChild($newTbody);
       }
     }
+    $overlay.classList.add('hidden');
   });
   xhr.send();
+}
+
+function handleImageError(event) {
+  event.target.setAttribute('src', './images/error.webp');
+}
+
+function handlePortraitImageError(event) {
+  event.target.setAttribute('src', './images/portrait-error.webp');
+
+}
+
+function handleBackgroundImageError(event) {
+  event.target.setAttribute('src', './images/background-error.webp');
+
 }
