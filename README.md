@@ -1,6 +1,13 @@
 # Valorant Checker
 
-A dynamic HTML, CSS, and JavaScript solo AJAX project using the [unofficial Valorant API](https://valorant-api.com/). 
+A dynamic HTML, CSS, and JavaScript solo AJAX project using the [unofficial Valorant API](https://valorant-api.com/) to display various details about playable characters and weapons.
+
+* It has a user-friendly interface with a custom filter table that allows users to easily sort and filter the information they want to see.
+* The layout of the website is organized using HTML 5, allowing for seamless view swapping and a more cohesive user experience.
+* The website is also optimized for multiple viewports, ensuring that it works properly across different devices.
+* The use of CSS 3 enables the alternating style of each row, making it easier for users to differentiate between adjacent rows.
+* By using JavaScript ES5, the website can create new XMLHTTPRequests and fill the page with the corresponding data based on the user's selected filters.
+
 
 ### Check a list of all current playable Agents
 https://user-images.githubusercontent.com/117682160/211690197-4bf87a3a-40d8-45f9-ba96-ea69c08056fc.mp4
