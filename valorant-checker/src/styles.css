@@ -1,0 +1,559 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+  font-family: sans-serif, arial, helvetica;
+  color: white;
+}
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  background-color: #212121;
+}
+
+.container {
+  max-width: 2500px;
+}
+
+.row {
+  display: flex;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.col-full {
+  width: 100%;
+}
+
+.col-25 {
+  width: calc(100%/3);
+}
+
+.col-50 {
+  width: 50%;
+}
+
+.col-75 {
+  width: calc(200%/3);
+}
+
+.ta-center {
+  text-align: center;
+}
+
+.ai-center {
+  align-items: center;
+}
+
+.jc-center {
+  justify-content: center;
+}
+
+.jc-space-around {
+  justify-content: space-around;
+}
+
+.jc-space-evenly {
+  justify-content: space-evenly;
+}
+
+.navbar-item,
+label,
+.role-icon-frame,
+.checkbox,
+tbody,
+.ability-container {
+  cursor: pointer;
+}
+
+body,
+p,
+.filter-header,
+.view h3 {
+  margin: 0;
+}
+
+.navbar {
+  background-color: #ff5152;
+  padding: 15px 10vw;
+}
+
+.inline {
+  display: inline;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
+}
+
+.navbar-item {
+  padding: 10px 2px;
+  margin: 0;
+  cursor: pointer;
+}
+
+span.navbar-item:hover {
+  color: blue;
+}
+
+.agent-name {
+  font-size: 2.5rem;
+  margin-right: 20px;
+}
+
+.homepage-header {
+  font-size: 2.5rem;
+  margin: 20px 10px 10px 0;
+}
+
+.ability-name {
+  font-size: 2.25rem;
+  margin: 0 30px;
+}
+
+.ability-header {
+  margin: 20px 10vw;
+}
+
+.agent-header {
+  margin: 10px 0 10px 10vw;
+}
+
+img {
+  width: 100%;
+}
+
+.logo-frame {
+  width: 250px;
+  margin: 10px auto;
+  padding: 0;
+}
+
+.ability-frame {
+  width: 150px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.bio {
+  margin: 0 30px;
+  font-size: 0.875rem;
+}
+
+.portrait {
+  overflow: hidden;
+}
+
+.portrait-frame {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+}
+
+.agent-frame {
+  width: 100%;
+  height: 400px;
+  padding-top: 20px;
+  position: relative;
+  transform: scale(1.2);
+  right: 80px;
+  bottom: 35px;
+}
+
+.agent-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  z-index: 1;
+}
+
+.ability-agent-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  z-index: 1;
+}
+
+.ability-agent-background {
+  transform: scale(0.85);
+  height: 100%;
+  width: 100%;
+  opacity: 0.8;
+}
+
+.agent-background {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  bottom: 20px;
+  opacity: 0.8;
+  transform: scale(0.9);
+}
+
+.checkbox {
+  height: 15px;
+  width: 15px;
+  border: 2px solid rgba(255, 255, 255);
+  border-radius: 2px;
+  margin-right: 5px;
+}
+
+.agent-role {
+  object-fit: contain;
+}
+
+.role-icon-frame {
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+}
+
+.agent-icon-frame {
+  height: 50px;
+  width: 50px;
+  margin: 5px 0;
+  display: inline-block;
+}
+
+.ability-container {
+  margin: 2px 0;
+}
+
+.ability-container:hover {
+  transform: scale(1.3);
+}
+
+.view h3 {
+  font-size: 0.875rem;
+  padding-bottom: 2px;
+}
+
+/* .checked-box {
+  background-image: url("../images/checked-box.webp");
+  background-size: cover;
+} */
+
+.agent-filter-table {
+  width: 300px;
+  text-align: left;
+  margin: auto;
+}
+
+.weapon-name {
+  font-size: 3.125rem;
+}
+
+.weapons-filter-table {
+  width: 300px;
+  text-align: left;
+  margin: auto;
+}
+
+.hidden-weapon {
+  opacity: 0;
+}
+
+.second-filter-col {
+  padding-left: 15px;
+}
+
+.filters {
+  text-align: center;
+}
+
+.filter-header {
+  margin-left: 10px;
+}
+
+.filter-option {
+  margin: 10px 0;
+}
+
+.filter-option:not(.filter-header-container):hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+label {
+  font-size: 1.25rem;
+}
+
+table {
+  padding-left: 20px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tr {
+  height: 50px;
+  background-color: rgb(66, 66, 66);
+}
+
+tbody > tr {
+  background-color: rgb(114, 114, 114);
+}
+
+tbody > tr:nth-child(odd) {
+  background-color: #bcbcbc;
+  color: black;
+}
+
+td {
+  padding: 0 10vw;
+  width: 80%;
+  color: rgb(232, 232, 232);
+}
+
+.individual-weapons-table td {
+  cursor: default;
+}
+
+tbody > tr:nth-child(odd) > td {
+  color: black;
+}
+
+tbody:not(.weapons-tbody) tr:hover {
+  background-color: whitesmoke;
+}
+
+tbody:not(.weapons-tbody) tr:hover td {
+  color: blue;
+  font-weight: bold;
+}
+
+.table-portrait {
+  height: 50px;
+  width: 100px;
+  overflow: hidden;
+}
+
+table img {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.ability-description {
+  margin: 20px;
+  text-align: center;
+}
+
+.individual-ability-agent-portrait {
+  display: none;
+}
+
+.individual-ability-icon {
+  margin: 40px 0;
+}
+
+.individual-weapon-icon {
+  padding: 30px 0;
+}
+
+.back-arrow-frame {
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+button {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  padding: 0;
+}
+
+button:hover {
+  transform: scale(1.2);
+}
+
+button:active {
+  transform: translateY(5px);
+}
+
+.individual-agent {
+  width: 100%;
+}
+
+.individual-agent:active {
+  transform: translateY(3px);
+}
+
+.z-index-1 {
+  z-index: 1;
+}
+
+.overlay {
+  position: absolute;
+  right: 0;
+}
+
+.lds-hourglass {
+  display: inline-block;
+  margin: auto;
+  position: relative;
+  inset: 0;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-hourglass::after {
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  width: 1px;
+  height: 1px;
+  margin: 8px;
+  box-sizing: border-box;
+  border: 32px solid #fff;
+  border-color: #fff transparent;
+  animation: lds-hourglass 1.2s infinite;
+}
+
+@keyframes lds-hourglass {
+  0% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+
+  50% {
+    transform: rotate(900deg);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  100% {
+    transform: rotate(1800deg);
+  }
+}
+
+@media screen and (min-height: 600px) and (min-width: 600px) {
+  .ability-container {
+    margin: 20px 0;
+  }
+}
+
+@media screen and (min-height: 700px) and (min-width: 700px) {
+  .ability-container {
+    margin: 40px 0;
+  }
+}
+
+@media screen and (min-width: 505px) {
+  .logo-frame {
+    width: 400px;
+  }
+
+  [data-view="individual-agent"] > .row > .col-full:nth-child(1),
+  [data-view="individual-agent"] > .row > .col-full:nth-child(2),
+  .ability-container,
+  .abilities,
+  .portrait {
+    width: 50%;
+  }
+
+  .agent-icon-frame {
+    padding-right: 5px;
+  }
+
+  .bio {
+    margin: 10px 0;
+  }
+
+  .ability-container img {
+    width: 100px;
+    height: 100px;
+  }
+
+  @media screen and (min-width: 600px) {
+    .homepage-header {
+      font-size: 3.125rem;
+    }
+
+    .ability-container img {
+      width: 120px;
+      height: 120px;
+    }
+
+    .portrait {
+      transform: scale(1.1);
+      padding-top: 5px;
+      padding-left: 10vw;
+    }
+
+    .individual-ability-agent-portrait {
+      display: block;
+    }
+
+    .individual-ability-portrait {
+      width: 50%;
+    }
+
+    .ability-frame {
+      width: 175px;
+      margin: 0 auto;
+      padding: 0;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .portrait {
+      transform: scale(1.2);
+      padding-left: 12vw;
+      padding-top: 70px;
+    }
+
+    .agent-frame {
+      overflow: hidden;
+    }
+
+    .logo-frame {
+      width: 450px;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    .bio {
+      font-size: 1rem;
+    }
+
+    .portrait {
+      padding-left: 15vw;
+      transform: scale(1.3);
+      padding-top: 70px;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .bio {
+      margin-right: 50px;
+    }
+
+    .ability-container img {
+      width: 150px;
+      height: 150px;
+    }
+
+    .portrait {
+      transform: scale(1.5);
+      margin-top: 40px;
+      padding-left: 20vw;
+    }
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .portrait {
+    transform: scale(1.5);
+    margin-top: 50px;
+    padding-left: 25vw;
+  }
+}
