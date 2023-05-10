@@ -1,11 +1,41 @@
 import React, { useState } from 'react';
 import { agentRoles } from '../data/agent-roles';
 
+const CheckboxItem = ({ id, option, selectedOption, handleOptionChange }) => {
+  const isSelected = selectedOption === option;
+
+  const checkboxStyle = {
+    backgroundImage: isSelected ? `url(../assets/images/checked-box.webp)` : 'none',
+    backgroundSize: isSelected ? 'cover' : 'auto',
+  };
+
+  return (
+    <div className='checkbox-item flex items-center w-1/2'>
+      <input
+        id={id}
+        className='h-5 w-5 border border-white border-2 rounded-sm mr-2 bg-transparent appearance-none'
+        type='checkbox'
+        name='role'
+        value={option}
+        checked={isSelected}
+        onChange={handleOptionChange}
+        style={checkboxStyle}
+      />
+      <label htmlFor={id} className='w-1/2 text-xl text-left'>
+        {option}
+      </label>
+    </div>
+  );
+};
+
 const FilterTable = () => {
-  const [selectedOption, setSelectedOption] = useState('no-filter');
+  const [selectedOption, setSelectedOption] = useState('No Filter');
 
   const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
+    const option = event.target.value;
+    setSelectedOption((prevState) =>
+      prevState === option && option !== 'No Filter' ? 'No Filter' : option
+    );
   };
 
   return (
@@ -13,19 +43,14 @@ const FilterTable = () => {
       <div className='w-1/2'>
         <h4 className='font-bold'>Filter by Role</h4>
       </div>
-      {agentRoles.map((option) => (
-        <div key={option} className="checkbox-item flex items-center w-1/2">
-          <input
-            id={option}
-            className='h-5 w-5 border border-white border-2 rounded-sm mr-2 bg-transparent appearance-none checked:bg-white'
-            type="checkbox"
-            name="role"
-            value={option}
-            checked={selectedOption === option}
-            onChange={handleOptionChange}
-          />
-          <label htmlFor={option} className='w-1/2 text-xl'>{option}</label>
-        </div>
+      {agentRoles.map((option, index) => (
+        <CheckboxItem
+          key={option}
+          id={`option-${index}`}
+          option={option}
+          selectedOption={selectedOption}
+          handleOptionChange={handleOptionChange}
+        />
       ))}
     </form>
   );

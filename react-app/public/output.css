@@ -681,6 +681,10 @@ video {
   padding: 0.5rem;
 }
 
+.text-left {
+  text-align: left;
+}
+
 .text-5xl {
   font-size: 3rem;
   line-height: 1;
@@ -731,6 +735,10 @@ h6 {
 .checked\:bg-white:checked {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.checked\:bg-transparent:checked {
+  background-color: transparent;
 }
 
 .checked\:outline-none:checked {
