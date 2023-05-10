@@ -2,7 +2,7 @@ import React from 'react'
 
 const WeaponsList = () => {
   return (
-    <div></div>
+    <div>s</div>
   )
 }
 
