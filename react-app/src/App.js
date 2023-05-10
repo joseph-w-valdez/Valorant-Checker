@@ -3,7 +3,7 @@ import Homepage from './pages/homepage';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App flex flex-wrap justify-center">
       <Homepage />
     </div>
   );
