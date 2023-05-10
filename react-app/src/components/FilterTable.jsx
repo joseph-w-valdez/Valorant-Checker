@@ -13,7 +13,7 @@ const CheckboxItem = ({ id, option: { category, icon }, selectedOption, handleOp
     <div className='checkbox-item flex items-center w-1/2'>
       <input
         id={id}
-        className='h-5 w-5 border border-white border-2 rounded-sm mr-2 bg-transparent appearance-none'
+        className='h-5 w-5 border border-white border-2 rounded-sm mr-2 bg-transparent appearance-none  cursor-pointer'
         type='checkbox'
         name='category'
         value={category}
@@ -21,8 +21,8 @@ const CheckboxItem = ({ id, option: { category, icon }, selectedOption, handleOp
         onChange={handleOptionChange}
         style={checkboxStyle}
       />
-      <label htmlFor={id} className='w-1/2 text-xl flex items-center'>
-        {icon && <img src={icon} alt={`${category} icon`} className='w-5 h-5 mr-2'/>}
+      <label htmlFor={id} className='w-1/2 text-xl flex items-center  cursor-pointer'>
+        {icon && <img src={icon} alt={`${category} icon`} className='w-5 h-5 mr-2 cursor-pointer'/>}
         {category}
       </label>
     </div>
