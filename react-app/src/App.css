@@ -1,3 +1,15 @@
+* {
+  box-sizing: border-box;
+  color: white;
+}
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  background-color: #212121;
+}
+
 .App {
   text-align: center;
 }
@@ -32,7 +44,12 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.navbar {
+  background-color: #ff5152;
 }
