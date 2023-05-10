@@ -11,6 +11,7 @@
     "eslint:recommended",
     "standard"
   ],
+  "ignorePatterns": ["./react-app/public/output.css"],
   "rules": {
     "no-var": "off",
     "semi": [
