@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { agentRoles } from '../data/agent-roles';
 
-const CheckboxItem = ({ id, option, selectedOption, handleOptionChange }) => {
-  const isSelected = selectedOption === option;
+const CheckboxItem = ({ id, option: { category, icon }, selectedOption, handleOptionChange }) => {
+  const isSelected = selectedOption === category;
 
   const checkboxStyle = {
     backgroundImage: isSelected ? `url(../assets/images/checked-box.webp)` : 'none',
@@ -15,14 +15,15 @@ const CheckboxItem = ({ id, option, selectedOption, handleOptionChange }) => {
         id={id}
         className='h-5 w-5 border border-white border-2 rounded-sm mr-2 bg-transparent appearance-none'
         type='checkbox'
-        name='role'
-        value={option}
+        name='category'
+        value={category}
         checked={isSelected}
         onChange={handleOptionChange}
         style={checkboxStyle}
       />
-      <label htmlFor={id} className='w-1/2 text-xl text-left'>
-        {option}
+      <label htmlFor={id} className='w-1/2 text-xl flex items-center'>
+        {icon && <img src={icon} alt={`${category} icon`} className='w-5 h-5 mr-2'/>}
+        {category}
       </label>
     </div>
   );
@@ -36,6 +37,7 @@ const FilterTable = () => {
     setSelectedOption((prevState) =>
       prevState === option && option !== 'No Filter' ? 'No Filter' : option
     );
+    console.log('selected option', selectedOption)
   };
 
   return (
@@ -45,7 +47,7 @@ const FilterTable = () => {
       </div>
       {agentRoles.map((option, index) => (
         <CheckboxItem
-          key={option}
+          key={option.category}
           id={`option-${index}`}
           option={option}
           selectedOption={selectedOption}
