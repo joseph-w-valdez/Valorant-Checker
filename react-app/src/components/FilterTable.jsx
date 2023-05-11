@@ -12,7 +12,7 @@ const CheckboxItem = ({ id, option: { category, icon }, selectedOption, handleOp
   return (
     <label
       htmlFor={id}
-      className='checkbox-item flex items-center w-1/2 hover:bg-white hover:bg-opacity-25 cursor-pointer'
+      className='checkbox-item flex items-center w-1/2 hover:bg-white hover:bg-opacity-25 cursor-pointer '
     >
       <input
         id={id}
@@ -24,7 +24,7 @@ const CheckboxItem = ({ id, option: { category, icon }, selectedOption, handleOp
         onChange={handleOptionChange}
         style={checkboxStyle}
       />
-      <div className='w-1/2 text-xl flex items-center cursor-pointer'>
+      <div className='w-1/2 text-base sm:text-xl flex items-center cursor-pointer'>
         {icon && <img src={icon} alt={`${category} icon`} className='w-5 h-5 mr-2 cursor-pointer' />}
         <p>{category}</p>
       </div>
@@ -45,7 +45,7 @@ const FilterTable = () => {
   return (
     <form className='filter-table w-80 flex flex-wrap'>
       <div className='w-1/2'>
-        <h4 className='font-bold'>Filter by Role</h4>
+        <h4 className='font-bold text-sm sm:text-base'>Filter by Role</h4>
       </div>
       {agentRoles.map((option, index) => (
         <CheckboxItem
