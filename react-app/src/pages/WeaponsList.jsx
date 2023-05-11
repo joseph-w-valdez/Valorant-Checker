@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import FilterTable from '../components/FilterTable';
 import DataTable from '../components/DataTable';
 import FlexBasisFull from '../components/FlexBasisFull';
+import { weaponCategories } from '../data/weapon-categories';
 
 const WeaponsList = () => {
 
@@ -40,7 +41,7 @@ const WeaponsList = () => {
     <>
       <Header text={'Weapons'}/>
       <FlexBasisFull />
-      <FilterTable selectedOption={selectedOption} handleOptionChange={handleOptionChange} />
+      <FilterTable selectedOption={selectedOption} handleOptionChange={handleOptionChange} filterData={weaponCategories}/>
       <FlexBasisFull />
       <DataTable data={weapons} selectedOption={selectedOption} />
     </>

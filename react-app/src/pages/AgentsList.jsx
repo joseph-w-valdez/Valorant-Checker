@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import FilterTable from '../components/FilterTable';
 import DataTable from '../components/DataTable';
 import FlexBasisFull from '../components/FlexBasisFull';
+import { agentRoles } from '../data/agent-roles';
 
 const AgentsList = () => {
   const [agents, setAgents] = useState([]);
@@ -38,7 +39,7 @@ const AgentsList = () => {
     <>
       <Header text={'Agents'} />
       <FlexBasisFull />
-      <FilterTable selectedOption={selectedOption} handleOptionChange={handleOptionChange} />
+      <FilterTable selectedOption={selectedOption} handleOptionChange={handleOptionChange} filterData={agentRoles}/>
       <FlexBasisFull />
       <DataTable data={agents} selectedOption={selectedOption} />
     </>

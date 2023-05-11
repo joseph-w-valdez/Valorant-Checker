@@ -1,5 +1,5 @@
 import React from 'react';
-import { agentRoles } from '../data/agent-roles';
+
 
 const CheckboxItem = ({ id, option: { category, icon }, selectedOption, handleOptionChange }) => {
   const isSelected = selectedOption === category;
@@ -24,7 +24,7 @@ const CheckboxItem = ({ id, option: { category, icon }, selectedOption, handleOp
         onChange={handleOptionChange}
         style={checkboxStyle}
       />
-      <div className='w-1/2 text-base sm:text-xl flex items-center cursor-pointer'>
+      <div className='text-base sm:text-xl flex items-center cursor-pointer'>
         {icon && <img src={icon} alt={`${category} icon`} className='w-5 h-5 mr-2 cursor-pointer' />}
         <p>{category}</p>
       </div>
@@ -32,23 +32,31 @@ const CheckboxItem = ({ id, option: { category, icon }, selectedOption, handleOp
   );
 };
 
-const FilterTable = ({ selectedOption, handleOptionChange }) => {
+const FilterTable = ({ selectedOption, handleOptionChange, filterData }) => {
+  /* check if the filterData is even or odd for conditional styling */
+  const shouldRenderBasisFull = filterData.length % 2 !== 1;
+
   return (
-    <form className='filter-table w-80 flex flex-wrap'>
-      <div className='w-1/2'>
-        <h4 className='font-bold text-sm sm:text-base'>Filter by Role</h4>
-      </div>
-      {agentRoles.map((option, index) => (
-        <CheckboxItem
-          key={option.category}
-          id={`option-${index}`}
-          option={option}
-          selectedOption={selectedOption}
-          handleOptionChange={handleOptionChange}
-        />
-      ))}
-    </form>
+    <div>
+      <form className='filter-table w-80 flex flex-wrap'>
+        <div className='w-1/2'>
+          <h4 className='font-bold text-sm sm:text-base'>Filter by Role</h4>
+        </div>
+        {/* check if the data is odd or even for conditional styling */}
+        {shouldRenderBasisFull && <div className="basis-full" />}
+        {filterData.map((option, index) => (
+          <CheckboxItem
+            key={option.category}
+            id={`option-${index}`}
+            option={option}
+            selectedOption={selectedOption}
+            handleOptionChange={handleOptionChange}
+          />
+        ))}
+      </form>
+    </div>
   );
 };
+
 
 export default FilterTable;
