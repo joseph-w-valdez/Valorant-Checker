@@ -26,7 +26,7 @@ const CheckboxItem = ({ id, option: { category, icon }, selectedOption, handleOp
       />
       <div className='text-base sm:text-xl flex items-center cursor-pointer'>
         {icon && <img src={icon} alt={`${category} icon`} className='w-5 h-5 mr-2 cursor-pointer' />}
-        <p>{category}</p>
+        <p className='select-none'>{category}</p>
       </div>
     </label>
   );
@@ -40,7 +40,7 @@ const FilterTable = ({ selectedOption, handleOptionChange, filterData }) => {
     <div>
       <form className='filter-table w-80 flex flex-wrap'>
         <div className='w-1/2'>
-          <h4 className='font-bold text-sm sm:text-base'>Filter by Role</h4>
+          <h4 className='select-none font-bold text-sm sm:text-base'>Filter by Role</h4>
         </div>
         {/* check if the data is odd or even for conditional styling */}
         {shouldRenderBasisFull && <div className="basis-full" />}

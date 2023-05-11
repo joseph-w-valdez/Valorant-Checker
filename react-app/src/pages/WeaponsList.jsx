@@ -15,7 +15,6 @@ const WeaponsList = () => {
       try {
         const response = await fetch('https://valorant-api.com/v1/weapons');
         const data = await response.json();
-        console.log('data', data)
         if (selectedOption !== 'No Filter') {
           /* convert the selectedOption string to the format used in the API */
           const selectedOptionQuery = `EEquippableCategory::${selectedOption}`

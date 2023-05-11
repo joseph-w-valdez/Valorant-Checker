@@ -6,8 +6,8 @@ const DataTable = ({ data }) => {
     <>
       <div className='table w-full flex mt-8'>
         <div className="table-header h-12 flex justify-between items-center bg-neutral-700">
-          <p className='flex-start ml-12 lg:ml-24'>Name</p>
-          <p className='flex-end mr-12 sm:mr-24 lg:mr-48'>Portrait</p>
+          <p className='select-none flex-start ml-12 lg:ml-24'>Name</p>
+          <p className='select-none flex-end mr-12 sm:mr-24 lg:mr-48'>Portrait</p>
         </div>
         {data?.map((item, index) => (
           <div
@@ -16,7 +16,7 @@ const DataTable = ({ data }) => {
               index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
             } hover:bg-[#f5f5f5] group`}
           >
-            <p className={`flex-start ml-12 lg:ml-24 ${
+            <p className={`select-none flex-start ml-12 lg:ml-24 ${
               index % 2 === 0 ? 'text-black' : 'text-white'
             } group-hover:text-blue-600 group-hover:font-bold`}>
               {item.displayName}
@@ -25,7 +25,7 @@ const DataTable = ({ data }) => {
             {item.isPlayableCharacter && item.killfeedPortrait && (
               <div className="h-14">
               <img
-                className='flex-end h-full object-contain sm:mr-8 lg:mr-32'
+                className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
                 src={item.killfeedPortrait}
                 alt={`${item.displayName} portrait`}
               />
@@ -35,7 +35,7 @@ const DataTable = ({ data }) => {
             {item.skins && item.displayIcon && (
               <div className="h-10">
               <img
-                className='flex-end h-full object-contain sm:mr-8 lg:mr-32'
+                className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
                 src={item.displayIcon}
                 alt={`${item.displayName} portrait`}
               />

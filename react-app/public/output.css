@@ -723,6 +723,11 @@ video {
   cursor: pointer;
 }
 
+.select-none {
+  -webkit-user-select: none;
+          user-select: none;
+}
+
 .appearance-none {
   -webkit-appearance: none;
           appearance: none;
