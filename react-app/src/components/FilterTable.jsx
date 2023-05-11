@@ -40,7 +40,6 @@ const FilterTable = () => {
     setSelectedOption((prevState) =>
       prevState === option && option !== 'No Filter' ? 'No Filter' : option
     );
-    console.log('selected option', selectedOption)
   };
 
   return (
