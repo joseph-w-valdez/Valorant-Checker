@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App flex flex-wrap justify-center">
       <Navbar />
-      <div class="routes-container w-full flex flex-wrap justify-center">
+      <div class="routes-container mt-12 w-full flex flex-wrap justify-center">
         <Routes>
           <Route path='/' element={<Homepage />}/>
           <Route path='/agents-list' element={<AgentsList />}/>
