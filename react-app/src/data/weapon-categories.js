@@ -4,23 +4,23 @@ export const weaponCategories = [
     icon: null
   },
   {
-    category: 'Sidearms',
+    category: 'Sidearm',
     icon: null
   },
   {
-    category: 'SMGs',
+    category: 'SMG',
     icon: null
   },
   {
-    category: 'Shotguns',
+    category: 'Shotgun',
     icon: null
   },
   {
-    category: 'Rifles',
+    category: 'Rifle',
     icon: null
   },
   {
-    category: 'Sniper Rifles',
+    category: 'Sniper',
     icon: null
   },
   {

@@ -17,8 +17,10 @@ const WeaponsList = () => {
         const data = await response.json();
         console.log('data', data)
         if (selectedOption !== 'No Filter') {
-          const filteredAgents = data.filter(weapon => weapon.category === selectedOption);
-          setWeapons(filteredAgents);
+          /* convert the selectedOption string to the format used in the API */
+          const selectedOptionQuery = `EEquippableCategory::${selectedOption}`
+          const filteredWeapons = data.data.filter(weapon => weapon.category === selectedOptionQuery);
+          setWeapons(filteredWeapons);
         } else {
           setWeapons(data.data)
         }
