@@ -4,19 +4,19 @@ export const agentRoles = [
     icon: null
   },
   {
-    category: 'Controllers',
+    category: 'Controller',
     icon: '../assets/images/controller-icon.webp'
   },
   {
-    category: 'Duelists',
+    category: 'Duelist',
     icon: '../assets/images/duelist-icon.webp'
   },
   {
-    category: 'Initiators',
+    category: 'Initiator',
     icon: '../assets/images/initiator-icon.webp'
   },
   {
-    category: 'Sentinels',
+    category: 'Sentinel',
     icon: '../assets/images/sentinel-icon.webp'
   },
 ];

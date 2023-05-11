@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { agentRoles } from '../data/agent-roles';
 
 const CheckboxItem = ({ id, option: { category, icon }, selectedOption, handleOptionChange }) => {
@@ -32,16 +32,7 @@ const CheckboxItem = ({ id, option: { category, icon }, selectedOption, handleOp
   );
 };
 
-const FilterTable = () => {
-  const [selectedOption, setSelectedOption] = useState('No Filter');
-
-  const handleOptionChange = (event) => {
-    const option = event.target.value;
-    setSelectedOption((prevState) =>
-      prevState === option && option !== 'No Filter' ? 'No Filter' : option
-    );
-  };
-
+const FilterTable = ({ selectedOption, handleOptionChange }) => {
   return (
     <form className='filter-table w-80 flex flex-wrap'>
       <div className='w-1/2'>
