@@ -1,8 +1,11 @@
 import React from 'react'
+import Header from '../components/Header'
 
 const WeaponsList = () => {
   return (
-    <div></div>
+    <>
+      <Header text={'Weapons'}/>
+    </>
   )
 }
 
