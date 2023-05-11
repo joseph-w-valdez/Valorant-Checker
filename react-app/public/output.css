@@ -671,6 +671,30 @@ video {
   height: 4rem;
 }
 
+.h-1 {
+  height: 0.25rem;
+}
+
+.h-\[50px\] {
+  height: 50px;
+}
+
+.h-2 {
+  height: 0.5rem;
+}
+
+.h-14 {
+  height: 3.5rem;
+}
+
+.h-8 {
+  height: 2rem;
+}
+
+.h-10 {
+  height: 2.5rem;
+}
+
 .w-1\/2 {
   width: 50%;
 }

@@ -5,14 +5,14 @@ const DataTable = ({ data }) => {
   return (
     <>
       <div className='table w-full flex mt-8'>
-        <div className="table-header h-12 sm:h-16 flex justify-between items-center bg-neutral-700">
+        <div className="table-header h-12 flex justify-between items-center bg-neutral-700">
           <p className='flex-start ml-12 lg:ml-24'>Name</p>
           <p className='flex-end mr-12 sm:mr-24 lg:mr-48'>Portrait</p>
         </div>
         {data?.map((item, index) => (
           <div
             key={index}
-            className={`data-table-row h-16 cursor-pointer flex justify-between items-center ${
+            className={`data-table-row h-14 cursor-pointer flex justify-between items-center ${
               index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
             } hover:bg-[#f5f5f5] group`}
           >
@@ -21,7 +21,27 @@ const DataTable = ({ data }) => {
             } group-hover:text-blue-600 group-hover:font-bold`}>
               {item.displayName}
             </p>
-            <img className='flex-end object-contain sm:mr-8 lg:mr-32' src={item.killfeedPortrait} alt={`${item.displayName} portrait`} />
+            {/* check if the icons are playable characters */}
+            {item.isPlayableCharacter && item.killfeedPortrait && (
+              <div className="h-14">
+              <img
+                className='flex-end h-full object-contain sm:mr-8 lg:mr-32'
+                src={item.killfeedPortrait}
+                alt={`${item.displayName} portrait`}
+              />
+            </div>
+            )}
+            {/* check if the icons are weapons */}
+            {item.skins && item.displayIcon && (
+              <div className="h-10">
+              <img
+                className='flex-end h-full object-contain sm:mr-8 lg:mr-32'
+                src={item.displayIcon}
+                alt={`${item.displayName} portrait`}
+              />
+            </div>
+            )}
+
           </div>
         ))}
       </div>

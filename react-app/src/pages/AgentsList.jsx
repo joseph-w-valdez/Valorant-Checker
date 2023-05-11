@@ -18,6 +18,7 @@ const AgentsList = () => {
           filteredAgents = filteredAgents.filter(agent => agent.role.displayName === selectedOption);
         }
         setAgents(filteredAgents);
+        console.log('data', agents)
       } catch (error) {
         console.error(error);
       }
