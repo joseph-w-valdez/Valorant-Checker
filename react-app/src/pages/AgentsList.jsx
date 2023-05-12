@@ -28,19 +28,24 @@ const AgentsList = () => {
   }, [selectedOption]); // Run the effect whenever selectedOption changes
 
   const handleOptionChange = (event) => {
-    const option = event.target.value;
-    setSelectedOption((prevState) =>
-      prevState === option && option !== 'No Filter' ? 'No Filter' : option
-    );
-  };
+  // Get the selected option value from the clicked filter box
+  const option = event.target.value;
+  // Update the selected option state based on the previous state
+  setSelectedOption((prevState) =>
+    // If the selected option is the same as the previous state
+    prevState === option && option !== 'No Filter'
+      ? 'No Filter' // Reset the selected option to 'No Filter'
+      : option // Otherwise, update the selected option to the new value
+  );
+};
 
   return (
     <>
       <Header text={'Agents'} />
       <FlexBasisFull />
-      <FilterTable selectedOption={selectedOption} handleOptionChange={handleOptionChange} filterData={agentRoles}/>
+      <FilterTable selectedOption={selectedOption} handleOptionChange={handleOptionChange} filterData={agentRoles} />
       <FlexBasisFull />
-      <DataTable data={agents} selectedOption={selectedOption} />
+      <DataTable data={agents} selectedOption={selectedOption}  dataType='agents' />
     </>
   );
 };

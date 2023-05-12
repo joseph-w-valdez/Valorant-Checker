@@ -32,19 +32,25 @@ const WeaponsList = () => {
   }, [selectedOption]); // Run the effect whenever selectedOption changes
 
   const handleOptionChange = (event) => {
-    const option = event.target.value;
-    setSelectedOption((prevState) =>
-      prevState === option && option !== 'No Filter' ? 'No Filter' : option
-    );
-  };
+  // Get the selected option value from the clicked filter box
+  const option = event.target.value;
+  // Update the selected option state based on the previous state
+  setSelectedOption((prevState) =>
+    // If the selected option is the same as the previous state and not 'No Filter'
+    prevState === option && option !== 'No Filter'
+      ? 'No Filter' // Reset the selected option to 'No Filter'
+      : option // Otherwise, update the selected option to the new value
+  );
+};
+
 
   return (
     <>
       <Header text={'Weapons'}/>
       <FlexBasisFull />
-      <FilterTable selectedOption={selectedOption} handleOptionChange={handleOptionChange} filterData={weaponCategories}/>
+      <FilterTable selectedOption={selectedOption} handleOptionChange={handleOptionChange} filterData={weaponCategories} />
       <FlexBasisFull />
-      <DataTable data={weapons} selectedOption={selectedOption} />
+      <DataTable data={weapons} selectedOption={selectedOption} dataType={'weapons'} />
     </>
   )
 }
