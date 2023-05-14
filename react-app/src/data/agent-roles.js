@@ -13,7 +13,7 @@ export const agentRoles = [
   },
   {
     category: 'Initiator',
-    icon: '../assets/images/initiator-icon.webp'
+    icon: '../assets/images/initiator-icon.svg'
   },
   {
     category: 'Sentinel',
