@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
+import FullAgentPortrait from '../components/FullAgentPortrait';
 
 const IndividualAgent = () => {
   const location = useLocation();
@@ -21,14 +22,7 @@ const IndividualAgent = () => {
       <FlexBasisFull />
       <h4 className='mt-2'>{`Codename: ${agent.developerName}`}</h4>
       <FlexBasisFull />
-      <div className='relative w-[700px] h-[700px]'>
-        <div className='w-[500px] absolute'>
-          <img src={agent.background} alt={`${agent.displayName} background`} />
-        </div>
-        <div className='w-[600px] absolute top-[80px] left-[-40px]'>
-          <img src={agent.fullPortraitV2} alt={`${agent.displayName} portrait`} className='object-contain w-full' />
-        </div>
-      </div>
+      <FullAgentPortrait agent={agent} />
       <FlexBasisFull />
       <div className='w-96 text-left'>
         <p>{agent.description}</p>
