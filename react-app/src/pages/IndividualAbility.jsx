@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import FlexBasisFull from '../components/FlexBasisFull';
 import Header from '../components/Header';
 import FullAgentPortrait from '../components/FullAgentPortrait';
+import BackButton from '../components/BackButton';
 
 const IndividualAbility = () => {
   const location = useLocation();
@@ -12,7 +13,10 @@ const IndividualAbility = () => {
 
   return (
     <div className='flex flex-wrap justify-center'>
-      <Header text={ability.displayName} />
+      <div className='flex justify-center items-center'>
+        <BackButton />
+        <Header text={ability.displayName} />
+      </div>
       <FlexBasisFull />
       <div className='flex items-center'>
         <div className='w-1/2'>

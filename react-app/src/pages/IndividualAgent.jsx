@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
 import FullAgentPortrait from '../components/FullAgentPortrait';
+import BackButton from '../components/BackButton';
 
 const IndividualAgent = ({ setSelectedOption }) => {
   const location = useLocation();
@@ -25,7 +26,10 @@ const IndividualAgent = ({ setSelectedOption }) => {
 
   return (
     <>
-      <Header text={agent.displayName} />
+      <div className='flex items-center'>
+        <BackButton />
+        <Header text={agent.displayName} />
+      </div>
       <FlexBasisFull />
       <div className='flex flex-wrap justify-center mt-[-16px]'>
         <div
