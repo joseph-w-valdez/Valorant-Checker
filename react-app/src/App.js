@@ -6,6 +6,7 @@ import Homepage from './pages/Homepage';
 import AgentsList from './pages/AgentsList';
 import WeaponsList from './pages/WeaponsList';
 import IndividualAgent from './pages/IndividualAgent';
+import IndividualAbility from './pages/IndividualAbility';
 import IndividualWeapon from './pages/IndividualWeapon';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/weapons-list" element={<WeaponsList />} />
           <Route path="/individual-agent" element={<IndividualAgent setSelectedOption={setSelectedOption} />} />
           <Route path="/individual-weapon" element={<IndividualWeapon />} />
+          <Route path='/individual-ability' element={<IndividualAbility />} />
         </Routes>
       </div>
     </div>

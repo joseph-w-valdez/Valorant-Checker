@@ -15,7 +15,12 @@ const IndividualAgent = ({ setSelectedOption }) => {
   };
 
   const handleAbilityClick = (ability) => {
-    // Handle the ability click event
+    navigate('/individual-ability', {
+      state: {
+        data: {
+          agent: agent,
+          ability: ability
+        }}})
   };
 
   return (
