@@ -25,11 +25,13 @@ const DataTable = ({ data, dataType }) => {
       <div className='table w-full flex mt-8'>
         <div className="table-header h-12 flex justify-between items-center bg-neutral-700">
           <p className='select-none flex-start ml-12 lg:ml-24'>Name</p>
-          <p className='select-none flex-end mr-12 sm:mr-24 lg:mr-48'>Portrait</p>
+          <p className='select-none flex-end mr-12 sm:mr-24 lg:mr-48'>
+            {dataType === 'individual-weapon' ? 'Value' : 'Portrait'}
+          </p>
         </div>
         {/* Data rows */}
         {/* If the data is an array, map through it */}
-        {Array.isArray(data) && data?.map((item, index) => (
+        {(dataType === 'agents' || dataType === 'weapons') && data?.map((item, index) => (
           <div
             key={index}
             className={`data-table-row h-14 cursor-pointer flex justify-between items-center ${
@@ -62,23 +64,37 @@ const DataTable = ({ data, dataType }) => {
             ) : null}
           </div>
         ))}
-        {/* If the data is an object that is not an array */}
-        {typeof data === 'object' && !Array.isArray(data) && (
+        {/* If the data is an array that is not empty */}
+        {dataType === 'individual-weapon' && data?.length > 0 && (
           <>
-            {Object.entries(data).map(([key, value], index) => (
-              <div
-                key={index}
-                className={`data-table-row h-14 cursor-pointer flex justify-between items-center ${index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
-                  } hover:bg-[#f5f5f5] group`}
-              >
-                <p className={`select-none flex-start ml-12 lg:ml-24 ${index % 2 === 0 ? 'text-black' : 'text-white'
-                  } group-hover:text-blue-600 group-hover:font-bold`}>
-                  {key}: {JSON.stringify(value)}
-                </p>
-              </div>
-            ))}
+            {dataType === 'individual-weapon' && data?.length > 0 && (
+              <>
+                {data.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`data-table-row h-14 flex justify-between items-center ${index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
+                      }`}
+                  >
+                    {/* Render the content based on the properties of each item */}
+                    {Object.entries(item).map(([key, value]) => (
+                      <p
+                        key={key}
+                        className={`select-none flex-start ml-12 lg:ml-24 flex-end mr-12 sm:mr-24 lg:mr-48
+                        ${index % 2 === 0 ? 'text-black' : 'text-white'
+                          }`}
+                      >
+                        {`${value}`}
+                      </p>
+                    ))}
+                  </div>
+                ))}
+              </>
+            )}
+
           </>
         )}
+
+
 
       </div>
     </>

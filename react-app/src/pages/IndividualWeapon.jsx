@@ -9,7 +9,9 @@ const IndividualWeapon = () => {
   const location = useLocation()
   const weapon = location.state.data
   const weaponStats = weapon.weaponStats
-  console.log('weapon stats', weaponStats)
+  const weaponStatsArray = Object.entries(weaponStats);
+  console.log('weapon stats array', weaponStatsArray)
+
 
   return (
     <>
@@ -24,7 +26,7 @@ const IndividualWeapon = () => {
         </div>
         <FlexBasisFull />
       </div>
-      <DataTable data={weaponStats} dataType={'individual-weapon'}/>
+      <DataTable data={weaponStatsArray} dataType={'individual-weapon'}/>
     </>
   )
 }
