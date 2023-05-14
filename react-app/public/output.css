@@ -861,6 +861,10 @@ video {
   width: 40px;
 }
 
+.w-\[450px\] {
+  width: 450px;
+}
+
 .basis-full {
   flex-basis: 100%;
 }

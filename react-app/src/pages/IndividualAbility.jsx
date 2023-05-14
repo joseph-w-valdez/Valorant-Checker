@@ -9,7 +9,6 @@ const IndividualAbility = () => {
   const location = useLocation();
   const ability = location.state.data.ability;
   const agent = location.state.data.agent;
-  console.log('data', agent, ability);
 
   return (
     <div className='flex flex-wrap justify-center'>
