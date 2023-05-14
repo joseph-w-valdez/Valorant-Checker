@@ -7,7 +7,6 @@ import { agentRoles } from '../data/agent-roles';
 
 const AgentsList = ({ selectedOption, setSelectedOption }) => {
   const [agents, setAgents] = useState([]);
-
   const [agentRoleDescription, setAgentRoleDescription] = useState('');
 
   useEffect(() => {

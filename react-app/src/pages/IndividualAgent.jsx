@@ -4,13 +4,14 @@ import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
 import FullAgentPortrait from '../components/FullAgentPortrait';
 
-const IndividualAgent = ({ selectedOption }) => {
+const IndividualAgent = ({ setSelectedOption }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const agent = location.state.data;
 
   const handleRoleClick = (role) => {
-    navigate('/agents-list', { state: { data: { selectedOption: role.displayName } } });
+    setSelectedOption(role.displayName);
+    navigate('/agents-list');
   };
 
   const handleAbilityClick = (ability) => {
@@ -23,7 +24,7 @@ const IndividualAgent = ({ selectedOption }) => {
       <FlexBasisFull />
       <div className='flex flex-wrap justify-center mt-[-16px]'>
         <div
-          className='flex flex-wrap items-center justify-center cursor-pointer  hover:bg-white hover:bg-opacity-25 p-1'
+          className='flex flex-wrap items-center justify-center cursor-pointer hover:bg-white hover:bg-opacity-25 p-1'
           onClick={() => handleRoleClick(agent.role)}
         >
           <h3>{agent.role.displayName}</h3>
