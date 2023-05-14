@@ -11,7 +11,7 @@ const IndividualAgent = () => {
 
 
   return (
-    <div className='mt-4'>
+    <>
     <Header text={agent.displayName}/>
     <FlexBasisFull />
     <div className='flex flex-wrap items-center justify-center'>
@@ -22,22 +22,25 @@ const IndividualAgent = () => {
       <FlexBasisFull />
       <h4 className='mt-2'>{`Codename: ${agent.developerName}`}</h4>
       <FlexBasisFull />
-      <FullAgentPortrait agent={agent} />
-      <FlexBasisFull />
-      <div className='w-96 text-left'>
-        <p>{agent.description}</p>
+      <div className='w-1/2 flex flex-wrap justify-center'>
+        <FullAgentPortrait agent={agent} />
       </div>
-      <FlexBasisFull />
-      <div className='mt-4 flex flex-wrap'>
-        {agent.abilities?.map((ability, index) => (
-            <div key={index} className='w-1/2 flex flex-wrap justify-center cursor-pointer'>
-              <h4 className='w-full'>{ability.displayName}</h4>
-              <img src={ability.displayIcon} alt={ability.displayName} className='object-contain w-28' />
-            </div>
-          ))}
+      <div className='w-1/2 flex flex-wrap justify-center'>
+        <div className='w-1/2 text-left'>
+          <p>{agent.description}</p>
+        </div>
+        <FlexBasisFull />
+        <div className='mt-4 flex flex-wrap'>
+          {agent.abilities?.map((ability, index) => (
+              <div key={index} className='w-1/2 flex flex-wrap justify-center cursor-pointer'>
+                <h4 className='w-full'>{ability.displayName}</h4>
+                <img src={ability.displayIcon} alt={ability.displayName} className='object-contain w-28' />
+              </div>
+            ))}
+        </div>
       </div>
     </div>
-    </div>
+    </>
   );
 };
 

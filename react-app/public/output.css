@@ -603,6 +603,30 @@ video {
   top: 80px;
 }
 
+.left-\[40px\] {
+  left: 40px;
+}
+
+.left-\[50px\] {
+  left: 50px;
+}
+
+.left-\[70px\] {
+  left: 70px;
+}
+
+.left-\[100px\] {
+  left: 100px;
+}
+
+.left-\[90px\] {
+  left: 90px;
+}
+
+.left-\[80px\] {
+  left: 80px;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -641,6 +665,10 @@ video {
 
 .mt-8 {
   margin-top: 2rem;
+}
+
+.mb-20 {
+  margin-bottom: 5rem;
 }
 
 .flex {
@@ -751,6 +779,10 @@ video {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .rounded-sm {
