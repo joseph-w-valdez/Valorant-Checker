@@ -8,11 +8,12 @@ import DataTable from '../components/DataTable'
 const IndividualWeapon = () => {
   const location = useLocation()
   const weapon = location.state.data
-  console.log('weapon', weapon)
+  const weaponStats = weapon.weaponStats
+  console.log('weapon stats', weaponStats)
 
   return (
     <>
-      <div>
+      <div className=''>
         <div className='flex items-center justify-center'>
           <BackButton />
           <Header text={weapon.displayName}/>
@@ -22,9 +23,8 @@ const IndividualWeapon = () => {
           <img src={weapon.displayIcon} alt={weapon.displayName} className='object-contain w-full' />
         </div>
         <FlexBasisFull />
-
       </div>
-      <DataTable />
+      <DataTable data={weaponStats} dataType={'individual-weapon'}/>
     </>
   )
 }
