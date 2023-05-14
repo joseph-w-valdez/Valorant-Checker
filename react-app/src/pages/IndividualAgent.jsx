@@ -25,7 +25,7 @@ const IndividualAgent = () => {
         <div className='w-[500px] absolute'>
           <img src={agent.background} alt={`${agent.displayName} background`} />
         </div>
-        <div className='w-[600px] absolute top-20 right-50'>
+        <div className='w-[600px] absolute top-[80px] left-[-40px]'>
           <img src={agent.fullPortraitV2} alt={`${agent.displayName} portrait`} className='object-contain w-full' />
         </div>
       </div>
