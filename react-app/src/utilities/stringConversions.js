@@ -1,20 +1,25 @@
 export const convertCamelCase = (str) => {
-  // If the str is ADS, return ADS without using conversion code
   if (str === 'ADS') {
-    return 'ADS'
+    return 'ADS';
   }
-  // Add space before uppercase letters
+  if (str === 'ROFIncrease') {
+    return 'ROF Increase';
+  }
   if (typeof str === 'string') {
-    const convertedStr = str.replace(/([A-Z])/g, ' $1');
-    // Capitalize the first letter of each word and trim any leading/trailing spaces
-    const normalizedStr = convertedStr.trim().split(' ')
+    let convertedStr = str.replace(/([A-Z])/g, ' $1');
+    convertedStr = convertedStr.trim().split(' ')
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
 
-    return normalizedStr;
+    // Replace specific strings in the converted string
+    convertedStr = convertedStr.replace(/Meters/g, '(meters)');
+    convertedStr = convertedStr.replace(/Seconds/g, '(seconds)');
+
+    return convertedStr;
   }
-  return str
+  return str;
 };
+
 
 export const convertContainsColons = (str) => {
   // Check if the input is a string and contains '::'

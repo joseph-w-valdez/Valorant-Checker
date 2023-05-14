@@ -13,22 +13,48 @@ const IndividualWeapon = () => {
 
   const convertWeaponStats = (weaponStats) => {
     const convertedStats = {};
+
+    const processProperty = (prop, value) => {
+      const convertedProp = convertCamelCase(prop);
+      let convertedValue = convertContainsColons(value);
+      console.log('converted value', convertedValue)
+      convertedValue = convertCamelCase(convertedValue);
+
+      // Exclude key-value pair if the value is null
+      if (convertedValue !== null) {
+        convertedStats[convertedProp] = convertedValue;
+      }
+    };
+
+    const processNestedObject = (prefix, obj) => {
+      for (const prop in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+          const nestedProp = prop;
+          const nestedValue = obj[prop];
+
+          if (typeof nestedValue === 'object' && nestedValue !== null) {
+            processNestedObject(nestedProp, nestedValue);
+          } else {
+            processProperty(nestedProp, nestedValue);
+          }
+        }
+      }
+    };
+
     for (const prop in weaponStats) {
       if (Object.prototype.hasOwnProperty.call(weaponStats, prop)) {
-        const convertedProp = convertCamelCase(prop);
-        let convertedValue = convertContainsColons(weaponStats[prop]);
-        console.log('converted value', convertedValue);
-        convertedValue = convertCamelCase(convertedValue);
+        const value = weaponStats[prop];
 
-        // Exclude key-value pair if the value is null
-        if (convertedValue !== null) {
-          convertedStats[convertedProp] = convertedValue;
+        if (typeof value === 'object' && value !== null) {
+          processNestedObject(prop, value);
+        } else {
+          processProperty(prop, value);
         }
       }
     }
-
     return convertedStats;
   };
+
 
 
   const convertedStats = convertWeaponStats(weaponStats);
