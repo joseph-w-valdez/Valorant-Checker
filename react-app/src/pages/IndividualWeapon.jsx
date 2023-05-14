@@ -4,7 +4,8 @@ import BackButton from '../components/BackButton';
 import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
 import DataTable from '../components/DataTable';
-import { convertCamelCase, convertContainsColons } from '../utilities/stringConversions';
+import { convertCamelCase, convertContainsColons, roundLongDecimals } from '../utilities/stringConversions';
+import { meleeStats } from '../data/meleeStats';
 
 const IndividualWeapon = () => {
   const location = useLocation();
@@ -12,16 +13,26 @@ const IndividualWeapon = () => {
   const weaponStats = weapon.weaponStats;
 
   const convertWeaponStats = (weaponStats) => {
+    /* If the weapon stats are null, return the melee stats */
+    if (!weaponStats) {
+      return meleeStats
+    }
     const convertedStats = {};
 
     const processProperty = (prop, value) => {
       const convertedProp = convertCamelCase(prop);
       let convertedValue = convertContainsColons(value);
-      console.log('converted value', convertedValue)
       convertedValue = convertCamelCase(convertedValue);
-
-      // Exclude key-value pair if the value is null
-      if (convertedValue !== null && !((convertedProp === "Burst Count" || convertedProp === "Shotgun Pellet Count") && convertedValue === 1)) {
+      convertedValue = roundLongDecimals(convertedValue)
+      // Exclude key-value pair if the value is null, NaN, or matches other exclusion rules
+      if (
+        convertedValue !== null &&
+        !isNaN(convertedValue) &&
+        !(
+          (convertedProp === "Burst Count" || convertedProp === "Shotgun Pellet Count") &&
+          convertedValue === 1
+        )
+      ) {
         convertedStats[convertedProp] = convertedValue;
       }
     };

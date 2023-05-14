@@ -20,7 +20,6 @@ export const convertCamelCase = (str) => {
   return str;
 };
 
-
 export const convertContainsColons = (str) => {
   // Check if the input is a string and contains '::'
   if (typeof str === 'string' && str.includes('::')) {
@@ -31,4 +30,22 @@ export const convertContainsColons = (str) => {
   }
 
   return str;
+};
+
+export const roundLongDecimals = (value) => {
+  if (!isNaN(value)) {
+    const roundedValue = parseFloat(value);
+    if (roundedValue % 1 !== 0) {
+      const decimalString = roundedValue.toString();
+      const decimalSeparatorIndex = decimalString.indexOf('.') !== -1 ? decimalString.indexOf('.') : decimalString.indexOf(',');
+      if (decimalSeparatorIndex !== -1) {
+        const decimalPlaces = decimalString.substring(decimalSeparatorIndex + 1).length;
+        if (decimalPlaces > 2) {
+          return roundedValue.toFixed(2);
+        }
+      }
+    }
+    return roundedValue.toString();
+  }
+  return value;
 };
