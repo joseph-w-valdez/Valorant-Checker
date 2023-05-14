@@ -7,8 +7,6 @@ import FullAgentPortrait from '../components/FullAgentPortrait';
 const IndividualAgent = () => {
   const location = useLocation();
   const agent = location.state.data;
-  console.log('agent data', agent);
-
 
   return (
     <>

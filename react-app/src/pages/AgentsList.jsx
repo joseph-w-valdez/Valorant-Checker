@@ -8,6 +8,7 @@ import { agentRoles } from '../data/agent-roles';
 const AgentsList = () => {
   const [agents, setAgents] = useState([]);
   const [selectedOption, setSelectedOption] = useState('No Filter');
+  const [agentRoleDescription, setAgentRoleDescription] = useState('');
 
   useEffect(() => {
     const fetchAgents = async () => {
@@ -27,17 +28,23 @@ const AgentsList = () => {
     fetchAgents();
   }, [selectedOption]); // Run the effect whenever selectedOption changes
 
+  useEffect(() => {
+    const agentRole = agentRoles.find(role => role.category === selectedOption);
+    if (agentRole) {
+      setAgentRoleDescription(agentRole.description);
+    } else {
+      setAgentRoleDescription('');
+    }
+  }, [selectedOption]);
+
   const handleOptionChange = (event) => {
-  // Get the selected option value from the clicked filter box
-  const option = event.target.value;
-  // Update the selected option state based on the previous state
-  setSelectedOption((prevState) =>
-    // If the selected option is the same as the previous state
-    prevState === option && option !== 'No Filter'
-      ? 'No Filter' // Reset the selected option to 'No Filter'
-      : option // Otherwise, update the selected option to the new value
-  );
-};
+    const option = event.target.value;
+    setSelectedOption((prevState) =>
+      prevState === option && option !== 'No Filter'
+        ? 'No Filter'
+        : option
+    );
+  };
 
   return (
     <>
@@ -45,7 +52,13 @@ const AgentsList = () => {
       <FlexBasisFull />
       <FilterTable selectedOption={selectedOption} handleOptionChange={handleOptionChange} filterData={agentRoles} />
       <FlexBasisFull />
-      <DataTable data={agents} selectedOption={selectedOption}  dataType='agents' />
+      {selectedOption && selectedOption !== 'No Filter' && (
+        <div className='mt-2'>
+          <p className=''>{agentRoleDescription}</p>
+        </div>
+      )}
+      <FlexBasisFull />
+      <DataTable data={agents} selectedOption={selectedOption} dataType='agents' />
     </>
   );
 };
