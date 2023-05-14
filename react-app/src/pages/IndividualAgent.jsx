@@ -15,8 +15,8 @@ const IndividualAgent = () => {
     <Header text={agent.displayName}/>
     <FlexBasisFull />
     <div className='flex flex-wrap justify-center mt-[-16px]'>
-        <div className='flex flex-wrap items-center justify-center cursor-pointer group'>
-          <h3 className='group-hover:text-blue-400'>{agent.role.displayName}</h3>
+        <div className='flex flex-wrap items-center justify-center cursor-pointer hover:scale-125'>
+          <h3 className=''>{agent.role.displayName}</h3>
           <div className='w-6 ml-2'>
             <img src={agent.role.displayIcon} alt={agent.role.displayName} className='object-contain w-full' />
           </div>
