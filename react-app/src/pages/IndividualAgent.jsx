@@ -30,7 +30,7 @@ const IndividualAgent = () => {
       <FlexBasisFull />
       <div className='mt-4 flex flex-wrap'>
         {agent.abilities?.map((ability, index) => (
-            <div key={index} className='w-1/2 flex flex-wrap justify-center'>
+            <div key={index} className='w-1/2 flex flex-wrap justify-center cursor-pointer'>
               <h4 className='w-full'>{ability.displayName}</h4>
               <img src={ability.displayIcon} alt={ability.displayName} className='object-contain w-28' />
             </div>
