@@ -1,7 +1,6 @@
 import React from 'react';
 
 const FullAgentPortrait = ({ agent }) => {
-  console.log('agent', agent)
 
   return (
     <div className='relative w-[700px] h-[700px] overflow-hidden'>
