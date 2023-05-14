@@ -5,9 +5,9 @@ import DataTable from '../components/DataTable';
 import FlexBasisFull from '../components/FlexBasisFull';
 import { agentRoles } from '../data/agent-roles';
 
-const AgentsList = () => {
+const AgentsList = ({ selectedOption, setSelectedOption }) => {
   const [agents, setAgents] = useState([]);
-  const [selectedOption, setSelectedOption] = useState('No Filter');
+
   const [agentRoleDescription, setAgentRoleDescription] = useState('');
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const AgentsList = () => {
     };
 
     fetchAgents();
-  }, [selectedOption]); // Run the effect whenever selectedOption changes
+  }, [selectedOption]);
 
   useEffect(() => {
     const agentRole = agentRoles.find(role => role.category === selectedOption);

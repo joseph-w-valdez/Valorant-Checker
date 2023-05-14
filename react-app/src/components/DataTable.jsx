@@ -17,7 +17,6 @@ const DataTable = ({ data, dataType }) => {
         // No specific link path defined for this dataType
         break;
     }
-
     navigate(linkPath, { state: { data: item } });
   };
 
