@@ -21,7 +21,7 @@ const IndividualWeapon = () => {
       convertedValue = convertCamelCase(convertedValue);
 
       // Exclude key-value pair if the value is null
-      if (convertedValue !== null) {
+      if (convertedValue !== null && !((convertedProp === "Burst Count" || convertedProp === "Shotgun Pellet Count") && convertedValue === 1)) {
         convertedStats[convertedProp] = convertedValue;
       }
     };
