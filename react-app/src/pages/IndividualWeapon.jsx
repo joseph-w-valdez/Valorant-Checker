@@ -19,6 +19,9 @@ const IndividualWeapon = () => {
   const weapon = location.state.data;
   const weaponStats = weapon.weaponStats;
   const weaponSkins = weapon.skins
+  console.log('weapon', weapon)
+  const weaponIconWidth = weapon.shopData.categoryText === 'Sidearms' ? 'w-[500px]' : 'w-[250px]';
+  console.log('weapon icon width',  weaponIconWidth)
 
   const convertWeaponStats = (weaponStats) => {
     /* If the weapon stats are null, return the melee stats */
@@ -88,7 +91,7 @@ const IndividualWeapon = () => {
           <Header text={weapon.displayName} />
         </div>
         <FlexBasisFull />
-        <div className='w-[500px]'>
+        <div className={weaponIconWidth}>
           <img src={weapon.displayIcon} alt={weapon.displayName} className='object-contain w-full' />
         </div>
         <FlexBasisFull />
