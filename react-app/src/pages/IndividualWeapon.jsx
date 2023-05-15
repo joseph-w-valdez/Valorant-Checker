@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Header from '../components/Header';
@@ -6,13 +6,20 @@ import FlexBasisFull from '../components/FlexBasisFull';
 import DataTable from '../components/DataTable';
 import { convertCamelCase, convertContainsColons, roundLongDecimals } from '../utilities/stringConversions';
 import { meleeStats } from '../data/meleeInfo';
+import { scrollToTop } from '../utilities/scrollToTop';
 
 const IndividualWeapon = () => {
   const location = useLocation();
   const navigate = useNavigate()
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
+
   const weapon = location.state.data;
   const weaponStats = weapon.weaponStats;
   const weaponSkins = weapon.skins
+
   const convertWeaponStats = (weaponStats) => {
     /* If the weapon stats are null, return the melee stats */
     if (!weaponStats) {
