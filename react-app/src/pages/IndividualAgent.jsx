@@ -4,11 +4,13 @@ import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
 import FullAgentPortrait from '../components/FullAgentPortrait';
 import BackButton from '../components/BackButton';
+import { normalizeAbilitySlot } from '../utilities/stringConversions';
 
 const IndividualAgent = ({ setSelectedOption }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const agent = location.state.data;
+  console.log('agent', agent);
 
   const handleRoleClick = (role) => {
     setSelectedOption(role.displayName);
@@ -20,8 +22,10 @@ const IndividualAgent = ({ setSelectedOption }) => {
       state: {
         data: {
           agent: agent,
-          ability: ability
-        }}})
+          ability: ability,
+        },
+      },
+    });
   };
 
   return (
@@ -64,12 +68,20 @@ const IndividualAgent = ({ setSelectedOption }) => {
                   className='w-1/2 flex flex-wrap justify-center cursor-pointer mb-6 hover:scale-125'
                   onClick={() => handleAbilityClick(ability)}
                 >
-                  <h4 className='w-full'>{ability.displayName}</h4>
-                  <img
-                    src={ability.displayIcon}
-                    alt={ability.displayName}
-                    className='object-contain w-28'
-                  />
+                  <h4 className='w-full'>{ability.displayName} ({normalizeAbilitySlot(ability.slot)})</h4>
+                  {ability.slot === 'Passive' ? (
+                    <img
+                      src={agent.displayIcon}
+                      alt={ability.displayName}
+                      className='object-contain w-28'
+                    />
+                  ) : (
+                    <img
+                      src={ability.displayIcon}
+                      alt={ability.displayName}
+                      className='object-contain w-28'
+                    />
+                  )}
                 </div>
               ))}
             </div>

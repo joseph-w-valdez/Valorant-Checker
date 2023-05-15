@@ -104,3 +104,21 @@ export const removeParentheses = (str) => {
 
   return str; // Opening and closing parentheses not found, return the original string
 }
+
+export const normalizeAbilitySlot = (str) => {
+  if (str === 'Grenade') {
+    return 'Signature';
+  }
+
+  // Use regular expression to separate the word and number
+  const regex = /^([a-zA-Z]+)(\d+)$/;
+  const match = str.match(regex);
+
+  if (match) {
+    const word = match[1];
+    const number = match[2];
+    return `${word} ${number}`;
+  }
+
+  return str;
+};
