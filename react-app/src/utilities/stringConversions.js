@@ -66,3 +66,41 @@ export const shortenLevelText = (inputString) => {
   }
   return '';
 };
+
+export const removeParentheses = (str) => {
+  if (str.trim() === '') {
+    return 'Base Skin'; // Empty string, return "Base Skin"
+  }
+
+  if (!str.includes('Level')) {
+    return str; // "Level" not found, return the original string
+  }
+
+  const startIndex = str.indexOf('(');
+  const endIndex = str.indexOf(')');
+
+  if (startIndex !== -1 && endIndex !== -1) {
+    // Extract the text between parentheses
+    const textInsideParentheses = str.substring(startIndex + 1, endIndex);
+
+    // Remove the word "Level" and trim any extra spaces
+    const modifiedString = textInsideParentheses.replace('Level', '').trim();
+
+    if (modifiedString.includes('Variant')) {
+      const variantIndex = modifiedString.indexOf('Variant');
+      const variantText = modifiedString.substring(variantIndex);
+      return variantText; // Return the modified string if it contains "Variant"
+    } else {
+      const words = modifiedString.split(' ');
+
+      if (words.length > 1) {
+        const hyphenatedString = words.slice(1).join(' ');
+        return `${words[0]} - ${hyphenatedString}`; // Join the words with a hyphen
+      } else {
+        return modifiedString; // Return the modified string as is
+      }
+    }
+  }
+
+  return str; // Opening and closing parentheses not found, return the original string
+}

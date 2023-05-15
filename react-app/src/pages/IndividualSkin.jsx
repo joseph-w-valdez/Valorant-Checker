@@ -4,7 +4,7 @@ import FlexBasisFull from '../components/FlexBasisFull'
 import Header from '../components/Header'
 import BackButton from '../components/BackButton'
 import Subheader from '../components/Subheader'
-import { convertCamelCase, shortenLevelText, convertContainsColons } from '../utilities/stringConversions'
+import { convertCamelCase, shortenLevelText, convertContainsColons, removeParentheses } from '../utilities/stringConversions'
 
 const IndividualSkin = () => {
   const location = useLocation()
@@ -14,6 +14,15 @@ const IndividualSkin = () => {
   console.log('variations', variations)
   const upgrades = skin.levels
   console.log('upgrades', upgrades)
+
+  const normalizeVariationName = (str) => {
+    console.log('before remove', str);
+    let normalizedDetails = shortenLevelText(str);
+    normalizedDetails = removeParentheses(normalizedDetails);
+    console.log('after remove', normalizedDetails);
+    return normalizedDetails;
+  }
+
 
   const normalizeUpgradeDetails = (str) => {
     let normalizedDetails = convertContainsColons(str);
@@ -33,7 +42,7 @@ const IndividualSkin = () => {
           <Subheader text={'Variations'} />
           {variations.map((variation, index) => (
             <div key={index} className='flex flex-wrap justify-center w-full mb-8'>
-              <div className='w-full mb-4'>{variation.displayName}</div>
+              <div className='w-full mb-4'>{normalizeVariationName(variation.displayName)}</div>
               <div className='w-1/2'>
                 {variation.fullRender && (
                   <img
