@@ -4,6 +4,7 @@ import FlexBasisFull from '../components/FlexBasisFull'
 import Header from '../components/Header'
 import BackButton from '../components/BackButton'
 import Subheader from '../components/Subheader'
+import { convertCamelCase, shortenLevelText, convertContainsColons } from '../utilities/stringConversions'
 
 const IndividualSkin = () => {
   const location = useLocation()
@@ -13,6 +14,12 @@ const IndividualSkin = () => {
   console.log('variations', variations)
   const upgrades = skin.levels
   console.log('upgrades', upgrades)
+
+  const normalizeUpgradeDetails = (str) => {
+    let normalizedDetails = convertContainsColons(str);
+    normalizedDetails = convertCamelCase(normalizedDetails)
+    return normalizedDetails
+  }
 
   return (
     <>
@@ -50,10 +57,10 @@ const IndividualSkin = () => {
                   className='flex flex-wrap justify-center mb-6'
                 >
                   <div className='w-full'>
-                    <p>{upgrade.displayName}</p>
+                    <p>{shortenLevelText(upgrade.displayName)}</p>
                   </div>
                   <div className="w-full mb-2">
-                    <p>{upgrade.levelItem}</p>
+                    <p>{normalizeUpgradeDetails(upgrade.levelItem)}</p>
                   </div>
                   {upgrade.streamedVideo && (
                     <div className='w-full flex justify-center'>
@@ -67,7 +74,7 @@ const IndividualSkin = () => {
               </>
             ))
           ) : (
-              <div className='mb-10'>There are no upgrades for this skin! 😲</div>
+              <div className='mb-10 text-2xl'>There are no upgrades for this skin! 😲</div>
           )}
         </div>
       </div>

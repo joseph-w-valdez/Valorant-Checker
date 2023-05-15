@@ -2,6 +2,9 @@ export const convertCamelCase = (str) => {
   if (str === 'ADS') {
     return 'ADS';
   }
+  if (str === 'VFX') {
+    return 'VFX'
+  }
   if (str === 'ROFIncrease') {
     return 'ROF Increase';
   }
@@ -48,4 +51,18 @@ export const roundLongDecimals = (value) => {
     return roundedValue.toString();
   }
   return value;
+};
+
+export const shortenLevelText = (inputString) => {
+  const levelIndex = inputString.indexOf('Level');
+  if (levelIndex !== -1) {
+    const textAfterLevel = inputString.slice(levelIndex + 6).trim();
+    const hyphenIndex = textAfterLevel.indexOf('-');
+    if (hyphenIndex !== -1) {
+      const newText = textAfterLevel.slice(hyphenIndex + 1).trim();
+      return `Level ${textAfterLevel.slice(0, hyphenIndex).trim()} (${newText})`;
+    }
+    return `Level ${textAfterLevel}`;
+  }
+  return '';
 };
