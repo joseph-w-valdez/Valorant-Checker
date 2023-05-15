@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { weaponSkinExceptions } from '../data/weaponSkinExceptions';
+import { meleeIcon } from '../data/meleeInfo';
 
 const DataTable = ({ data, dataType }) => {
   const navigate = useNavigate();
@@ -61,25 +62,33 @@ const DataTable = ({ data, dataType }) => {
                 </div>
               ) : (dataType === 'weapons' || dataType === 'weapon-skins') ? (
                 <div className="h-10">
-                    {!item.displayIcon || weaponSkinExceptions.includes(item.displayName) ? (
+                  {/* The Melee item in weapons-skins needs a specific meleeIcon address */}
+                  {item.displayName === 'Melee' ? (
                     <img
                       className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
-                        src={item.chromas[0]?.fullRender}
+                      src={meleeIcon}
                       alt={`${item.displayName} portrait`}
                     />
                   ) : (
-                    <img
-                      className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
-                      src={item.displayIcon}
-                      alt={`${item.displayName} portrait`}
-                    />
+                    (!item.displayIcon || weaponSkinExceptions.includes(item.displayName)) ? (
+                      <img
+                        className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
+                        src={item.chromas[0]?.fullRender}
+                        alt={`${item.displayName} portrait`}
+                      />
+                    ) : (
+                      <img
+                        className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
+                        src={item.displayIcon}
+                        alt={`${item.displayName} portrait`}
+                      />
+                    )
                   )}
                 </div>
               ) : null}
+
             </div>
           ))}
-
-
         {/* If the dataType is individual-weapon */}
         {dataType === 'individual-weapon' && data?.length > 0 && (
           <>
@@ -102,9 +111,6 @@ const DataTable = ({ data, dataType }) => {
               ))}
           </>
         )}
-
-
-
       </div>
     </>
   );

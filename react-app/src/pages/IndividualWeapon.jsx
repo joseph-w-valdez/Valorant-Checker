@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
 import DataTable from '../components/DataTable';
 import { convertCamelCase, convertContainsColons, roundLongDecimals } from '../utilities/stringConversions';
-import { meleeStats } from '../data/meleeStats';
+import { meleeStats } from '../data/meleeInfo';
 
 const IndividualWeapon = () => {
   const location = useLocation();
