@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { weaponSkinExceptions } from '../data/weaponSkinExceptions';
 
 const DataTable = ({ data, dataType }) => {
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ const DataTable = ({ data, dataType }) => {
         {/* Data rows */}
         {/* If the dataType is agents or weapons */}
         {(dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins') && data
+        /* Filter out the Random and Standard skins */
           ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
           .map((item, index) => (
             <div
@@ -59,11 +61,19 @@ const DataTable = ({ data, dataType }) => {
                 </div>
               ) : (dataType === 'weapons' || dataType === 'weapon-skins') ? (
                 <div className="h-10">
-                  <img
-                    className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
-                    src={item.displayIcon}
-                    alt={`${item.displayName} portrait`}
-                  />
+                    {!item.displayIcon || weaponSkinExceptions.includes(item.displayName) ? (
+                    <img
+                      className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
+                        src={item.chromas[0]?.fullRender}
+                      alt={`${item.displayName} portrait`}
+                    />
+                  ) : (
+                    <img
+                      className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
+                      src={item.displayIcon}
+                      alt={`${item.displayName} portrait`}
+                    />
+                  )}
                 </div>
               ) : null}
             </div>

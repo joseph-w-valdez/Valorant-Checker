@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import FilterTable from '../components/FilterTable';
 import DataTable from '../components/DataTable';
 import FlexBasisFull from '../components/FlexBasisFull';
-import { agentRoles } from '../data/agent-roles';
+import { agentRoles } from '../data/agentRoles';
 
 const AgentsList = ({ selectedOption, setSelectedOption }) => {
   const [agents, setAgents] = useState([]);
