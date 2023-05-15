@@ -8,7 +8,8 @@ import { scrollToTop } from '../utilities/scrollToTop';
 
 const WeaponSkins = () => {
   const location = useLocation();
-  const weaponSkins = location.state.data;
+  const weapon = location.state.data
+  const weaponSkins = weapon.skins;
   const sortedWeaponSkins = alphabetizeArray(weaponSkins);
 
   useEffect(() => {

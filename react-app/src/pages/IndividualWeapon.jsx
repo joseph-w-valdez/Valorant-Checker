@@ -18,10 +18,7 @@ const IndividualWeapon = () => {
 
   const weapon = location.state.data;
   const weaponStats = weapon.weaponStats;
-  const weaponSkins = weapon.skins
-  console.log('weapon', weapon)
   const weaponIconWidth = weapon.shopData.categoryText === 'Sidearms' ? 'w-[200px]' : 'w-[500px]';
-  console.log('weapon icon width',  weaponIconWidth)
 
   const convertWeaponStats = (weaponStats) => {
     /* If the weapon stats are null, return the melee stats */
@@ -80,7 +77,7 @@ const IndividualWeapon = () => {
   const weaponStatsArray = Object.entries(convertedStats);
 
   const handleWeaponSkinsButton = () => {
-    navigate('/weapon-skins', { state: { data: weaponSkins} })
+    navigate('/weapon-skins', { state: { data: weapon} })
   }
 
   return (
