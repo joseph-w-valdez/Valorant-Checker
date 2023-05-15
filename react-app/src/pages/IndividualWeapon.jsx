@@ -86,7 +86,7 @@ const IndividualWeapon = () => {
         </div>
         <FlexBasisFull />
         <button
-          className='bg-[#ff5152] pt-1 pb-1 pl-2 pr-2 font-bold rounded mt-4'
+          className='bg-[#ff5152] pb-1 pl-2 pr-2 font-bold rounded mt-4'
           onClick={handleWeaponSkinsButton}
         >
           Weapon Skins
