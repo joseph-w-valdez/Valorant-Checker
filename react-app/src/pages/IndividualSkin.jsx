@@ -1,6 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 import Header from '../components/Header'
+import BackButton from '../components/BackButton'
 
 const IndividualSkin = () => {
   const location = useLocation()
@@ -11,7 +12,10 @@ const IndividualSkin = () => {
 
   return (
     <>
-      <Header text={skin.displayName} />
+      <div className='flex items-center'>
+        <BackButton />
+        <Header text={skin.displayName} />
+      </div>
     </>
   )
 }
