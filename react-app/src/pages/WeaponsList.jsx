@@ -12,7 +12,6 @@ const WeaponsList = () => {
   const [selectedOption, setSelectedOption] = useState('No Filter');
 
   useEffect(() => {
-    console.log('tried to scroll')
     scrollToTop();
   }, []);
 
