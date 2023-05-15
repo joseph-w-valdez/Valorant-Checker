@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
@@ -9,9 +9,10 @@ import { meleeStats } from '../data/meleeStats';
 
 const IndividualWeapon = () => {
   const location = useLocation();
+  const navigate = useNavigate()
   const weapon = location.state.data;
   const weaponStats = weapon.weaponStats;
-
+  const weaponSkins = weapon.skins
   const convertWeaponStats = (weaponStats) => {
     /* If the weapon stats are null, return the melee stats */
     if (!weaponStats) {
@@ -26,8 +27,7 @@ const IndividualWeapon = () => {
       convertedValue = roundLongDecimals(convertedValue)
       // Exclude key-value pair if the value is null, NaN, or matches other exclusion rules
       if (
-        convertedValue !== null &&
-        !isNaN(convertedValue) &&
+        convertedValue !== null && !isNaN(convertedValue) &&
         !(
           (convertedProp === "Burst Count" || convertedProp === "Shotgun Pellet Count") &&
           convertedValue === 1
@@ -66,10 +66,12 @@ const IndividualWeapon = () => {
     return convertedStats;
   };
 
-
-
   const convertedStats = convertWeaponStats(weaponStats);
   const weaponStatsArray = Object.entries(convertedStats);
+
+  const handleWeaponSkinsButton = () => {
+    navigate('/weapon-skins', { state: { data: weaponSkins} })
+  }
 
   return (
     <>
@@ -83,6 +85,12 @@ const IndividualWeapon = () => {
           <img src={weapon.displayIcon} alt={weapon.displayName} className='object-contain w-full' />
         </div>
         <FlexBasisFull />
+        <button
+          className='bg-[#ff5152] pt-1 pb-1 pl-2 pr-2 font-bold rounded mt-4'
+          onClick={handleWeaponSkinsButton}
+        >
+          Weapon Skins
+        </button>
       </div>
       <DataTable data={weaponStatsArray} dataType={'individual-weapon'} />
     </>

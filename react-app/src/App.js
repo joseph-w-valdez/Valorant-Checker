@@ -8,6 +8,7 @@ import WeaponsList from './pages/WeaponsList';
 import IndividualAgent from './pages/IndividualAgent';
 import IndividualAbility from './pages/IndividualAbility';
 import IndividualWeapon from './pages/IndividualWeapon';
+import WeaponSkins from './pages/WeaponSkins';
 
 function App() {
   const [selectedOption, setSelectedOption] = useState('No Filter');
@@ -26,6 +27,7 @@ function App() {
           <Route path="/individual-agent" element={<IndividualAgent setSelectedOption={setSelectedOption} />} />
           <Route path="/individual-weapon" element={<IndividualWeapon />} />
           <Route path='/individual-ability' element={<IndividualAbility />} />
+          <Route path='/weapon-skins' element={<WeaponSkins />} />
         </Routes>
       </div>
     </div>

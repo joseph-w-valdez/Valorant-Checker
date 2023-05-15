@@ -56,7 +56,6 @@ const AgentsList = ({ selectedOption, setSelectedOption }) => {
           <p className=''>{agentRoleDescription}</p>
         </div>
       )}
-      <FlexBasisFull />
       <DataTable data={agents} selectedOption={selectedOption} dataType='agents' />
     </>
   );

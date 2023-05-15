@@ -20,6 +20,8 @@ const DataTable = ({ data, dataType }) => {
     navigate(linkPath, { state: { data: item } });
   };
 
+  console.log('data', data)
+
   return (
     <>
       <div className='table w-full flex mt-8'>
@@ -30,8 +32,8 @@ const DataTable = ({ data, dataType }) => {
           </p>
         </div>
         {/* Data rows */}
-        {/* If the data is an array, map through it */}
-        {(dataType === 'agents' || dataType === 'weapons') && data?.map((item, index) => (
+        {/* If the dataType is agents or weapons */}
+        {(dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins') && data?.map((item, index) => (
           <div
             key={index}
             className={`data-table-row h-14 cursor-pointer flex justify-between items-center ${
@@ -53,7 +55,7 @@ const DataTable = ({ data, dataType }) => {
                   alt={`${item.displayName} portrait`}
                 />
               </div>
-            ) : dataType === 'weapons' ? (
+            ) : (dataType === 'weapons' || dataType === 'weapon-skins') ? (
               <div className="h-10">
                 <img
                   className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
@@ -64,36 +66,29 @@ const DataTable = ({ data, dataType }) => {
             ) : null}
           </div>
         ))}
-        {/* If the data is an array that is not empty */}
+        {/* If the dataType is individual-weapon */}
         {dataType === 'individual-weapon' && data?.length > 0 && (
           <>
-            {dataType === 'individual-weapon' && data?.length > 0 && (
-              <>
-                {data.map((item, index) => (
-                  <div
-                    key={index}
-                    className={`data-table-row h-14 flex justify-between items-center ${index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
-                      }`}
-                  >
-                    {/* Render the content based on the properties of each item */}
-                    {Object.entries(item).map(([key, value]) => (
-                      <p
-                        key={key}
-                        className={`select-none flex-start ml-12 lg:ml-24 flex-end mr-12 sm:mr-24 lg:mr-48
-                        ${index % 2 === 0 ? 'text-black' : 'text-white'
-                          }`}
-                      >
-                        {`${value}`}
-                      </p>
-                    ))}
-                  </div>
-                ))}
-              </>
-            )}
-
+            {data
+              .filter((item) => !Object.entries(item).some(([key, value]) => value.includes('Standard')))
+              .map((item, index) => (
+                <div
+                  key={index}
+                  className={`data-table-row h-14 flex justify-between items-center ${index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'} `}
+                >
+                  {/* Render the content based on the properties of each item */}
+                  {Object.entries(item).map(([key, value]) => (
+                    <p
+                      key={key}
+                      className={`select-none flex-start ml-12 lg:ml-24 flex-end mr-12 sm:mr-24 lg:mr-48 ${index % 2 === 0 ? 'text-black' : 'text-white'}`}
+                    >
+                      {`${value}`}
+                    </p>
+                  ))}
+                </div>
+              ))}
           </>
         )}
-
 
 
       </div>
