@@ -33,44 +33,47 @@ const DataTable = ({ data, dataType }) => {
         </div>
         {/* Data rows */}
         {/* If the dataType is agents or weapons */}
-        {(dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins') && data?.map((item, index) => (
-          <div
-            key={index}
-            className={`data-table-row h-14 cursor-pointer flex justify-between items-center ${
-              index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
-            } hover:bg-[#f5f5f5] group`}
-            onClick={() => handleRowClick(item)}
-          >
-            <p className={`select-none flex-start ml-12 lg:ml-24 ${
-              index % 2 === 0 ? 'text-black' : 'text-white'
-            } group-hover:text-blue-600 group-hover:font-bold`}>
-              {item.displayName}
-            </p>
-            {/* Render the icons based on the dataType */}
-            {dataType === 'agents' ? (
-              <div className="h-14">
-                <img
-                  className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
-                  src={item.killfeedPortrait}
-                  alt={`${item.displayName} portrait`}
-                />
-              </div>
-            ) : (dataType === 'weapons' || dataType === 'weapon-skins') ? (
-              <div className="h-10">
-                <img
-                  className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
-                  src={item.displayIcon}
-                  alt={`${item.displayName} portrait`}
-                />
-              </div>
-            ) : null}
-          </div>
-        ))}
+        {(dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins') && data
+          ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
+          .map((item, index) => (
+            <div
+              key={index}
+              className={`data-table-row h-14 cursor-pointer flex justify-between items-center ${index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
+                } hover:bg-[#f5f5f5] group`}
+              onClick={() => handleRowClick(item)}
+            >
+              <p
+                className={`select-none flex-start ml-12 lg:ml-24 ${index % 2 === 0 ? 'text-black' : 'text-white'
+                  } group-hover:text-blue-600 group-hover:font-bold`}
+              >
+                {item.displayName}
+              </p>
+              {/* Render the icons based on the dataType */}
+              {dataType === 'agents' ? (
+                <div className="h-14">
+                  <img
+                    className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
+                    src={item.killfeedPortrait}
+                    alt={`${item.displayName} portrait`}
+                  />
+                </div>
+              ) : (dataType === 'weapons' || dataType === 'weapon-skins') ? (
+                <div className="h-10">
+                  <img
+                    className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
+                    src={item.displayIcon}
+                    alt={`${item.displayName} portrait`}
+                  />
+                </div>
+              ) : null}
+            </div>
+          ))}
+
+
         {/* If the dataType is individual-weapon */}
         {dataType === 'individual-weapon' && data?.length > 0 && (
           <>
             {data
-              .filter((item) => !Object.entries(item).some(([key, value]) => value.includes('Standard')))
               .map((item, index) => (
                 <div
                   key={index}
@@ -89,6 +92,7 @@ const DataTable = ({ data, dataType }) => {
               ))}
           </>
         )}
+
 
 
       </div>
