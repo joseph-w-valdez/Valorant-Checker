@@ -15,14 +15,15 @@ const DataTable = ({ data, dataType }) => {
       case 'weapons':
         linkPath = '/individual-weapon';
         break;
+      case 'weapon-skins':
+        linkPath = '/individual-skin';
+        break;
       default:
         // No specific link path defined for this dataType
         break;
     }
     navigate(linkPath, { state: { data: item } });
   };
-
-  console.log('data', data)
 
   return (
     <>
@@ -86,7 +87,6 @@ const DataTable = ({ data, dataType }) => {
                   )}
                 </div>
               ) : null}
-
             </div>
           ))}
         {/* If the dataType is individual-weapon */}
