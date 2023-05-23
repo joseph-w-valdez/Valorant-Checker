@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Navbar } from './components/Navbar';
 import { Route, Routes } from 'react-router-dom';
@@ -10,9 +10,23 @@ import IndividualAbility from './pages/IndividualAbility';
 import IndividualWeapon from './pages/IndividualWeapon';
 import WeaponSkins from './pages/WeaponSkins';
 import IndividualSkin from './pages/IndividualSkin';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   const [selectedOption, setSelectedOption] = useState('No Filter');
+  const [showButton, setShowButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolledAtTop = window.scrollY === 0;
+      setShowButton(!isScrolledAtTop);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <div className="App flex flex-wrap justify-center">
@@ -32,6 +46,7 @@ function App() {
           <Route path='/individual-skin' element={<IndividualSkin />} />
         </Routes>
       </div>
+      {showButton && <ScrollToTop />}
     </div>
   );
 }
