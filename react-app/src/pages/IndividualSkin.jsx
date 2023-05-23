@@ -37,12 +37,12 @@ const IndividualSkin = () => {
       </div>
       <FlexBasisFull />
       <div className='flex flex-wrap justify-center w-full'>
-        <div className='w-1/2'>
+        <div className='w-full sm:w-1/2'>
           <Subheader text={'Variations'} />
           {variations.map((variation, index) => (
             <div key={index} className='flex flex-wrap justify-center w-full mb-8'>
               <div className='w-full mb-4'>{normalizeVariationName(variation.displayName)}</div>
-              <div className='w-1/2'>
+              <div className='w-full sm:w-1/2'>
                 {variation.fullRender && (
                   <img
                     src={variation.fullRender}
@@ -54,7 +54,7 @@ const IndividualSkin = () => {
             </div>
           ))}
         </div>
-        <div className='w-1/2'>
+        <div className='w-full sm:w-1/2'>
           <Subheader text={'Upgrades'} />
           <FlexBasisFull />
           {upgrades.length > 1 ? (

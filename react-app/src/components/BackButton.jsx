@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FiArrowLeft } from 'react-icons/fi';
 
 const BackButton = () => {
   const navigate = useNavigate();
@@ -10,10 +11,10 @@ const BackButton = () => {
 
   return (
     <button
-      className="w-[40px] h-[40px] relative top-[4px] hover:scale-125 transition-transform duration-100"
+      className="p-2 m-4 bg-[#ff5152] text-white rounded-full hover:scale-125 transition-transform duration-100"
       onClick={handleClick}
     >
-      <img src="../assets/images/back-arrow.webp" alt="back button" className="object-contain" />
+      <FiArrowLeft className="text-white text-2xl" />
     </button>
   );
 };

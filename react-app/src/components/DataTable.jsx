@@ -42,7 +42,7 @@ const DataTable = ({ data, dataType }) => {
           .map((item, index) => (
             <div
               key={index}
-              className={`data-table-row h-14 cursor-pointer flex justify-between items-center ${index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
+              className={`data-table-row h-14 cursor-pointer flex justify-between items-center text-start ${index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
                 } hover:bg-[#f5f5f5] group`}
               onClick={() => handleRowClick(item)}
             >
@@ -96,7 +96,7 @@ const DataTable = ({ data, dataType }) => {
               .map((item, index) => (
                 <div
                   key={index}
-                  className={`data-table-row h-14 flex justify-between items-center ${index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'} `}
+                  className={`data-table-row h-14 flex justify-between items-center text-start ${index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'} `}
                 >
                   {/* Render the content based on the properties of each item */}
                   {Object.entries(item).map(([key, value]) => (

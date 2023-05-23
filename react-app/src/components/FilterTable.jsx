@@ -38,7 +38,7 @@ const FilterTable = ({ selectedOption, handleOptionChange, filterData }) => {
 
   return (
     <div>
-      <form className='filter-table w-80 flex flex-wrap'>
+      <form className='filter-table w-72 sm:w-80 flex flex-wrap'>
         <div className='w-1/2'>
           <h4 className='select-none font-bold text-sm sm:text-base'>Filter by Role</h4>
         </div>

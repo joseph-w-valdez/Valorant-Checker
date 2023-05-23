@@ -88,7 +88,7 @@ const IndividualWeapon = () => {
           <Header text={weapon.displayName} />
         </div>
         <FlexBasisFull />
-        <div className={weaponIconWidth}>
+        <div className={`${weaponIconWidth} max-w-[95vw]`}>
           <img src={weapon.displayIcon} alt={weapon.displayName} className='object-contain w-full' />
         </div>
         <FlexBasisFull />
