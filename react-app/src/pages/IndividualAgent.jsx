@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
 import FullAgentPortrait from '../components/FullAgentPortrait';
 import BackButton from '../components/BackButton';
 import { normalizeAbilitySlot } from '../utilities/stringConversions';
+import { scrollToTop } from '../utilities/scrollToTop';
 
 const IndividualAgent = ({ setSelectedOption }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const agent = location.state.data;
-  console.log('agent', agent);
+
+  useEffect(() => {
+    scrollToTop();
+  }, [location]);
 
   const handleRoleClick = (role) => {
     setSelectedOption(role.displayName);

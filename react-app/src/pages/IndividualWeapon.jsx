@@ -14,7 +14,7 @@ const IndividualWeapon = () => {
 
   useEffect(() => {
     scrollToTop();
-  }, []);
+  }, [location]);
 
   const weapon = location.state.data;
   const weaponStats = weapon.weaponStats;

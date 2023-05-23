@@ -14,7 +14,7 @@ const WeaponSkins = () => {
 
   useEffect(() => {
     scrollToTop();
-  }, []);
+  }, [location]);
 
   return (
     <>

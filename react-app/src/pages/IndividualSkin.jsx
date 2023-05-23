@@ -15,7 +15,7 @@ const IndividualSkin = () => {
 
   useEffect(() => {
     scrollToTop();
-  }, []);
+  }, [location]);
 
   const normalizeVariationName = (str) => {
     let normalizedDetails = shortenLevelText(str);
