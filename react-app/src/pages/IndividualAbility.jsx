@@ -18,18 +18,17 @@ const IndividualAbility = () => {
   }, [location]);
 
   return (
-    <div className='flex flex-wrap justify-center'>
-      <div className='flex justify-center items-center'>
+    <div className='flex flex-wrap justify-center items-center'>
+      <div className='flex flex-wrap justify-center items-center'>
         <BackButton />
         <Header text={`${ability.displayName} (${normalizeAbilitySlot(ability.slot)})`} />
-
       </div>
       <FlexBasisFull />
-      <div className='flex items-center'>
-        <div className='w-1/2'>
+      <div className='flex flex-wrap justify-center items-center position relative top-[50px]'>
+        <div className='w-full sm:w-1/3'>
           <FullAgentPortrait agent={agent} />
         </div>
-        <div className='w-1/2 flex flex-wrap justify-center'>
+        <div className='w-full max-w-[80vw] sm:w-1/2 flex flex-wrap justify-center items-center'>
           <div className='w-[200px] h-fit mb-10'>
             <img src={iconSrc} alt={ability.description} className='object-contain w-full' />
           </div>
