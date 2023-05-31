@@ -24,7 +24,7 @@ const IndividualAbility = () => {
         <BackButton />
         <Header text={ability.displayName} />
         <FlexBasisFull />
-        <h3 className='mt-[-16px]'>{normalizeAbilitySlot(ability.slot)}</h3>
+        <h3 className='mt-[-16px] text-lg sm:3xl'>{normalizeAbilitySlot(ability.slot)}</h3>
       </div>
       <FlexBasisFull />
       <div className='flex flex-wrap justify-center items-center position relative top-[50px]'>

@@ -45,7 +45,7 @@ const IndividualAgent = ({ setSelectedOption }) => {
           className='flex flex-wrap items-center justify-center cursor-pointer hover:bg-white hover:bg-opacity-25 p-1'
           onClick={() => handleRoleClick(agent.role)}
         >
-          <h3>{agent.role.displayName}</h3>
+          <h3 className='text-lg sm:3xl'>{agent.role.displayName}</h3>
           <div className='w-6 ml-2'>
             <img
               src={agent.role.displayIcon}
