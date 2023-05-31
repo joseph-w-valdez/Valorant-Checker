@@ -11,6 +11,7 @@ const IndividualAgent = ({ setSelectedOption }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const agent = location.state.data;
+  console.log('agent', agent)
 
   useEffect(() => {
     scrollToTop();

@@ -25,7 +25,7 @@ const IndividualAbility = () => {
       </div>
       <FlexBasisFull />
       <div className='flex flex-wrap justify-center items-center position relative top-[50px]'>
-        <div className='w-full sm:w-1/3'>
+        <div className='w-full max-w-[80vw] sm:w-1/3 flex flex-wrap justify-center'>
           <FullAgentPortrait agent={agent} />
         </div>
         <div className='w-full max-w-[80vw] sm:w-1/2 flex flex-wrap justify-center items-center'>
