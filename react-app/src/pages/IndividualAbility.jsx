@@ -10,6 +10,7 @@ import { scrollToTop } from '../utilities/scrollToTop';
 const IndividualAbility = () => {
   const location = useLocation();
   const ability = location.state.data.ability;
+  console.log(ability)
   const agent = location.state.data.agent;
   const iconSrc = ability.slot === 'Passive' ? agent.displayIcon : ability.displayIcon;
 
@@ -21,7 +22,9 @@ const IndividualAbility = () => {
     <div className='flex flex-wrap justify-center items-center'>
       <div className='flex flex-wrap justify-center items-center'>
         <BackButton />
-        <Header text={`${ability.displayName} (${normalizeAbilitySlot(ability.slot)})`} />
+        <Header text={ability.displayName} />
+        <FlexBasisFull />
+        <h3>{normalizeAbilitySlot(ability.slot)}</h3>
       </div>
       <FlexBasisFull />
       <div className='flex flex-wrap justify-center items-center position relative top-[50px]'>
