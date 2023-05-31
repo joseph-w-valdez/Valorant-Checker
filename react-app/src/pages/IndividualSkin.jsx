@@ -82,7 +82,7 @@ const IndividualSkin = () => {
               </>
             ))
           ) : (
-              <div className='mb-10 text-2xl'>There are no upgrades for this skin! 😲</div>
+              <div className='mb-10 text-lg sm:text-2xl'>There are no upgrades for this skin! 😲</div>
           )}
         </div>
       </div>

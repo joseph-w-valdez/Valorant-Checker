@@ -24,7 +24,7 @@ const IndividualAbility = () => {
         <BackButton />
         <Header text={ability.displayName} />
         <FlexBasisFull />
-        <h3 className='mt-[-16px] text-lg sm:3xl'>{normalizeAbilitySlot(ability.slot)}</h3>
+        <h3 className='mt-[-16px] text-lg sm:3xl'>({normalizeAbilitySlot(ability.slot)})</h3>
       </div>
       <FlexBasisFull />
       <div className='flex flex-wrap justify-center items-center position relative top-[50px]'>
@@ -32,7 +32,7 @@ const IndividualAbility = () => {
           <FullAgentPortrait agent={agent} />
         </div>
         <div className='w-full max-w-[80vw] sm:w-1/2 flex flex-wrap justify-center items-center'>
-          <div className='w-[200px] h-fit mb-10'>
+          <div className='w-[150px] sm:w-[200px] h-fit mb-10'>
             <img src={iconSrc} alt={ability.description} className='object-contain w-full' />
           </div>
           <div className='w-full flex justify-center'>
