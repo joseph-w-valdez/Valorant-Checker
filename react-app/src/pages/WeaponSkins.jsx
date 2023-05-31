@@ -19,7 +19,7 @@ const WeaponSkins = () => {
   return (
     <>
       <div>
-        <div className='flex items-center'>
+        <div className='flex items-center justify-center'>
           <BackButton />
           <Header text={'Weapon Skins'} />
         </div>

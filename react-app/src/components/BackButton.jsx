@@ -11,7 +11,7 @@ const BackButton = () => {
 
   return (
     <button
-      className="p-2 m-4 bg-[#ff5152] text-white rounded-full hover:scale-125 transition-transform duration-100"
+      className="fixed left-0 z-2 p-2 m-4 bg-[#ff5152] text-white rounded-full hover:scale-125 transition-transform duration-100"
       onClick={handleClick}
     >
       <FiArrowLeft className="text-white text-2xl" />
