@@ -10,7 +10,6 @@ import { scrollToTop } from '../utilities/scrollToTop';
 const IndividualAbility = () => {
   const location = useLocation();
   const ability = location.state.data.ability;
-  console.log(ability)
   const agent = location.state.data.agent;
   const iconSrc = ability.slot === 'Passive' ? agent.displayIcon : ability.displayIcon;
 

@@ -56,7 +56,7 @@ const IndividualSkin = () => {
             upgrades.map((upgrade, index) => (
               <>
                 <div
-                  key={upgrade.id}
+                  key={index}
                   className='flex flex-wrap justify-center mb-6'
                 >
                   <div className='w-full'>
