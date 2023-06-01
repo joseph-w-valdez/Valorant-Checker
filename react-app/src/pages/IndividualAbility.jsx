@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import FlexBasisFull from '../components/FlexBasisFull';
 import Header from '../components/Header';
 import FullAgentPortrait from '../components/FullAgentPortrait';
 import BackButton from '../components/BackButton';
 import { normalizeAbilitySlot } from '../utilities/stringConversions';
-import { scrollToTop } from '../utilities/scrollToTop';
 
 const IndividualAbility = () => {
   const location = useLocation();
