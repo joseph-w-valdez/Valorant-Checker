@@ -27,6 +27,7 @@ const IndividualAgent = ({ setSelectedOption }) => {
     });
   };
 
+
   return (
     <>
       <div className='flex items-center'>
