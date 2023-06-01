@@ -4,17 +4,10 @@ import FilterTable from '../components/FilterTable';
 import DataTable from '../components/DataTable';
 import FlexBasisFull from '../components/FlexBasisFull';
 import { weaponCategories } from '../data/weapon-categories';
-import { scrollToTop } from '../utilities/scrollToTop';
-import { useLocation } from 'react-router-dom';
 
 const WeaponsList = () => {
   const [weapons, setWeapons] = useState([]);
   const [selectedOption, setSelectedOption] = useState('No Filter');
-  const location = useLocation()
-
-  useEffect(() => {
-    scrollToTop();
-  }, [location]);
 
   useEffect(() => {
     const fetchAgents = async () => {

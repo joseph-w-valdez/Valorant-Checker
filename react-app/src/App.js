@@ -30,21 +30,23 @@ function App() {
 
   return (
     <div className="App flex flex-wrap justify-center">
-      <Navbar setSelectedOption={setSelectedOption}/>
+      <Navbar setSelectedOption={setSelectedOption} />
       <div className="routes-container mt-12 w-full flex flex-wrap justify-center">
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route
-            path="/agents-list"
-            element={<AgentsList selectedOption={selectedOption} setSelectedOption={setSelectedOption} />}
-          />
-          <Route path="/weapons-list" element={<WeaponsList />} />
-          <Route path="/individual-agent" element={<IndividualAgent setSelectedOption={setSelectedOption} />} />
-          <Route path="/individual-weapon" element={<IndividualWeapon />} />
-          <Route path='/individual-ability' element={<IndividualAbility />} />
-          <Route path='/weapon-skins' element={<WeaponSkins />} />
-          <Route path='/individual-skin' element={<IndividualSkin />} />
-        </Routes>
+        <ScrollToTop>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route
+              path="/agents-list"
+              element={<AgentsList selectedOption={selectedOption} setSelectedOption={setSelectedOption} />}
+            />
+            <Route path="/weapons-list" element={<WeaponsList />} />
+            <Route path="/individual-agent" element={<IndividualAgent setSelectedOption={setSelectedOption} />} />
+            <Route path="/individual-weapon" element={<IndividualWeapon />} />
+            <Route path='/individual-ability' element={<IndividualAbility />} />
+            <Route path='/weapon-skins' element={<WeaponSkins />} />
+            <Route path='/individual-skin' element={<IndividualSkin />} />
+          </Routes>
+        </ScrollToTop>
       </div>
       {showButton && <ScrollToTop />}
     </div>

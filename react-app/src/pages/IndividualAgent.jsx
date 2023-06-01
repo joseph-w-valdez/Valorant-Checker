@@ -12,11 +12,6 @@ const IndividualAgent = ({ setSelectedOption }) => {
   const navigate = useNavigate();
   const agent = location.state.data;
 
-  useEffect(() => {
-    scrollToTop();
-    console.log('tried to scroll to top')
-  }, [location]);
-
   const handleRoleClick = (role) => {
     setSelectedOption(role.displayName);
     navigate('/agents-list');

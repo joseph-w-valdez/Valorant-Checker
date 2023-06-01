@@ -1,21 +1,16 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useLocation } from 'react-router-dom'
 import FlexBasisFull from '../components/FlexBasisFull'
 import Header from '../components/Header'
 import BackButton from '../components/BackButton'
 import Subheader from '../components/Subheader'
 import { convertCamelCase, shortenLevelText, convertContainsColons, removeParentheses } from '../utilities/stringConversions'
-import { scrollToTop } from '../utilities/scrollToTop'
 
 const IndividualSkin = () => {
   const location = useLocation()
   const skin = location.state.data
   const variations = skin.chromas
   const upgrades = skin.levels
-
-  useEffect(() => {
-    scrollToTop();
-  }, [location]);
 
   const normalizeVariationName = (str) => {
     let normalizedDetails = shortenLevelText(str);

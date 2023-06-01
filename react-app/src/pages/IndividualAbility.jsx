@@ -14,10 +14,6 @@ const IndividualAbility = () => {
   const agent = location.state.data.agent;
   const iconSrc = ability.slot === 'Passive' ? agent.displayIcon : ability.displayIcon;
 
-  useEffect(() => {
-    scrollToTop();
-  }, [location]);
-
   return (
     <div className='flex flex-wrap justify-center items-center'>
       <div className='flex flex-wrap justify-center items-center'>
