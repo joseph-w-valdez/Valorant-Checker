@@ -11,6 +11,7 @@ import IndividualWeapon from './pages/IndividualWeapon';
 import WeaponSkins from './pages/WeaponSkins';
 import IndividualSkin from './pages/IndividualSkin';
 import ScrollToTop from './components/ScrollToTop';
+import ScrollToTopButton from './components/ScrollToTopButton';
 
 function App() {
   const [selectedOption, setSelectedOption] = useState('No Filter');
@@ -48,7 +49,7 @@ function App() {
           </Routes>
         </ScrollToTop>
       </div>
-      {showButton && <ScrollToTop />}
+      {showButton && <ScrollToTopButton />}
     </div>
   );
 }
