@@ -7,7 +7,7 @@ export const Navbar = ({ setSelectedOption }) => {
   };
 
   return (
-    <div className="navbar p-2 w-full flex items-baseline fixed z-10">
+    <div className="bg-gradient-to-r from-[#ff5152] via-red-950 via-black to-black p-2 w-full flex items-baseline fixed z-10">
       <Link to="/">
         <h3 className="select-none p-1 font-bold cursor-pointer sm:ml-24">Valochecker</h3>
       </Link>

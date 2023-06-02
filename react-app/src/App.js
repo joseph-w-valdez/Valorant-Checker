@@ -12,6 +12,7 @@ import WeaponSkins from './pages/WeaponSkins';
 import IndividualSkin from './pages/IndividualSkin';
 import ScrollToTop from './components/ScrollToTop';
 import ScrollToTopButton from './components/ScrollToTopButton';
+import Footer from './components/Footer';
 
 function App() {
   const [selectedOption, setSelectedOption] = useState('No Filter');
@@ -30,7 +31,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App flex flex-wrap justify-center">
+    <div className="App flex flex-wrap justify-center min-h-[85vh] relative">
       <Navbar setSelectedOption={setSelectedOption} />
       <div className="routes-container mt-12 w-full flex flex-wrap justify-center">
         <ScrollToTop>
@@ -49,6 +50,7 @@ function App() {
           </Routes>
         </ScrollToTop>
       </div>
+      <Footer />
       {showButton && <ScrollToTopButton />}
     </div>
   );
