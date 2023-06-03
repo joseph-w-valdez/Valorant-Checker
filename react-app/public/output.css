@@ -735,8 +735,8 @@ video {
   min-height: 100px;
 }
 
-.min-h-\[85vh\] {
-  min-height: 85vh;
+.min-h-screen {
+  min-height: 100vh;
 }
 
 .w-1\/2 {
@@ -803,6 +803,10 @@ video {
   max-width: 95vw;
 }
 
+.flex-grow {
+  flex-grow: 1;
+}
+
 .basis-full {
   flex-basis: 100%;
 }
@@ -831,6 +835,10 @@ video {
 .appearance-none {
   -webkit-appearance: none;
           appearance: none;
+}
+
+.flex-col {
+  flex-direction: column;
 }
 
 .flex-wrap {
@@ -969,10 +977,6 @@ video {
 
 .pb-5 {
   padding-bottom: 1.25rem;
-}
-
-.pl-5 {
-  padding-left: 1.25rem;
 }
 
 .text-left {
