@@ -6,34 +6,16 @@ import FlexBasisFull from '../components/FlexBasisFull';
 import { agentRoles } from '../data/agentRoles';
 import { scrollToTop } from '../utilities/scrollToTop';
 import { useLocation } from 'react-router-dom';
-
+import FetchAgents from '../utilities/FetchAgents';
 
 const AgentsList = ({ selectedOption, setSelectedOption }) => {
   const [agents, setAgents] = useState([]);
   const [agentRoleDescription, setAgentRoleDescription] = useState('');
-  const location = useLocation()
+  const location = useLocation();
 
   useEffect(() => {
     scrollToTop();
   }, [location]);
-
-  useEffect(() => {
-    const fetchAgents = async () => {
-      try {
-        const response = await fetch('https://valorant-api.com/v1/agents');
-        const data = await response.json();
-        let filteredAgents = data.data.filter(agent => agent.isPlayableCharacter);
-        if (selectedOption !== 'No Filter') {
-          filteredAgents = filteredAgents.filter(agent => agent.role.displayName === selectedOption);
-        }
-        setAgents(filteredAgents);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchAgents();
-  }, [selectedOption]);
 
   useEffect(() => {
     const agentRole = agentRoles.find(role => role.category === selectedOption);
@@ -64,6 +46,7 @@ const AgentsList = ({ selectedOption, setSelectedOption }) => {
           <p className=''>{agentRoleDescription}</p>
         </div>
       )}
+      <FetchAgents selectedOption={selectedOption} setAgents={setAgents} />
       <DataTable data={agents} selectedOption={selectedOption} dataType='agents' />
     </>
   );
