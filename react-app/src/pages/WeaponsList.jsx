@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import FilterTable from '../components/FilterTable';
 import DataTable from '../components/DataTable';
 import FlexBasisFull from '../components/FlexBasisFull';
-import { weaponCategories } from '../data/weapon-categories';
+import { weaponCategories } from '../data/weaponCategories';
 import { fetchWeapons } from '../utilities/FetchWeapons';
 
 const WeaponsList = ({ selectedOption, setSelectedOption }) => {
