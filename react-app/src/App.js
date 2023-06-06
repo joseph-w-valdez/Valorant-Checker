@@ -42,7 +42,10 @@ function App() {
                 path="/agents-list"
                 element={<AgentsList selectedOption={selectedOption} setSelectedOption={setSelectedOption} />}
               />
-              <Route path="/weapons-list" element={<WeaponsList />} />
+              <Route
+                path="/weapons-list"
+                element={<WeaponsList selectedOption={selectedOption} setSelectedOption={setSelectedOption} />}
+              />
               <Route path="/agent/:agentName" element={<IndividualAgent setSelectedOption={setSelectedOption} />} />
               <Route path="/weapon/:weaponName" element={<IndividualWeapon />} />
               <Route path='/agent/:agentName/:abilityName' element={<IndividualAbility />} />

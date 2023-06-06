@@ -4,18 +4,16 @@ import FilterTable from '../components/FilterTable';
 import DataTable from '../components/DataTable';
 import FlexBasisFull from '../components/FlexBasisFull';
 import { agentRoles } from '../data/agentRoles';
-import { scrollToTop } from '../utilities/scrollToTop';
-import { useLocation } from 'react-router-dom';
 import { fetchAgents } from '../utilities/FetchAgents';
 
 const AgentsList = ({ selectedOption, setSelectedOption }) => {
   const [agents, setAgents] = useState([]);
   const [agentRoleDescription, setAgentRoleDescription] = useState('');
-  const location = useLocation();
 
   useEffect(() => {
-    scrollToTop();
-  }, [location]);
+    setSelectedOption('No Filter');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const agentRole = agentRoles.find(role => role.category === selectedOption);
