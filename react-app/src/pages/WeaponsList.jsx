@@ -10,7 +10,7 @@ const WeaponsList = () => {
   const [selectedOption, setSelectedOption] = useState('No Filter');
 
   useEffect(() => {
-    const fetchAgents = async () => {
+    const fetchWeapons = async () => {
       try {
         const response = await fetch('https://valorant-api.com/v1/weapons');
         const data = await response.json();
@@ -27,7 +27,7 @@ const WeaponsList = () => {
       }
     };
 
-    fetchAgents();
+    fetchWeapons();
   }, [selectedOption]); // Run the effect whenever selectedOption changes
 
   const handleOptionChange = (event) => {

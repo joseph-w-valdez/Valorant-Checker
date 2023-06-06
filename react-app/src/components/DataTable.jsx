@@ -14,7 +14,8 @@ const DataTable = ({ data, dataType }) => {
         linkPath = `/agent/${agentName}`;
         break;
       case 'weapons':
-        linkPath = '/individual-weapon';
+        const weaponName = item.displayName
+        linkPath = `/weapon/${weaponName}`;
         break;
       case 'weapon-skins':
         linkPath = '/individual-skin';
