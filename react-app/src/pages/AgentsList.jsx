@@ -6,7 +6,7 @@ import FlexBasisFull from '../components/FlexBasisFull';
 import { agentRoles } from '../data/agentRoles';
 import { scrollToTop } from '../utilities/scrollToTop';
 import { useLocation } from 'react-router-dom';
-import FetchAgents from '../utilities/FetchAgents';
+import { fetchAgents } from '../utilities/FetchAgents';
 
 const AgentsList = ({ selectedOption, setSelectedOption }) => {
   const [agents, setAgents] = useState([]);
@@ -24,6 +24,17 @@ const AgentsList = ({ selectedOption, setSelectedOption }) => {
     } else {
       setAgentRoleDescription('');
     }
+  }, [selectedOption]);
+
+  useEffect(() => {
+    fetchAgents(selectedOption)
+      .then(filteredAgents => {
+        setAgents(filteredAgents);
+      })
+      .catch(error => {
+        console.error(error);
+        setAgents([]);
+      });
   }, [selectedOption]);
 
   const handleOptionChange = (event) => {
@@ -46,7 +57,6 @@ const AgentsList = ({ selectedOption, setSelectedOption }) => {
           <p className=''>{agentRoleDescription}</p>
         </div>
       )}
-      <FetchAgents selectedOption={selectedOption} setAgents={setAgents} />
       <DataTable data={agents} selectedOption={selectedOption} dataType='agents' />
     </>
   );

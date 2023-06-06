@@ -1,28 +1,17 @@
-import { useEffect } from 'react';
-
-const FetchAgents = ({ selectedOption, setAgents }) => {
-  useEffect(() => {
-    const fetchAgents = async () => {
-      try {
-        const response = await fetch('https://valorant-api.com/v1/agents');
-        const data = await response.json();
-        let filteredAgents = data.data.filter(agent => agent.isPlayableCharacter);
-        if (selectedOption !== 'No Filter') {
-          filteredAgents = filteredAgents.filter(agent => agent.role.displayName === selectedOption);
-        }
-        setAgents(filteredAgents);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchAgents();
-  }, [selectedOption, setAgents]);
-
-  return null; // Render nothing or a loading spinner if desired
+export const fetchAgents = async (selectedOption) => {
+  try {
+    const response = await fetch('https://valorant-api.com/v1/agents');
+    const data = await response.json();
+    let filteredAgents = data.data.filter(agent => agent.isPlayableCharacter);
+    if (selectedOption !== 'No Filter') {
+      filteredAgents = filteredAgents.filter(agent => agent.role.displayName === selectedOption);
+    }
+    return filteredAgents;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 };
-
-export default FetchAgents;
 
 export const fetchAgent = async (agentName) => {
   try {
