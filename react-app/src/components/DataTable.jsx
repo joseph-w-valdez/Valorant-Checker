@@ -2,8 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { weaponSkinExceptions } from '../data/weaponSkinExceptions';
 import { meleeIcon } from '../data/meleeInfo';
+import { onlyLettersAndNumbers } from '../utilities/stringConversions';
 
-const DataTable = ({ data, dataType }) => {
+const DataTable = ({ data, dataType, weapon }) => {
   const navigate = useNavigate();
 
   const handleRowClick = (item) => {
@@ -14,17 +15,18 @@ const DataTable = ({ data, dataType }) => {
         linkPath = `/agent/${agentName}`;
         break;
       case 'weapons':
-        const weaponName = item.displayName
+        const weaponName = item.displayName;
         linkPath = `/weapon/${weaponName}`;
         break;
       case 'weapon-skins':
-        linkPath = '/individual-skin';
+        const skinName = onlyLettersAndNumbers(item.displayName);
+        linkPath = `/weapon/${weapon}/skins/${skinName}`;
         break;
       default:
         // No specific link path defined for this dataType
         break;
     }
-    navigate(linkPath, { state: { data: item } });
+    navigate(linkPath);
   };
 
   return (

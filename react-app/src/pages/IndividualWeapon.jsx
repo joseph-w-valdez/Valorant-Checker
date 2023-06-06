@@ -12,6 +12,7 @@ const IndividualWeapon = () => {
   const navigate = useNavigate();
   const { weaponName } = useParams();
   const [weaponData, setWeaponData] = useState(null);
+  console.log('weapon name', weaponName)
 
   useEffect(() => {
     const getWeaponData = async () => {
@@ -95,8 +96,6 @@ const IndividualWeapon = () => {
     navigate(`/weapon/${weaponName}/skins`);
   };
 
-  console.log('weaponData', weaponData)
-
   return (
     <>
       <div className=''>
@@ -117,6 +116,7 @@ const IndividualWeapon = () => {
         </button>
       </div>
       <DataTable data={weaponStatsArray} dataType={'individual-weapon'} />
+
     </>
   );
 };

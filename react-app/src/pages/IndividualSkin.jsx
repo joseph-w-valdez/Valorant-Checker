@@ -1,34 +1,54 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom'
-import FlexBasisFull from '../components/FlexBasisFull'
-import Header from '../components/Header'
-import BackButton from '../components/BackButton'
-import Subheader from '../components/Subheader'
-import { convertCamelCase, shortenLevelText, convertContainsColons, removeParentheses } from '../utilities/stringConversions'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import FlexBasisFull from '../components/FlexBasisFull';
+import Header from '../components/Header';
+import BackButton from '../components/BackButton';
+import Subheader from '../components/Subheader';
+import { convertCamelCase, shortenLevelText, convertContainsColons, removeParentheses, onlyLettersAndNumbers } from '../utilities/stringConversions';
+import { fetchWeapon } from '../utilities/FetchWeapons';
 
 const IndividualSkin = () => {
-  const location = useLocation()
-  const skin = location.state.data
-  const variations = skin.chromas
-  const upgrades = skin.levels
+  const { weaponName, skinName } = useParams();
+  const [weaponData, setWeaponData] = useState(null);
+
+  useEffect(() => {
+    const getWeaponData = async () => {
+      const weaponData = await fetchWeapon(weaponName);
+      setWeaponData(weaponData);
+    };
+
+    getWeaponData();
+  }, [weaponName]);
+
+  if (!weaponData) {
+    return null; // Render a loading state or an error message
+  }
+
+  const skinData = weaponData.skins.find(
+    (skin) =>
+      onlyLettersAndNumbers(skin.displayName.toLowerCase()) === onlyLettersAndNumbers(skinName.toLowerCase())
+  );
+
+  const variations = skinData.chromas;
+  const upgrades = skinData.levels;
 
   const normalizeVariationName = (str) => {
     let normalizedDetails = shortenLevelText(str);
     normalizedDetails = removeParentheses(normalizedDetails);
     return normalizedDetails;
-  }
+  };
 
   const normalizeUpgradeDetails = (str) => {
     let normalizedDetails = convertContainsColons(str);
-    normalizedDetails = convertCamelCase(normalizedDetails)
-    return normalizedDetails
-  }
+    normalizedDetails = convertCamelCase(normalizedDetails);
+    return normalizedDetails;
+  };
 
   return (
     <>
       <div className='flex items-center'>
         <BackButton />
-        <Header text={skin.displayName} />
+        <Header text={skinData.displayName} />
       </div>
       <FlexBasisFull />
       <div className='flex flex-wrap justify-center w-full'>
@@ -52,37 +72,34 @@ const IndividualSkin = () => {
         <div className='w-full sm:w-1/2'>
           <Subheader text={'Upgrades'} />
           <FlexBasisFull />
-          {upgrades.length > 1 ? (
+          {upgrades.length > 0 ? (
             upgrades.map((upgrade, index) => (
-              <>
-                <div
-                  key={index}
-                  className='flex flex-wrap justify-center mb-6'
-                >
+              <React.Fragment key={index}>
+                <div className='flex flex-wrap justify-center mb-6'>
                   <div className='w-full'>
                     <p>{shortenLevelText(upgrade.displayName)}</p>
                   </div>
-                  <div className="w-full mb-2">
+                  <div className='w-full mb-2'>
                     <p>{normalizeUpgradeDetails(upgrade.levelItem)}</p>
                   </div>
                   {upgrade.streamedVideo && (
                     <div className='w-full flex justify-center'>
-                      <video controls style={{width: '500px'}}>
+                      <video controls style={{ width: '500px' }}>
                         <source src={upgrade.streamedVideo} type='video/mp4' />
                       </video>
                     </div>
                   )}
                 </div>
                 <FlexBasisFull />
-              </>
+              </React.Fragment>
             ))
           ) : (
-              <div className='mb-10 text-lg sm:text-2xl'>There are no upgrades for this skin! 😲</div>
+            <div className='mb-10 text-lg sm:text-2xl'>There are no upgrades for this skin! 😲</div>
           )}
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default IndividualSkin
+export default IndividualSkin;

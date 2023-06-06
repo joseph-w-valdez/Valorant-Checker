@@ -40,7 +40,7 @@ const WeaponSkins = () => {
         </div>
         <p>Click on a skin to view details, variations, and showcase clips!</p>
       </div>
-      <DataTable data={sortedWeaponSkins} dataType={'weapon-skins'} />
+      <DataTable data={sortedWeaponSkins} dataType={'weapon-skins'} weapon={weaponName} />
     </>
   );
 };
