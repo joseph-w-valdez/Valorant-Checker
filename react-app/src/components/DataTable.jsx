@@ -11,7 +11,7 @@ const DataTable = ({ data, dataType }) => {
     switch (dataType) {
       case 'agents':
         const agentName = item.displayName === 'KAY/O' ? 'Kayo' : item.displayName.replace('/', '');
-        linkPath = `/individual-agent/${agentName}`;
+        linkPath = `/agent/${agentName}`;
         break;
       case 'weapons':
         linkPath = '/individual-weapon';

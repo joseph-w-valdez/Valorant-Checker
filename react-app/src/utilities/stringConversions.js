@@ -122,3 +122,8 @@ export const normalizeAbilitySlot = (str) => {
 
   return str;
 };
+
+// Remove non-letter and non-number characters in a string
+export const onlyLettersAndNumbers = (input) => {
+  return input.replace(/[^a-zA-Z0-9]/g, '');
+};

@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
 import FullAgentPortrait from '../components/FullAgentPortrait';
 import BackButton from '../components/BackButton';
-import { normalizeAbilitySlot } from '../utilities/stringConversions';
+import { normalizeAbilitySlot, onlyLettersAndNumbers } from '../utilities/stringConversions';
 import { fetchAgent } from '../utilities/FetchAgents';
 
 const IndividualAgent = ({ setSelectedOption }) => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const agent = location.state?.data;
   const { agentName } = useParams();
   const [agentData, setAgentData] = useState(null);
 
@@ -20,14 +18,8 @@ const IndividualAgent = ({ setSelectedOption }) => {
   };
 
   const handleAbilityClick = (ability) => {
-    navigate('/individual-ability', {
-      state: {
-        data: {
-          agent: agent,
-          ability: ability,
-        },
-      },
-    });
+    const abilityName = onlyLettersAndNumbers(ability.displayName);
+    navigate(`/agent/${agentName}/${abilityName}`);
   };
 
   useEffect(() => {
