@@ -92,8 +92,10 @@ const IndividualWeapon = () => {
   const weaponStatsArray = Object.entries(convertedStats);
 
   const handleWeaponSkinsButton = () => {
-    navigate('/weapon-skins', { state: { data: weaponData } });
+    navigate(`/weapon/${weaponName}/skins`);
   };
+
+  console.log('weaponData', weaponData)
 
   return (
     <>
