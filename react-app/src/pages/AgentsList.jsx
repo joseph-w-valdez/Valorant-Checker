@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Header from '../components/Header';
 import FilterTable from '../components/FilterTable';
 import DataTable from '../components/DataTable';
 import FlexBasisFull from '../components/FlexBasisFull';
 import { agentRoles } from '../data/agentRoles';
 import { fetchAgents } from '../utilities/FetchAgents';
+import { LoadingContext } from '../contexts/LoadingContext';
 
-const AgentsList = ({ selectedOption, setSelectedOption }) => {
+const AgentsList = () => {
+  const { setIsLoading } = useContext(LoadingContext);
   const [agents, setAgents] = useState([]);
+  const [selectedOption, setSelectedOption] = useState('No Filter');
   const [agentRoleDescription, setAgentRoleDescription] = useState('');
 
   useEffect(() => {
     setSelectedOption('No Filter');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    const agentRole = agentRoles.find(role => role.category === selectedOption);
+    const agentRole = agentRoles.find((role) => role.category === selectedOption);
     if (agentRole) {
       setAgentRoleDescription(agentRole.description);
     } else {
@@ -25,15 +27,21 @@ const AgentsList = ({ selectedOption, setSelectedOption }) => {
   }, [selectedOption]);
 
   useEffect(() => {
-    fetchAgents(selectedOption)
-      .then(filteredAgents => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const filteredAgents = await fetchAgents(selectedOption);
         setAgents(filteredAgents);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error(error);
         setAgents([]);
-      });
-  }, [selectedOption]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [selectedOption, setIsLoading]);
 
   const handleOptionChange = (event) => {
     const option = event.target.value;
@@ -48,7 +56,11 @@ const AgentsList = ({ selectedOption, setSelectedOption }) => {
     <>
       <Header text={'Agents'} />
       <FlexBasisFull />
-      <FilterTable selectedOption={selectedOption} handleOptionChange={handleOptionChange} filterData={agentRoles} />
+      <FilterTable
+        selectedOption={selectedOption}
+        handleOptionChange={handleOptionChange}
+        filterData={agentRoles}
+      />
       <FlexBasisFull />
       {selectedOption && selectedOption !== 'No Filter' && (
         <div className='mt-2'>

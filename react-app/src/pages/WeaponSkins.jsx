@@ -1,31 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Header from '../components/Header';
 import DataTable from '../components/DataTable';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
 import { fetchWeapon } from '../utilities/FetchWeapons';
+import { LoadingContext } from '../contexts/LoadingContext';
 
 const WeaponSkins = () => {
   const { weaponName } = useParams();
+  const { setIsLoading } = useContext(LoadingContext);
   const [weaponData, setWeaponData] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getWeaponData = async () => {
+      setIsLoading(true);
       try {
         const weaponData = await fetchWeapon(weaponName);
         setWeaponData(weaponData);
       } catch (error) {
         console.error(error);
-        setWeaponData(null);
+        setError(error.message);
       }
+      setIsLoading(false);
     };
 
     getWeaponData();
-  }, [weaponName]);
+  }, [weaponName, setIsLoading]);
+
+  if (error) {
+    return <div>Error: {error}</div>; // Render an error message
+  }
 
   if (!weaponData) {
-    return null; // Render a loading state or an error message
+    return null; // Render a loading state
   }
 
   const weaponSkins = weaponData.skins;

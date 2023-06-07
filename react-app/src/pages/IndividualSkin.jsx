@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import FlexBasisFull from '../components/FlexBasisFull';
 import Header from '../components/Header';
@@ -6,22 +6,36 @@ import BackButton from '../components/BackButton';
 import Subheader from '../components/Subheader';
 import { convertCamelCase, shortenLevelText, convertContainsColons, removeParentheses, onlyLettersAndNumbers } from '../utilities/stringConversions';
 import { fetchWeapon } from '../utilities/FetchWeapons';
+import { LoadingContext } from '../contexts/LoadingContext';
 
 const IndividualSkin = () => {
   const { weaponName, skinName } = useParams();
+  const { setIsLoading } = useContext(LoadingContext);
   const [weaponData, setWeaponData] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getWeaponData = async () => {
-      const weaponData = await fetchWeapon(weaponName);
-      setWeaponData(weaponData);
+      setIsLoading(true);
+      try {
+        const weaponData = await fetchWeapon(weaponName);
+        setWeaponData(weaponData);
+      } catch (error) {
+        console.error(error);
+        setError(error.message);
+      }
+      setIsLoading(false);
     };
 
     getWeaponData();
-  }, [weaponName]);
+  }, [weaponName, setIsLoading]);
+
+  if (error) {
+    return <div>Error: {error}</div>; // Render an error message
+  }
 
   if (!weaponData) {
-    return null; // Render a loading state or an error message
+    return null // Render a loading state
   }
 
   const skinData = weaponData.skins.find(
@@ -31,7 +45,6 @@ const IndividualSkin = () => {
 
   const variations = skinData.chromas;
   const upgrades = skinData.levels;
-  console.log('upgrades', upgrades)
 
   const normalizeVariationName = (str) => {
     let normalizedDetails = shortenLevelText(str);
@@ -101,6 +114,6 @@ const IndividualSkin = () => {
       </div>
     </>
   );
-}
+};
 
 export default IndividualSkin;

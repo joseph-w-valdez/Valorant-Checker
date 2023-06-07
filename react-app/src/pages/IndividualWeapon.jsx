@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Header from '../components/Header';
@@ -7,35 +7,44 @@ import DataTable from '../components/DataTable';
 import { convertCamelCase, convertContainsColons, roundLongDecimals } from '../utilities/stringConversions';
 import { meleeStats } from '../data/meleeInfo';
 import { fetchWeapon } from '../utilities/FetchWeapons';
+import { LoadingContext } from '../contexts/LoadingContext';
 
 const IndividualWeapon = () => {
   const navigate = useNavigate();
   const { weaponName } = useParams();
+  const { setIsLoading } = useContext(LoadingContext);
   const [weaponData, setWeaponData] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getWeaponData = async () => {
+      setIsLoading(true);
       try {
         const weaponData = await fetchWeapon(weaponName);
         setWeaponData(weaponData);
       } catch (error) {
         console.error(error);
-        setWeaponData(null);
+        setError(error.message);
       }
+      setIsLoading(false);
     };
 
     getWeaponData();
-  }, [weaponName]);
+  }, [weaponName, setIsLoading]);
+
+  if (error) {
+    return <div>Error: {error}</div>; // Render an error message
+  }
 
   if (!weaponData) {
-    return null; // Render a loading state or an error message
+    return null; // Render a loading state
   }
 
   const weaponStats = weaponData.weaponStats;
   const weaponIconWidth = weaponData.shopData?.categoryText === 'Sidearms' ? 'w-[200px]' : 'w-[500px]';
 
   const convertWeaponStats = (weaponStats) => {
-    /* If the weapon stats are null, return the melee stats */
+    // If the weapon stats are null, return the melee stats
     if (!weaponStats) {
       return meleeStats;
     }
@@ -115,7 +124,6 @@ const IndividualWeapon = () => {
         </button>
       </div>
       <DataTable data={weaponStatsArray} dataType={'individual-weapon'} />
-
     </>
   );
 };

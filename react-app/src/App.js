@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './App.css';
 import { Navbar } from './components/Navbar';
 import { Route, Routes } from 'react-router-dom';
@@ -12,11 +12,14 @@ import WeaponSkins from './pages/WeaponSkins';
 import IndividualSkin from './pages/IndividualSkin';
 import ScrollToTop from './components/ScrollToTop';
 import ScrollToTopButton from './components/ScrollToTopButton';
-import Footer from './components/Footer';
+import Footer from './components/Footer'
+import ReactLoading from 'react-loading'
+import { LoadingContext } from './contexts/LoadingContext';
 
 function App() {
   const [selectedOption, setSelectedOption] = useState('No Filter');
   const [showButton, setShowButton] = useState(false);
+  const { isLoading } = useContext(LoadingContext);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,33 +34,36 @@ function App() {
   }, []);
 
   return (
-    <div className="App flex flex-col min-h-screen">
-      <Navbar setSelectedOption={setSelectedOption} />
-      <main className="flex-grow">
-        <div className="content-container mt-12 flex flex-wrap justify-center">
-          <ScrollToTop>
-            <Routes>
-              <Route path="/" element={<Homepage />} />
-              <Route
-                path="/agents-list"
-                element={<AgentsList selectedOption={selectedOption} setSelectedOption={setSelectedOption} />}
-              />
-              <Route
-                path="/weapons-list"
-                element={<WeaponsList selectedOption={selectedOption} setSelectedOption={setSelectedOption} />}
-              />
-              <Route path="/agent/:agentName" element={<IndividualAgent setSelectedOption={setSelectedOption} />} />
-              <Route path="/weapon/:weaponName" element={<IndividualWeapon />} />
-              <Route path='/agent/:agentName/:abilityName' element={<IndividualAbility />} />
-              <Route path='/weapon/:weaponName/skins' element={<WeaponSkins />} />
-              <Route path='/weapon/:weaponName/skins/:skinName' element={<IndividualSkin />} />
-            </Routes>
-          </ScrollToTop>
-        </div>
-      </main>
-      <Footer />
-      {showButton && <ScrollToTopButton />}
-    </div>
+      <div className="App flex flex-col min-h-screen">
+        {isLoading && (<div className='fixed flex flex-wrap justify-center items-center z-[100] w-full h-full'>
+          <ReactLoading type="spin" color="#fff" />
+        </div>)}
+        <Navbar setSelectedOption={setSelectedOption} />
+        <main className="flex-grow">
+          <div className="content-container mt-12 flex flex-wrap justify-center">
+            <ScrollToTop>
+              <Routes>
+                <Route path="/" element={<Homepage />} />
+                <Route
+                  path="/agents-list"
+                  element={<AgentsList selectedOption={selectedOption} setSelectedOption={setSelectedOption} />}
+                />
+                <Route
+                  path="/weapons-list"
+                  element={<WeaponsList selectedOption={selectedOption} setSelectedOption={setSelectedOption} />}
+                />
+                <Route path="/agent/:agentName" element={<IndividualAgent setSelectedOption={setSelectedOption} />} />
+                <Route path="/weapon/:weaponName" element={<IndividualWeapon />} />
+                <Route path='/agent/:agentName/:abilityName' element={<IndividualAbility />} />
+                <Route path='/weapon/:weaponName/skins' element={<WeaponSkins />} />
+                <Route path='/weapon/:weaponName/skins/:skinName' element={<IndividualSkin />} />
+              </Routes>
+            </ScrollToTop>
+          </div>
+        </main>
+        <Footer />
+        {showButton && <ScrollToTopButton />}
+      </div>
   );
 }
 

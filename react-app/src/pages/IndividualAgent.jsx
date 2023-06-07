@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
@@ -6,10 +6,12 @@ import FullAgentPortrait from '../components/FullAgentPortrait';
 import BackButton from '../components/BackButton';
 import { normalizeAbilitySlot, onlyLettersAndNumbers } from '../utilities/stringConversions';
 import { fetchAgent } from '../utilities/FetchAgents';
+import { LoadingContext } from '../contexts/LoadingContext';
 
 const IndividualAgent = ({ setSelectedOption }) => {
   const navigate = useNavigate();
   const { agentName } = useParams();
+  const { setIsLoading } = useContext(LoadingContext);
   const [agentData, setAgentData] = useState(null);
 
   const handleRoleClick = (role) => {
@@ -24,12 +26,20 @@ const IndividualAgent = ({ setSelectedOption }) => {
 
   useEffect(() => {
     const getAgentData = async () => {
-      const agentData = await fetchAgent(agentName);
-      setAgentData(agentData);
+      try {
+        setIsLoading(true);
+        const agentData = await fetchAgent(agentName);
+        setAgentData(agentData);
+      } catch (error) {
+        console.error(error);
+        // Handle the error, show an error message, or redirect
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     getAgentData();
-  }, [agentName]);
+  }, [agentName, setIsLoading]);
 
   if (!agentData) {
     return null; // Render a loading state or an error message

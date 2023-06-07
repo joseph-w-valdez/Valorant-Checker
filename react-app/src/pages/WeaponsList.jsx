@@ -1,18 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Header from '../components/Header';
 import FilterTable from '../components/FilterTable';
 import DataTable from '../components/DataTable';
 import FlexBasisFull from '../components/FlexBasisFull';
 import { weaponCategories } from '../data/weaponCategories';
 import { fetchWeapons } from '../utilities/FetchWeapons';
+import { LoadingContext } from '../contexts/LoadingContext';
 
 const WeaponsList = ({ selectedOption, setSelectedOption }) => {
+  const { setIsLoading } = useContext(LoadingContext);
   const [weapons, setWeapons] = useState([]);
 
   useEffect(() => {
     setSelectedOption('No Filter');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const filteredWeapons = await fetchWeapons(selectedOption, setWeapons);
+        setWeapons(filteredWeapons);
+      } catch (error) {
+        console.error(error);
+        setWeapons([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [selectedOption, setIsLoading]);
+
 
   useEffect(() => {
     fetchWeapons(selectedOption, setWeapons);
