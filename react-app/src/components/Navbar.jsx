@@ -1,29 +1,25 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FiMenu } from 'react-icons/fi'; // Import the menu icon from Feather Icons
+import Menu from './Menu';
+import NavLinkItem from './NavLinkItem';
 
 export const Navbar = ({ setSelectedOption }) => {
-  const handleResetFilters = () => {
-    setSelectedOption('No Filter');
-  };
-
   const [isMediumScreen, setIsMediumScreen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
+  // check screen width to either show the nav links individually or the menu icon
   useEffect(() => {
     const handleResize = () => {
-      setIsMediumScreen(window.innerWidth >= 768); // Adjust the breakpoint value as needed
+      setIsMediumScreen(window.innerWidth >= 768);
     };
-
-    handleResize(); // Check the initial screen size
-
-    window.addEventListener('resize', handleResize); // Add event listener for window resize
-    document.addEventListener('mousedown', handleClickOutsideMenu); // Add event listener for clicks outside menu
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    document.addEventListener('mousedown', handleClickOutsideMenu);
 
     return () => {
-      window.removeEventListener('resize', handleResize); // Clean up event listener on unmount
-      document.removeEventListener('mousedown', handleClickOutsideMenu); // Clean up event listener on unmount
+      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('mousedown', handleClickOutsideMenu);
     };
   }, []);
 
@@ -33,17 +29,25 @@ export const Navbar = ({ setSelectedOption }) => {
     }
   };
 
+  // nav link data
   const navLinks = [
     { to: '/agents-list', text: 'Agents' },
     { to: '/weapons-list', text: 'Weapons' },
   ];
 
+  // toggle menu visibility when the menu icon is pressed
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // hide the menu when a nav link item is pressed
   const handleNavLinkClick = () => {
     setIsMenuOpen(false);
+  };
+
+  // reset the filter options when switching pages to ensure all items are shown
+  const handleResetFilters = () => {
+    setSelectedOption('No Filter');
   };
 
   return (
@@ -51,51 +55,49 @@ export const Navbar = ({ setSelectedOption }) => {
       <NavLink to="/">
         <h3 className="select-none p-1 font-bold cursor-pointer sm:ml-24">ValoChecker</h3>
       </NavLink>
+      {/* if the screen is small, show the menu icon */}
       {!isMediumScreen && (
         <div className="ml-auto" ref={menuRef}>
-          <button
-            className="p-2 text-white hover:text-blue-700 focus:outline-none"
-            onClick={handleMenuToggle}
-          >
-            <FiMenu size={20} /> {/* Replace the "Menu" text with the menu icon */}
-          </button>
-          {isMenuOpen && (
-            <div className="absolute right-0 bg-[#832222] py-2 px-4 mt-1 mr-2 rounded shadow-lg">
-              {navLinks.map((navLink, index) => (
-                <NavLink key={index} to={navLink.to}>
-                  <h4
-                    className="select-none p-1 cursor-pointer text-white font-bold"
-                    onClick={() => {
-                      handleNavLinkClick();
-                      if (index === 0) {
-                        handleResetFilters();
-                      }
-                    }}
-                  >
-                    {navLink.text}
-                  </h4>
-                </NavLink>
-              ))}
-            </div>
-          )}
+          <div className="relative">
+            <button
+              className="text-gray-500 w-10 h-10 relative focus:outline-none"
+              onClick={handleMenuToggle}
+            >
+              <span className="sr-only">Open main menu</span>
+              <span
+                aria-hidden="true"
+                className={`block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out ${isMenuOpen ? 'rotate-45' : 'translate-y-1.5'}`}
+              ></span>
+              <span
+                aria-hidden="true"
+                className={`block absolute h-0.5 w-5 bg-current transform transition duration-200 ease-in-out ${isMenuOpen ? 'opacity-0' : ''}`}
+              ></span>
+              <span
+                aria-hidden="true"
+                className={`block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out ${isMenuOpen ? '-rotate-45' : '-translate-y-1.5'}`}
+              ></span>
+            </button>
+            {isMenuOpen && (
+              <Menu
+                navLinks={navLinks}
+                handleNavLinkClick={handleNavLinkClick}
+                handleResetFilters={handleResetFilters}
+              />
+            )}
+          </div>
         </div>
       )}
+      {/* if the screen isn't small, show the nav link items individually */}
       {isMediumScreen && (
         <>
           {navLinks.map((navLink, index) => (
-            <NavLink key={index} to={navLink.to}>
-              <h4
-                className="select-none p-1 cursor-pointer active:font-bold"
-                onClick={() => {
-                  handleNavLinkClick();
-                  if (index === 0) {
-                    handleResetFilters();
-                  }
-                }}
-              >
-                {navLink.text}
-              </h4>
-            </NavLink>
+            <NavLinkItem
+              key={index}
+              to={navLink.to}
+              text={navLink.text}
+              handleNavLinkClick={handleNavLinkClick}
+              handleResetFilters={handleResetFilters}
+            />
           ))}
         </>
       )}
