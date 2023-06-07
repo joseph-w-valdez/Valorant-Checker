@@ -59,12 +59,12 @@ const IndividualAgent = ({ setSelectedOption }) => {
         <FlexBasisFull />
         <h4 className='mt-2'>{`Codename: ${agentData.developerName}`}</h4>
         <FlexBasisFull />
-        <div className='flex flex-wrap justify-center items-center'>
-          <div className='w-full max-w-[80vw] sm:w-1/3 flex flex-wrap justify-center'>
+        <div className='flex flex-wrap justify-center items-center relative top-[75px]'>
+          <div className='w-full max-w-[80vw] sm:w-1/3 flex flex-wrap justify-center mb-10'>
             <FullAgentPortrait agent={agentData} />
           </div>
           <div className='w-full max-w-[80vw] sm:w-1/2 flex flex-wrap justify-center'>
-            <div className='w-full max-w-[100vw] sm:w-1/2 text-left mb-4'>
+            <div className='w-full max-w-[100vw] text-left mb-4'>
               <p>{agentData.description}</p>
             </div>
             <FlexBasisFull />

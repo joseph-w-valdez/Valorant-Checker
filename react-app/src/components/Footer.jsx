@@ -3,7 +3,7 @@ import { socials } from '../data/socials';
 
 const Footer = () => {
   return (
-    <footer className="w-full">
+    <footer className="w-full relative top-[100px]">
       <div className="w-full bg-[#212121] h-[20px]"></div>
       <div className="w-full bg-gradient-to-r from-[#ff5152] via-red-950 via-black to-black min-h-[100px] bg-stone-950 text-[12px] text-left px-5 pb-4">
         <p className='pt-4 pb-1'>

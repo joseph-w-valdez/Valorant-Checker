@@ -12,7 +12,6 @@ const IndividualWeapon = () => {
   const navigate = useNavigate();
   const { weaponName } = useParams();
   const [weaponData, setWeaponData] = useState(null);
-  console.log('weapon name', weaponName)
 
   useEffect(() => {
     const getWeaponData = async () => {

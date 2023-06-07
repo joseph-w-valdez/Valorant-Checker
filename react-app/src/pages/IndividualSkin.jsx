@@ -31,6 +31,7 @@ const IndividualSkin = () => {
 
   const variations = skinData.chromas;
   const upgrades = skinData.levels;
+  console.log('upgrades', upgrades)
 
   const normalizeVariationName = (str) => {
     let normalizedDetails = shortenLevelText(str);
@@ -52,12 +53,12 @@ const IndividualSkin = () => {
       </div>
       <FlexBasisFull />
       <div className='flex flex-wrap justify-center w-full'>
-        <div className='w-full sm:w-1/2'>
+        <div className='w-full lg:w-1/2'>
           <Subheader text={'Variations'} />
           {variations.map((variation, index) => (
             <div key={index} className='flex flex-wrap justify-center w-full mb-8'>
               <div className='w-full mb-4'>{normalizeVariationName(variation.displayName)}</div>
-              <div className='w-full sm:w-1/2'>
+              <div className='w-full sm:w-1/2 lg-w-full mx-[50px] sm:mx-0'>
                 {variation.fullRender && (
                   <img
                     src={variation.fullRender}
@@ -72,7 +73,7 @@ const IndividualSkin = () => {
         <div className='w-full sm:w-1/2'>
           <Subheader text={'Upgrades'} />
           <FlexBasisFull />
-          {upgrades.length > 0 ? (
+          {upgrades.length > 1 ? (
             upgrades.map((upgrade, index) => (
               <React.Fragment key={index}>
                 <div className='flex flex-wrap justify-center mb-6'>
