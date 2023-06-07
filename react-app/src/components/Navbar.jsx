@@ -60,11 +60,11 @@ export const Navbar = ({ setSelectedOption }) => {
             <FiMenu size={20} /> {/* Replace the "Menu" text with the menu icon */}
           </button>
           {isMenuOpen && (
-            <div className="absolute right-0 bg-[#832222] p-2 mt-1 mr-2 rounded shadow-lg">
+            <div className="absolute right-0 bg-[#832222] py-2 px-4 mt-1 mr-2 rounded shadow-lg">
               {navLinks.map((navLink, index) => (
                 <NavLink key={index} to={navLink.to}>
                   <h4
-                    className="select-none p-1 cursor-pointer text-white hover:text-blue-700 font-bold"
+                    className="select-none p-1 cursor-pointer text-white font-bold"
                     onClick={() => {
                       handleNavLinkClick();
                       if (index === 0) {
@@ -85,7 +85,7 @@ export const Navbar = ({ setSelectedOption }) => {
           {navLinks.map((navLink, index) => (
             <NavLink key={index} to={navLink.to}>
               <h4
-                className="select-none p-1 cursor-pointer hover:text-blue-700 hover:font-bold"
+                className="select-none p-1 cursor-pointer active:font-bold"
                 onClick={() => {
                   handleNavLinkClick();
                   if (index === 0) {
