@@ -13,7 +13,6 @@ const WeaponsList = ({ selectedOption, setSelectedOption }) => {
 
   useEffect(() => {
     setSelectedOption('No Filter');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
