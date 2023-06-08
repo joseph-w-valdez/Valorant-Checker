@@ -1,28 +1,70 @@
-# Valorant Checker
+# Getting Started with Create React App
 
-A dynamic HTML, CSS, and JavaScript solo AJAX project using the [unofficial Valorant API](https://valorant-api.com/) to display various details about playable characters and weapons.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-* It has a user-friendly interface with a custom filter table that allows users to easily sort and filter the information they want to see.
-* The layout of the website is organized using HTML 5, allowing for seamless view swapping and a more cohesive user experience.
-* The website is also optimized for multiple viewports, ensuring that it works properly across different devices.
-* The use of CSS 3 enables the alternating style of each row, making it easier for users to differentiate between adjacent rows.
-* By using JavaScript ES5, the website can create new XMLHTTPRequests and fill the page with the corresponding data based on the user's selected filters.
+## Available Scripts
 
+In the project directory, you can run:
 
-### Check a list of all current playable Agents
-https://user-images.githubusercontent.com/117682160/211690197-4bf87a3a-40d8-45f9-ba96-ea69c08056fc.mp4
+### `npm start`
 
-### Filter the list of playable Agents according to role
-https://user-images.githubusercontent.com/117682160/211888503-b4404cd6-54c0-42bc-9f8d-759352182320.mp4
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-### View Details about individual Agents 
-https://user-images.githubusercontent.com/117682160/212205822-0a2f3bdd-4657-4623-9d37-7d4939d63a18.mp4
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-### View Details about individual Abilities 
-https://user-images.githubusercontent.com/117682160/212389481-dd1bdc5a-b6cf-4d11-b117-e3b558d0d3a8.mp4
+### `npm test`
 
-### View a list of all current usable weapons
-https://user-images.githubusercontent.com/117682160/212424373-243db2a3-5d95-4a70-a404-872e95624fa6.mp4
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### Filter the list of usable weapons by type
-https://user-images.githubusercontent.com/117682160/212424373-243db2a3-5d95-4a70-a404-872e95624fa6.mp4
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
