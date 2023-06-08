@@ -1,26 +1,43 @@
 {
-  "name": "ajax-project",
-  "version": "1.0.0",
+  "name": "react-app",
+  "version": "0.1.0",
   "private": true,
-  "description": "A dynamic HTML, CSS, and JavaScript solo project.",
-  "main": "index.js",
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "autoprefixer": "^10.4.14",
+    "postcss-cli": "^10.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
+    "react-loading": "^2.0.3",
+    "react-router-dom": "^6.11.1",
+    "react-scripts": "^5.0.1",
+    "tailwindcss": "^3.3.2",
+    "web-vitals": "^2.1.4"
+  },
   "scripts": {
-    "prepare": "husky install"
+    "start": "npm run tailwind && react-scripts start",
+    "build": "npm run tailwind && react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "tailwind": "npx tailwindcss -c ./tailwind.config.js -o ./public/output.css",
+    "tailwind:watch": "npm run tailwind -- -w"
   },
-  "keywords": [],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "devDependencies": {
-    "eslint": "^8.22.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-html": "^7.1.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
-    "markuplint": "^2.10.1",
-    "stylelint": "^14.10.0",
-    "stylelint-config-recommended": "^9.0.0",
-    "stylelint-config-standard": "^27.0.0"
-  },
-  "license": "ISC"
+    "gh-pages": "^5.0.0"
+  }
 }
