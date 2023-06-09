@@ -15,6 +15,7 @@ import ScrollToTopButton from './components/ScrollToTopButton';
 import Footer from './components/Footer'
 import ReactLoading from 'react-loading'
 import { LoadingContext } from './contexts/LoadingContext';
+import NotFound from './pages/NotFound';
 
 function App() {
   const [selectedOption, setSelectedOption] = useState('No Filter');
@@ -57,6 +58,7 @@ function App() {
                 <Route path='/agent/:agentName/:abilityName' element={<IndividualAbility />} />
                 <Route path='/weapon/:weaponName/skins' element={<WeaponSkins />} />
                 <Route path='/weapon/:weaponName/skins/:skinName' element={<IndividualSkin />} />
+                <Route path='*' element={<NotFound />} />
               </Routes>
             </ScrollToTop>
           </div>
