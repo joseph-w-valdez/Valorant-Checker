@@ -4,10 +4,9 @@ import BackButton from '../components/BackButton';
 import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
 import DataTable from '../components/DataTable';
-import { convertCamelCase, convertContainsColons, roundLongDecimals } from '../utilities/stringConversions';
-import { meleeStats } from '../data/meleeInfo';
 import { fetchWeapon } from '../utilities/FetchWeapons';
 import { LoadingContext } from '../contexts/LoadingContext';
+import { convertWeaponStats, filterProps, modifyAccuracyProps } from '../utilities/weaponUtils';
 
 const IndividualWeapon = () => {
   const navigate = useNavigate();
@@ -46,62 +45,10 @@ const IndividualWeapon = () => {
   const weaponStats = weaponData.weaponStats;
   const weaponIconWidth = weaponData.shopData?.categoryText === 'Sidearms' ? 'w-[200px]' : 'w-[500px]';
 
-  const convertWeaponStats = (weaponStats) => {
-    // If the weapon stats are null, return the melee stats
-    if (!weaponStats) {
-      return meleeStats;
-    }
-    const convertedStats = {};
-
-    const processProperty = (prop, value) => {
-      const convertedProp = convertCamelCase(prop);
-      let convertedValue = convertContainsColons(value);
-      convertedValue = convertCamelCase(convertedValue);
-      convertedValue = roundLongDecimals(convertedValue);
-      // Exclude key-value pair if the value is null, NaN, or matches other exclusion rules
-      if (
-        convertedValue !== null &&
-        !isNaN(convertedValue) &&
-        !(
-          (convertedProp === 'Burst Count' || convertedProp === 'Shotgun Pellet Count') &&
-          convertedValue === 1
-        )
-      ) {
-        convertedStats[convertedProp] = convertedValue;
-      }
-    };
-
-    const processNestedObject = (prefix, obj) => {
-      for (const prop in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, prop)) {
-          const nestedProp = prop;
-          const nestedValue = obj[prop];
-
-          if (typeof nestedValue === 'object' && nestedValue !== null) {
-            processNestedObject(nestedProp, nestedValue);
-          } else {
-            processProperty(nestedProp, nestedValue);
-          }
-        }
-      }
-    };
-
-    for (const prop in weaponStats) {
-      if (Object.prototype.hasOwnProperty.call(weaponStats, prop)) {
-        const value = weaponStats[prop];
-
-        if (typeof value === 'object' && value !== null) {
-          processNestedObject(prop, value);
-        } else {
-          processProperty(prop, value);
-        }
-      }
-    }
-    return convertedStats;
-  };
-
   const convertedStats = convertWeaponStats(weaponStats);
-  const weaponStatsArray = Object.entries(convertedStats);
+  const filteredStats = filterProps(convertedStats, weaponData);
+  const modifiedStats = modifyAccuracyProps(filteredStats); // Modify accuracy props
+  const weaponStatsArray = Object.entries(modifiedStats);
 
   const handleWeaponSkinsButton = () => {
     navigate(`/weapon/${weaponName}/skins`);

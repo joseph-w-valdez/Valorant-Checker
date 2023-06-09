@@ -8,111 +8,117 @@ const DataTable = ({ data, dataType, weapon }) => {
   const navigate = useNavigate();
 
   const handleRowClick = (item) => {
+    const getAgentLinkPath = (displayName) => {
+      const agentName = displayName === 'KAY/O' ? 'Kayo' : displayName.replace('/', '');
+      return `/agent/${agentName}`;
+    };
+
+    const getWeaponLinkPath = (displayName) => {
+      return `/weapon/${displayName}`;
+    };
+
+    const getWeaponSkinLinkPath = (displayName) => {
+      const skinName = onlyLettersAndNumbers(displayName);
+      return `/weapon/${weapon}/skins/${skinName}`;
+    };
+
     let linkPath = '';
+
     switch (dataType) {
       case 'agents':
-        const agentName = item.displayName === 'KAY/O' ? 'Kayo' : item.displayName.replace('/', '');
-        linkPath = `/agent/${agentName}`;
+        linkPath = getAgentLinkPath(item.displayName);
         break;
       case 'weapons':
-        const weaponName = item.displayName;
-        linkPath = `/weapon/${weaponName}`;
+        linkPath = getWeaponLinkPath(item.displayName);
         break;
       case 'weapon-skins':
-        const skinName = onlyLettersAndNumbers(item.displayName);
-        linkPath = `/weapon/${weapon}/skins/${skinName}`;
+        linkPath = getWeaponSkinLinkPath(item.displayName);
         break;
       default:
-        // No specific link path defined for this dataType
         break;
     }
+
     navigate(linkPath);
+  };
+
+  const renderIcon = (item) => {
+    const isMelee = item.displayName === 'Melee';
+    const hasDisplayIcon = item.displayIcon && !weaponSkinExceptions.includes(item.displayName);
+
+    return (
+      <div className="h-10">
+        {isMelee ? (
+          <img
+            className="select-none flex-end h-full object-contain sm:mr-8 lg:mr-32"
+            src={meleeIcon}
+            alt={`${item.displayName} portrait`}
+          />
+        ) : (
+          <img
+            className="select-none flex-end h-full object-contain sm:mr-8 lg:mr-32"
+            src={hasDisplayIcon ? item.displayIcon : item.chromas[0]?.fullRender}
+            alt={`${item.displayName} portrait`}
+          />
+        )}
+      </div>
+    );
   };
 
   return (
     <>
-      <div className='table w-full flex mt-8'>
+      <div className="table w-full flex mt-8">
         <div className="table-header h-12 flex justify-between items-center bg-neutral-700">
-          <p className='select-none flex-start ml-12 lg:ml-24'>Name</p>
-          <p className='select-none flex-end mr-12 sm:mr-24 lg:mr-48'>
+          <p className="select-none flex-start ml-12 lg:ml-24">Name</p>
+          <p className="select-none flex-end mr-12 sm:mr-24 lg:mr-48">
             {dataType === 'individual-weapon' ? 'Value' : 'Portrait'}
           </p>
         </div>
         {/* Data rows */}
-        {/* If the dataType is agents or weapons */}
-        {(dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins') && data
-        /* Filter out the Random and Standard skins */
-          ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
-          .map((item, index) => (
-            <div
-              key={index}
-              className={`data-table-row h-14 cursor-pointer flex justify-between items-center text-start ${index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
+        {(dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins') &&
+          data
+            ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
+            .map((item, index) => (
+              <div
+                key={index}
+                className={`data-table-row h-14 cursor-pointer flex justify-between items-center text-start ${
+                  index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
                 } hover:bg-[#f5f5f5] group`}
-              onClick={() => handleRowClick(item)}
-            >
-              <p
-                className={`select-none flex-start ml-12 lg:ml-24 ${index % 2 === 0 ? 'text-black' : 'text-white'
-                  } group-hover:text-blue-600 group-hover:font-bold`}
+                onClick={() => handleRowClick(item)}
               >
-                {item.displayName}
-              </p>
-              {/* Render the icons based on the dataType */}
-              {dataType === 'agents' ? (
-                <div className="h-14">
-                  <img
-                    className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
-                    src={item.killfeedPortrait}
-                    alt={`${item.displayName} portrait`}
-                  />
-                </div>
-              ) : (dataType === 'weapons' || dataType === 'weapon-skins') ? (
-                <div className="h-10">
-                  {/* The Melee item in weapons-skins needs a specific meleeIcon address */}
-                  {item.displayName === 'Melee' ? (
-                    <img
-                      className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
-                      src={meleeIcon}
-                      alt={`${item.displayName} portrait`}
-                    />
-                  ) : (
-                    (!item.displayIcon || weaponSkinExceptions.includes(item.displayName)) ? (
-                      <img
-                        className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
-                        src={item.chromas[0]?.fullRender}
-                        alt={`${item.displayName} portrait`}
-                      />
-                    ) : (
-                      <img
-                        className='select-none flex-end h-full object-contain sm:mr-8 lg:mr-32'
-                        src={item.displayIcon}
-                        alt={`${item.displayName} portrait`}
-                      />
-                    )
-                  )}
-                </div>
-              ) : null}
-            </div>
-          ))}
-        {/* If the dataType is individual-weapon */}
-        {dataType === 'individual-weapon' && data?.length > 0 && (
-          <>
-            {data
-              .map((item, index) => (
-                <div
-                  key={index}
-                  className={`data-table-row h-14 flex justify-between items-center text-start ${index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'} `}
+                <p
+                  className={`select-none flex-start ml-12 lg:ml-24 ${
+                    index % 2 === 0 ? 'text-black' : 'text-white'
+                  } group-hover:text-blue-600 group-hover:font-bold`}
                 >
-                  {/* Render the content based on the properties of each item */}
-                  {Object.entries(item).map(([key, value]) => (
-                    <p
-                      key={key}
-                      className={`select-none flex-start ml-12 lg:ml-24 flex-end mr-12 sm:mr-24 lg:mr-48 ${index % 2 === 0 ? 'text-black' : 'text-white'}`}
-                    >
-                      {`${value}`}
-                    </p>
-                  ))}
-                </div>
-              ))}
+                  {item.displayName}
+                </p>
+                {dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins' ? (
+                  renderIcon(item)
+                ) : null}
+              </div>
+            ))}
+        {/* If the dataType is individual-weapon */}
+        {dataType === 'individual-weapon' && data?.length && (
+          <>
+            {data.map((item, index) => (
+              <div
+                key={index}
+                className={`data-table-row h-14 flex justify-between items-center text-start ${
+                  index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
+                }`}
+              >
+                {Object.entries(item).map(([key, value]) => (
+                  <p
+                    key={key}
+                    className={`select-none flex-start ml-12 lg:ml-24 flex-end mr-12 sm:mr-24 lg:mr-48 ${
+                      index % 2 === 0 ? 'text-black' : 'text-white'
+                    }`}
+                  >
+                    {`${value}`}
+                  </p>
+                ))}
+              </div>
+            ))}
           </>
         )}
       </div>
