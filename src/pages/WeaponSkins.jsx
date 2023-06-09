@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Header from '../components/Header';
 import DataTable from '../components/DataTable';
@@ -8,33 +8,37 @@ import { fetchWeapon } from '../utilities/FetchWeapons';
 import { LoadingContext } from '../contexts/LoadingContext';
 
 const WeaponSkins = () => {
+  const navigate = useNavigate();
   const { weaponName } = useParams();
   const { setIsLoading } = useContext(LoadingContext);
   const [weaponData, setWeaponData] = useState(null);
-  const [error, setError] = useState(null);
+  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
 
   useEffect(() => {
     const getWeaponData = async () => {
-      setIsLoading(true);
       try {
+        setIsLoading(true);
         const weaponData = await fetchWeapon(weaponName);
         setWeaponData(weaponData);
       } catch (error) {
         console.error(error);
-        setError(error.message);
+      } finally {
+        setIsFetchCompleted(true);
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
 
     getWeaponData();
   }, [weaponName, setIsLoading]);
 
-  if (error) {
-    return <div>Error: {error}</div>; // Render an error message
-  }
+  useEffect(() => {
+    if (isFetchCompleted && !weaponData) {
+      navigate('/not-found');
+    }
+  }, [isFetchCompleted, weaponData, navigate]);
 
-  if (!weaponData) {
-    return null; // Render a loading state
+  if (!weaponData || !isFetchCompleted) {
+    return null; // Don't try to render content until the fetch has completed
   }
 
   const weaponSkins = weaponData.skins;

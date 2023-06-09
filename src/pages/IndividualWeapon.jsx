@@ -14,7 +14,7 @@ const IndividualWeapon = () => {
   const { weaponName } = useParams();
   const { setIsLoading } = useContext(LoadingContext);
   const [weaponData, setWeaponData] = useState(null);
-  const [error, setError] = useState(null);
+  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
 
   useEffect(() => {
     const getWeaponData = async () => {
@@ -22,9 +22,10 @@ const IndividualWeapon = () => {
       try {
         const weaponData = await fetchWeapon(weaponName);
         setWeaponData(weaponData);
+        setIsFetchCompleted(true);
       } catch (error) {
         console.error(error);
-        setError(error.message);
+        setIsFetchCompleted(true);
       }
       setIsLoading(false);
     };
@@ -32,12 +33,14 @@ const IndividualWeapon = () => {
     getWeaponData();
   }, [weaponName, setIsLoading]);
 
-  if (error) {
-    return <div>Error: {error}</div>; // Render an error message
-  }
+  useEffect(() => {
+    if (isFetchCompleted && !weaponData) {
+      navigate('/not-found');
+    }
+  }, [isFetchCompleted, weaponData, navigate]);
 
-  if (!weaponData) {
-    return null; // Render a loading state
+  if (!weaponData || !isFetchCompleted) {
+    return null; // Don't try to render content until the fetch has completed
   }
 
   const weaponStats = weaponData.weaponStats;

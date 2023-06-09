@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import FlexBasisFull from '../components/FlexBasisFull';
 import Header from '../components/Header';
 import BackButton from '../components/BackButton';
@@ -9,10 +9,11 @@ import { fetchWeapon } from '../utilities/FetchWeapons';
 import { LoadingContext } from '../contexts/LoadingContext';
 
 const IndividualSkin = () => {
+  const navigate = useNavigate();
   const { weaponName, skinName } = useParams();
   const { setIsLoading } = useContext(LoadingContext);
   const [weaponData, setWeaponData] = useState(null);
-  const [error, setError] = useState(null);
+  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
 
   useEffect(() => {
     const getWeaponData = async () => {
@@ -20,9 +21,10 @@ const IndividualSkin = () => {
       try {
         const weaponData = await fetchWeapon(weaponName);
         setWeaponData(weaponData);
+        setIsFetchCompleted(true);
       } catch (error) {
         console.error(error);
-        setError(error.message);
+        setIsFetchCompleted(true);
       }
       setIsLoading(false);
     };
@@ -30,12 +32,14 @@ const IndividualSkin = () => {
     getWeaponData();
   }, [weaponName, setIsLoading]);
 
-  if (error) {
-    return <div>Error: {error}</div>; // Render an error message
-  }
+  useEffect(() => {
+    if (isFetchCompleted && !weaponData) {
+      navigate('/not-found');
+    }
+  }, [isFetchCompleted, weaponData, navigate]);
 
-  if (!weaponData) {
-    return null // Render a loading state
+  if (!weaponData || !isFetchCompleted) {
+    return null; // Don't try to render content until the fetch has completed
   }
 
   const skinData = weaponData.skins.find(
@@ -43,8 +47,8 @@ const IndividualSkin = () => {
       onlyLettersAndNumbers(skin.displayName.toLowerCase()) === onlyLettersAndNumbers(skinName.toLowerCase())
   );
 
-  const variations = skinData.chromas;
-  const upgrades = skinData.levels;
+  const variations = skinData?.chromas;
+  const upgrades = skinData?.levels;
 
   const normalizeVariationName = (str) => {
     let normalizedDetails = shortenLevelText(str);
@@ -57,6 +61,11 @@ const IndividualSkin = () => {
     normalizedDetails = convertCamelCase(normalizedDetails);
     return normalizedDetails;
   };
+
+  if (!skinData) {
+    navigate('/not-found');
+    return null; // Don't try to render content until the fetch has completed
+  }
 
   return (
     <>
