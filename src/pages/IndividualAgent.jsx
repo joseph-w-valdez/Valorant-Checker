@@ -30,11 +30,13 @@ const IndividualAgent = ({ setSelectedOption }) => {
         setIsLoading(true);
         const agentData = await fetchAgent(agentName);
         setAgentData(agentData);
+        if (agentData === null) {
+          navigate('/not-found');
+        };
       } catch (error) {
         console.error(error);
-        // Handle the error, show an error message, or redirect
       } finally {
-        setIsLoading(false);
+        setIsLoading(false)
       }
     };
 
@@ -42,7 +44,7 @@ const IndividualAgent = ({ setSelectedOption }) => {
   }, [agentName, setIsLoading]);
 
   if (!agentData) {
-    return null; // Render a loading state or an error message
+    return null; // Don't try to render content, if it's empty
   }
 
   return (
