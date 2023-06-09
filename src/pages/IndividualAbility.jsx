@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import FlexBasisFull from '../components/FlexBasisFull';
 import Header from '../components/Header';
 import FullAgentPortrait from '../components/FullAgentPortrait';
@@ -9,9 +9,11 @@ import { fetchAgent } from '../utilities/FetchAgents';
 import { LoadingContext } from '../contexts/LoadingContext';
 
 const IndividualAbility = () => {
+  const navigate = useNavigate();
   const { agentName, abilityName } = useParams();
   const { setIsLoading } = useContext(LoadingContext);
   const [agentData, setAgentData] = useState(null);
+  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
 
   useEffect(() => {
     const getAgentData = async () => {
@@ -21,8 +23,8 @@ const IndividualAbility = () => {
         setAgentData(agentData);
       } catch (error) {
         console.error(error);
-        // Handle the error, show an error message, or redirect
       } finally {
+        setIsFetchCompleted(true);
         setIsLoading(false);
       }
     };
@@ -30,8 +32,14 @@ const IndividualAbility = () => {
     getAgentData();
   }, [agentName, setIsLoading]);
 
-  if (!agentData) {
-    return null; // Render a loading state or an error message
+  useEffect(() => {
+    if (isFetchCompleted && !agentData) {
+      navigate('/not-found');
+    }
+  }, [isFetchCompleted, agentData, navigate]);
+
+  if (!agentData || !isFetchCompleted) {
+    return null; // Don't try to render content until the fetch has completed
   }
 
   const abilityData = agentData.abilities.find(
@@ -39,10 +47,11 @@ const IndividualAbility = () => {
       onlyLettersAndNumbers(ability.displayName.toLowerCase()) === onlyLettersAndNumbers(abilityName.toLowerCase())
   );
 
-  const iconSrc = abilityData.slot === 'Passive' ? agentData.displayIcon : abilityData.displayIcon;
+  const iconSrc = abilityData?.slot === 'Passive' ? agentData.displayIcon : abilityData?.displayIcon;
 
   if (!abilityData) {
-    return null; // Render an error message or handle the case where the ability is not found
+    navigate('/not-found');
+    return null; // Don't try to render content until the fetch has completed
   }
 
   return (

@@ -13,6 +13,7 @@ const IndividualAgent = ({ setSelectedOption }) => {
   const { agentName } = useParams();
   const { setIsLoading } = useContext(LoadingContext);
   const [agentData, setAgentData] = useState(null);
+  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
 
   const handleRoleClick = (role) => {
     setSelectedOption(role.displayName);
@@ -30,21 +31,25 @@ const IndividualAgent = ({ setSelectedOption }) => {
         setIsLoading(true);
         const agentData = await fetchAgent(agentName);
         setAgentData(agentData);
-        if (agentData === null) {
-          navigate('/not-found');
-        };
       } catch (error) {
         console.error(error);
       } finally {
-        setIsLoading(false)
+        setIsFetchCompleted(true);
+        setIsLoading(false);
       }
     };
 
     getAgentData();
   }, [agentName, setIsLoading]);
 
-  if (!agentData) {
-    return null; // Don't try to render content, if it's empty
+  useEffect(() => {
+    if (isFetchCompleted && !agentData) {
+      navigate('/not-found');
+    }
+  }, [isFetchCompleted, agentData, navigate]);
+
+  if (!agentData || !isFetchCompleted) {
+    return null; // Don't try to render content until the fetch has completed
   }
 
   return (
