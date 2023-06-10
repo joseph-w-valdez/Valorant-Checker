@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent } from 'react';
+import React, { useEffect, useState, ChangeEvent, Dispatch, SetStateAction } from 'react';
 import Header from '../components/Header';
 import FilterTable from '../components/FilterTable';
 import DataTable from '../components/DataTable';
@@ -7,10 +7,14 @@ import { agentRoles } from '../data/agentRoles';
 import { fetchAgents } from '../utilities/FetchAgents';
 import { useLoadingContext } from '../contexts/LoadingContext';
 
-const AgentsList: React.FC = () => {
+type AgentsListProps = {
+  selectedOption: string;
+  setSelectedOption: Dispatch<SetStateAction<string>>;
+};
+
+const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOption }) => {
   const { setIsLoading } = useLoadingContext();
   const [agents, setAgents] = useState<any[]>([]);
-  const [selectedOption, setSelectedOption] = useState<string>('No Filter');
   const [agentRoleDescription, setAgentRoleDescription] = useState<string>('');
 
   useEffect(() => {

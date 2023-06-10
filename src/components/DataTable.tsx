@@ -4,12 +4,12 @@ import { weaponSkinExceptions } from '../data/weaponSkinExceptions';
 import { meleeIcon } from '../data/meleeInfo';
 import { onlyLettersAndNumbers } from '../utilities/stringConversions';
 
-interface DataTableProps {
+export type DataTableProps = {
   data: any[];
   dataType: string;
   weapon?: string;
   selectedOption: string;
-}
+};
 
 const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const navigate = useNavigate();

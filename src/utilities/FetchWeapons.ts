@@ -7,11 +7,14 @@ export const fetchWeapons = async (selectedOption: string, setWeapons: React.Dis
       const selectedOptionQuery = `EEquippableCategory::${selectedOption}`
       const filteredWeapons = data.data.filter((weapon: any) => weapon.category === selectedOptionQuery);
       setWeapons(filteredWeapons);
+      return filteredWeapons; // Explicitly return the filtered weapons
     } else {
-      setWeapons(data.data)
+      setWeapons(data.data);
+      return data.data; // Explicitly return all weapons
     }
   } catch (error) {
     console.error(error);
+    return []; // Return an empty array or handle the error case appropriately
   }
 };
 

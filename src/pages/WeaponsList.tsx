@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, ChangeEvent, Dispatch, SetStateAction } from 'react';
 import Header from '../components/Header';
 import FilterTable from '../components/FilterTable';
 import DataTable, { DataTableProps } from '../components/DataTable';
@@ -7,9 +7,13 @@ import { weaponCategories } from '../data/weaponCategories';
 import { fetchWeapons } from '../utilities/FetchWeapons';
 import { useLoadingContext } from '../contexts/LoadingContext';
 
-const WeaponsList: React.FC = () => {
+type WeaponsListProps = {
+  selectedOption: string;
+  setSelectedOption: Dispatch<SetStateAction<string>>;
+};
+
+const WeaponsList: React.FC<WeaponsListProps> = ({ selectedOption, setSelectedOption }) => {
   const { setIsLoading } = useLoadingContext();
-  const [selectedOption, setSelectedOption] = useState('No Filter');
   const [weapons, setWeapons] = useState<any[]>([]);
 
   useEffect(() => {
@@ -33,12 +37,12 @@ const WeaponsList: React.FC = () => {
     fetchData();
   }, [selectedOption, setIsLoading]);
 
-  const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const option = event.target.value;
-    setSelectedOption((prevState) =>
-      prevState === option && option !== 'No Filter' ? 'No Filter' : option
-    );
-  };
+  const handleOptionChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const option = event.target.value;
+  setSelectedOption((prevState) =>
+    prevState === option && option !== 'No Filter' ? 'No Filter' : option
+  );
+};
 
   const dataTableProps: DataTableProps = {
     data: weapons,
