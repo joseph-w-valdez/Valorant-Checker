@@ -52,7 +52,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     const isMelee = item.displayName === 'Melee';
     const hasDisplayIcon = item.displayIcon && !weaponSkinExceptions.includes(item.displayName);
 
-    const dynamicClasses = dataType === 'agents' ? 'h-full mr-[3.5rem]' : 'h-10';
+    const dynamicClasses = dataType === 'agents' ? 'h-full mr-[3rem]' : 'h-10';
 
     return (
       <div className={dynamicClasses}>
