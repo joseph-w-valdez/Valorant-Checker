@@ -751,6 +751,10 @@ video {
   margin-top: -16px;
 }
 
+.mr-\[3rem\] {
+  margin-right: 3rem;
+}
+
 .block {
   display: block;
 }
