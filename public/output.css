@@ -719,8 +719,8 @@ video {
   margin-right: 10px;
 }
 
-.mr-\[3\.5rem\] {
-  margin-right: 3.5rem;
+.mr-\[3rem\] {
+  margin-right: 3rem;
 }
 
 .mt-1 {
@@ -749,10 +749,6 @@ video {
 
 .mt-\[-16px\] {
   margin-top: -16px;
-}
-
-.mr-\[3rem\] {
-  margin-right: 3rem;
 }
 
 .block {
