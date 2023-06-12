@@ -19,7 +19,6 @@ ValoChecker is a dynamic web application that retrieves and displays information
 - React Router DOM
 - React Icons
 - React Loading
-- GitHub Pages
 
 ## System Requirements
 
