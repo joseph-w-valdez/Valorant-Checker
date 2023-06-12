@@ -1,6 +1,6 @@
 # ValoChecker
 
-ValoChecker is a dynamic web application that retrieves and displays information about playable characters and weapons in the game Valorant. The application utilizes the Valorant API to fetch data and provides users with an intuitive interface to explore the various aspects of the game.
+ValoChecker is a dynamic web application that retrieves and displays information about playable characters and weapons in the game Valorant. The application utilizes the Valorant API to fetch data and provides users with an intuitive interface to explore the various aspects of the game using the [unofficial Valorant API](https://valorant-api.com/). 
 
 ## Features
 
@@ -43,9 +43,13 @@ Before running the ValoChecker project on your local machine, ensure that you ha
 
 The application will be accessible at `http://localhost:3000` in your browser.
 
-## Contributing
+## Credits
 
-Contributions to ValoChecker are welcome! If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
+This website uses [Valorant API](https://valorant-api.com/), a non-official API, which is not endorsed by Riot Games in any way.
+
+ValoChecker isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
+
+ValoChecker created by Joseph Valdez.
 
 ## License
 
