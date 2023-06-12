@@ -1,3 +1,57 @@
+# ValoChecker
+
+ValoChecker is a dynamic web application that retrieves and displays information about playable characters and weapons in the game Valorant. The application utilizes the Valorant API to fetch data and provides users with an intuitive interface to explore the various aspects of the game.
+
+## Features
+
+- View a comprehensive catalog of playable characters and weapons in Valorant.
+- Explore detailed attributes and descriptions for each character and weapon.
+- Filter and search functionalities to easily find specific characters or weapons based on various criteria.
+- Navigate through different sections of the application using React Router DOM.
+- Dynamically generated URLs with :params allow users to bookmark and share specific character or weapon details.
+- Responsive design ensures optimal functionality across different devices and screen sizes.
+
+## Technologies Used
+
+- TypeScript
+- React
+- Tailwind CSS
+- React Router DOM
+- React Icons
+- React Loading
+- GitHub Pages
+
+## Installation and Setup
+
+1. Clone the repository:
+`git clone https://github.com/joseph-w-valdez/Valorant-Checker.git`
+
+2. Install dependencies:
+`npm install`
+
+
+3. Start the application:
+`npm start`
+
+
+The application will be accessible at `http://localhost:3000` in your browser.
+
+## Contributing
+
+Contributions to ValoChecker are welcome! If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Acknowledgments
+
+- The developers of the Valorant API for providing access to the game's data.
+- Any additional acknowledgments or credits for libraries, resources, or inspiration used in the project.
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
