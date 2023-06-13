@@ -11,6 +11,15 @@ ValoChecker is a dynamic web application that retrieves and displays information
 - Dynamically generated URLs with :params allow users to bookmark and share specific character or weapon details.
 - Responsive design ensures optimal functionality across different devices and screen sizes.
 
+### User can view all agents, filter agents, and see relevant data pertaining them
+![agents](https://github.com/joseph-w-valdez/Valorant-Checker/assets/117682160/e428d8b4-20d2-4725-bae1-46e9f5e7f6ce)
+
+### User can view all weapons, filter weapons, and see relevant data pertaining them
+![weapons](https://github.com/joseph-w-valdez/Valorant-Checker/assets/117682160/db71f2fa-682e-4403-b172-5aa5d7abb34f)
+
+### User can view all skins for selected weapons, including all variations and showcase clips if relevant
+![skins](https://github.com/joseph-w-valdez/Valorant-Checker/assets/117682160/a7e7509a-8030-4823-86b2-baa406e25a4f)
+
 ## Technologies Used
 
 - TypeScript
