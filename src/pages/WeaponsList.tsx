@@ -6,6 +6,7 @@ import FlexBasisFull from '../components/FlexBasisFull';
 import { weaponCategories } from '../data/weaponCategories';
 import { fetchWeapons } from '../utilities/fetchWeapons';
 import { useLoadingContext } from '../contexts/LoadingContext';
+import { alphabetizeArray } from '../utilities/arrayManipulations';
 
 type WeaponsListProps = {
   selectedOption: string;
@@ -45,7 +46,7 @@ const WeaponsList: React.FC<WeaponsListProps> = ({ selectedOption, setSelectedOp
 };
 
   const dataTableProps: DataTableProps = {
-    data: weapons,
+    data: alphabetizeArray(weapons),
     selectedOption,
     dataType: 'weapons',
   };

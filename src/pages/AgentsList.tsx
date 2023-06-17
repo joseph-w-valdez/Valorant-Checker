@@ -6,6 +6,7 @@ import FlexBasisFull from '../components/FlexBasisFull';
 import { agentRoles } from '../data/agentRoles';
 import { fetchAgents } from '../utilities/fetchAgents';
 import { useLoadingContext } from '../contexts/LoadingContext';
+import { alphabetizeArray } from '../utilities/arrayManipulations';
 
 type AgentsListProps = {
   selectedOption: string;
@@ -69,7 +70,7 @@ const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOpti
           <p className=''>{agentRoleDescription}</p>
         </div>
       )}
-      <DataTable data={agents} selectedOption={selectedOption} dataType='agents' />
+      <DataTable data={alphabetizeArray(agents)} selectedOption={selectedOption} dataType='agents' />
     </>
   );
 };

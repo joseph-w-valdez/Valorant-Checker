@@ -28,8 +28,6 @@ const SpraysList: React.FC = () => {
     fetchSpraysData();
   }, []);
 
-  console.log('sprays', sprays)
-
   return (
     <>
       <div className='flex items-center justify-center'>
