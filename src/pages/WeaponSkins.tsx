@@ -4,7 +4,7 @@ import BackButton from '../components/BackButton';
 import Header from '../components/Header';
 import DataTable, { DataTableProps } from '../components/DataTable';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
-import { fetchWeapon } from '../utilities/FetchWeapons';
+import { fetchWeapon } from '../utilities/fetchWeapons';
 import { useLoadingContext } from '../contexts/LoadingContext';
 
 const WeaponSkins = () => {

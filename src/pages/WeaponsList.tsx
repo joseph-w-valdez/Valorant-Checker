@@ -4,7 +4,7 @@ import FilterTable from '../components/FilterTable';
 import DataTable, { DataTableProps } from '../components/DataTable';
 import FlexBasisFull from '../components/FlexBasisFull';
 import { weaponCategories } from '../data/weaponCategories';
-import { fetchWeapons } from '../utilities/FetchWeapons';
+import { fetchWeapons } from '../utilities/fetchWeapons';
 import { useLoadingContext } from '../contexts/LoadingContext';
 
 type WeaponsListProps = {

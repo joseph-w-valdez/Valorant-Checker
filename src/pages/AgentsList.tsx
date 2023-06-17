@@ -4,7 +4,7 @@ import FilterTable from '../components/FilterTable';
 import DataTable from '../components/DataTable';
 import FlexBasisFull from '../components/FlexBasisFull';
 import { agentRoles } from '../data/agentRoles';
-import { fetchAgents } from '../utilities/FetchAgents';
+import { fetchAgents } from '../utilities/fetchAgents';
 import { useLoadingContext } from '../contexts/LoadingContext';
 
 type AgentsListProps = {

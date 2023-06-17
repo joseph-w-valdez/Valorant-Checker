@@ -59,6 +59,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
         dynamicClasses = 'h-full mr-[3.5rem] p-[2px]';
         break;
       case 'agents':
+      case 'sprays':
         dynamicClasses = 'h-full mr-[3rem]';
         break;
       default:
@@ -96,7 +97,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
         </div>
         {/* Data rows */}
         {/* If the data type is agents, weapons, or weapon-skins */}
-        {(dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins' || dataType === 'buddies') &&
+        {(dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins' || dataType === 'buddies' || dataType === 'sprays') &&
           data
             ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
             .map((item, index) => (
@@ -114,7 +115,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
                 >
                   {item.displayName}
                 </p>
-                {dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins' || dataType === 'buddies' ? (
+                {dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins' || dataType === 'buddies' || dataType === 'sprays' ? (
                   renderIcon(item)
                 ) : null}
               </div>

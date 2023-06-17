@@ -1,43 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
-import { fetchBuddies } from '../utilities/fetchBuddies';
+import { fetchSprays } from '../utilities/fetchSprays';
 import DataTable from '../components/DataTable';
 import BackButton from '../components/BackButton';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
 
-type Buddy = {
+type Spray = {
   displayName: string;
 };
 
-const BuddiesList: React.FC = () => {
-  const [buddies, setBuddies] = useState<Buddy[]>([]);
+const SpraysList: React.FC = () => {
+  const [sprays, setSprays] = useState<Spray[]>([]);
 
   useEffect(() => {
-    const fetchBuddiesData = async () => {
+    const fetchSpraysData = async () => {
       try {
-        const data = await fetchBuddies();
-        const sortedBuddies = alphabetizeArray(data.data);
-        setBuddies(sortedBuddies);
+        const data = await fetchSprays();
+        const sortedSprays = alphabetizeArray(data.data);
+        setSprays(sortedSprays);
       } catch (error) {
         console.error(error);
-        setBuddies([]);
+        setSprays([]);
       }
     };
 
-    fetchBuddiesData();
+    fetchSpraysData();
   }, []);
+
+  console.log('sprays', sprays)
 
   return (
     <>
       <div className='flex items-center justify-center'>
         <BackButton />
-        <Header text='Buddies' />
+        <Header text='Sprays' />
       </div>
       <FlexBasisFull />
-      <DataTable data={buddies} selectedOption='' dataType='buddies' />
+      <DataTable data={sprays} selectedOption='' dataType='sprays' />
     </>
   );
 };
 
-export default BuddiesList;
+export default SpraysList;

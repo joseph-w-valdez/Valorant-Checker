@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import FullAgentPortrait from '../components/FullAgentPortrait';
 import BackButton from '../components/BackButton';
 import { normalizeAbilitySlot, onlyLettersAndNumbers } from '../utilities/stringConversions';
-import { fetchAgent } from '../utilities/FetchAgents';
+import { fetchAgent } from '../utilities/fetchAgents';
 import { useLoadingContext } from '../contexts/LoadingContext';
 
 const IndividualAbility: React.FC = () => {

@@ -38,6 +38,7 @@ const Navbar: React.FC<NavbarProps> = ({ setSelectedOption }) => {
     { to: '/agents-list', text: 'Agents' },
     { to: '/weapons-list', text: 'Weapons' },
     { to: '/buddies', text: 'Buddies'},
+    { to: '/sprays', text: 'Sprays'},
   ];
 
   // toggle menu visibility when the menu icon is pressed

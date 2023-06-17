@@ -11,6 +11,7 @@ import IndividualWeapon from './pages/IndividualWeapon';
 import WeaponSkins from './pages/WeaponSkins';
 import IndividualSkin from './pages/IndividualSkin';
 import Buddies from './pages/Buddies'
+import Sprays from './pages/Sprays'
 import ScrollToTop from './components/ScrollToTop';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import Footer from './components/Footer';
@@ -81,6 +82,7 @@ function App(): JSX.Element {
                 element={<IndividualSkin />}
               />
               <Route path="/buddies" element={<Buddies />} />
+              <Route path="/sprays" element={<Sprays />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </ScrollToTop>
