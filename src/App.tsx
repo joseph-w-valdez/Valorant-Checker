@@ -10,6 +10,7 @@ import IndividualAbility from './pages/IndividualAbility';
 import IndividualWeapon from './pages/IndividualWeapon';
 import WeaponSkins from './pages/WeaponSkins';
 import IndividualSkin from './pages/IndividualSkin';
+import Buddies from './pages/Buddies'
 import ScrollToTop from './components/ScrollToTop';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import Footer from './components/Footer';
@@ -79,6 +80,7 @@ function App(): JSX.Element {
                 path="/weapon/:weaponName/skins/:skinName"
                 element={<IndividualSkin />}
               />
+              <Route path="/buddies" element={<Buddies />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </ScrollToTop>
