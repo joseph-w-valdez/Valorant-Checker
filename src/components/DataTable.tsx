@@ -52,7 +52,19 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     const isMelee = item.displayName === 'Melee';
     const hasDisplayIcon = item.displayIcon && !weaponSkinExceptions.includes(item.displayName);
 
-    const dynamicClasses = dataType === 'agents' ? 'h-full mr-[3rem]' : 'h-10';
+    let dynamicClasses = 'h-10';
+
+    switch (dataType) {
+      case 'buddies':
+        dynamicClasses = 'h-full mr-[3.5rem] p-[2px]';
+        break;
+      case 'agents':
+        dynamicClasses = 'h-full mr-[3rem]';
+        break;
+      default:
+        // Keep the default value 'h-10'
+        break;
+    }
 
     return (
       <div className={dynamicClasses}>
@@ -83,15 +95,16 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
           </p>
         </div>
         {/* Data rows */}
-        {(dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins') &&
+        {/* If the data type is agents, weapons, or weapon-skins */}
+        {(dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins' || dataType === 'buddies') &&
           data
             ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
             .map((item, index) => (
-              <div
+               <div
                 key={index}
-                className={`data-table-row h-14 cursor-pointer flex justify-between items-center text-start ${
+                className={`data-table-row ${dataType !== 'buddies' ? 'cursor-pointer hover:bg-[#f5f5f5] group' : ''} h-[4.5rem] flex justify-between items-center text-start ${
                   index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
-                } hover:bg-[#f5f5f5] group`}
+                }`}
                 onClick={() => handleRowClick(item)}
               >
                 <p
@@ -101,7 +114,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
                 >
                   {item.displayName}
                 </p>
-                {dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins' ? (
+                {dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins' || dataType === 'buddies' ? (
                   renderIcon(item)
                 ) : null}
               </div>

@@ -751,6 +751,10 @@ video {
   margin-top: -16px;
 }
 
+.mr-\[3\.5rem\] {
+  margin-right: 3.5rem;
+}
+
 .block {
   display: block;
 }
@@ -803,6 +807,18 @@ video {
 
 .h-full {
   height: 100%;
+}
+
+.h-16 {
+  height: 4rem;
+}
+
+.h-20 {
+  height: 5rem;
+}
+
+.h-\[4\.5rem\] {
+  height: 4.5rem;
 }
 
 .min-h-\[100px\] {
@@ -1089,6 +1105,14 @@ video {
 
 .p-2 {
   padding: 0.5rem;
+}
+
+.p-\[3px\] {
+  padding: 3px;
+}
+
+.p-\[2px\] {
+  padding: 2px;
 }
 
 .px-4 {
