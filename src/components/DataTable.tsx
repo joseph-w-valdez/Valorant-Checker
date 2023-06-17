@@ -52,15 +52,15 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     const isMelee = item.displayName === 'Melee';
     const hasDisplayIcon = item.displayIcon && !weaponSkinExceptions.includes(item.displayName);
 
-    let dynamicClasses = 'h-10';
+    let iconClasses = 'h-10';
 
     switch (dataType) {
       case 'buddies':
-        dynamicClasses = 'h-full mr-[3.5rem] p-[2px]';
+        iconClasses = 'h-full mr-[3.5rem] p-[2px]';
         break;
       case 'agents':
       case 'sprays':
-        dynamicClasses = 'h-full mr-[3rem]';
+        iconClasses = 'h-full mr-[3rem]';
         break;
       default:
         // Keep the default value 'h-10'
@@ -68,7 +68,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     }
 
     return (
-      <div className={dynamicClasses}>
+      <div className={iconClasses}>
         {isMelee ? (
           <img
             className="select-none flex-end h-full object-contain sm:mr-8 lg:mr-32"
@@ -96,14 +96,16 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
           </p>
         </div>
         {/* Data rows */}
-        {/* If the data type is agents, weapons, or weapon-skins */}
-        {(dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins' || dataType === 'buddies' || dataType === 'sprays') &&
+        {/* If the dataType isn't individual-weapon */}
+        {dataType !== 'individual-weapon' &&
           data
             ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
             .map((item, index) => (
-               <div
+              <div
                 key={index}
-                className={`data-table-row ${dataType !== 'buddies' ? 'cursor-pointer hover:bg-[#f5f5f5] group' : ''} h-[4.5rem] flex justify-between items-center text-start ${
+                className={`data-table-row ${
+                  dataType !== 'buddies' ? 'cursor-pointer hover:bg-[#f5f5f5] group' : ''
+                } h-[4.5rem] flex justify-between items-center text-start ${
                   index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
                 }`}
                 onClick={() => handleRowClick(item)}
@@ -115,9 +117,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
                 >
                   {item.displayName}
                 </p>
-                {dataType === 'agents' || dataType === 'weapons' || dataType === 'weapon-skins' || dataType === 'buddies' || dataType === 'sprays' ? (
-                  renderIcon(item)
-                ) : null}
+                {renderIcon(item)}
               </div>
             ))}
         {/* If the dataType is individual-weapon */}
