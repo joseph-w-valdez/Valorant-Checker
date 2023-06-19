@@ -49,6 +49,10 @@ const Navbar: React.FC<NavbarProps> = ({ setSelectedOption }) => {
   // hide the menu when a nav link item is pressed
   const handleNavLinkClick = () => {
     setIsMenuOpen(false);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   // reset the filter options when switching pages to ensure all items are shown
