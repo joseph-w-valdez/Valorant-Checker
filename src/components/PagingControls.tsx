@@ -15,13 +15,13 @@ const PageControls: React.FC<PageControlProps> = ({ currentPage, totalPages, onP
   };
 
   return (
-    <div className="w-full flex justify-center mx-2 py-2">
+    <div className="w-full flex justify-center py-2">
       <div className="border border-2 rounded flex items-center">
         {/* Previous button */}
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`px-4 py-2 flex items-center ${
+          className={`px-2 py-2 flex items-center ${
             currentPage === 1 ? '' : 'hover:bg-gray-700 transition duration-100'
           }`}
         >
@@ -89,7 +89,7 @@ const PageControls: React.FC<PageControlProps> = ({ currentPage, totalPages, onP
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className={`px-4 py-2 flex items-center ${
+          className={`px-2 py-2 flex items-center ${
             currentPage === totalPages ? '' : 'hover:bg-gray-700 transition duration-100'
           }`}
         >
