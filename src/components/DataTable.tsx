@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { weaponSkinExceptions } from '../data/weaponSkinExceptions';
 import { meleeIcon } from '../data/meleeInfo';
 import { onlyLettersAndNumbers } from '../utilities/stringConversions';
+import PageControls from './PagingControls';
 
 export type DataTableProps = {
   data: any[];
@@ -13,8 +14,13 @@ export type DataTableProps = {
 
 const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const navigate = useNavigate();
+  const pageSize = 20 // show 30 results per page
+  const totalPages = Math.ceil(data.length / pageSize);
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleRowClick = (item: any) => {
+    // Generate link path based on the clicked row's data type and display name
     const getAgentLinkPath = (displayName: string) => {
       const agentName = displayName === 'KAY/O' ? 'Kayo' : displayName.replace('/', '');
       return `/agent/${agentName}`;
@@ -29,6 +35,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
       return `/weapon/${weapon}/skins/${skinName}`;
     };
 
+    /* handle row click link navigations */
     let linkPath = '';
 
     switch (dataType) {
@@ -86,6 +93,21 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     );
   };
 
+  // Calculate the start and end index for slicing the data array
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+
+  // Slice the data array to retrieve the current page's results
+  const slicedData = data.slice(startIndex, endIndex);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <>
       <div className="table w-full flex mt-8">
@@ -98,7 +120,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
         {/* Data rows */}
         {/* If the dataType isn't individual-weapon */}
         {dataType !== 'individual-weapon' &&
-          data
+          slicedData
             ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
             .map((item, index) => (
               <div
@@ -121,9 +143,9 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
               </div>
             ))}
         {/* If the dataType is individual-weapon */}
-        {dataType === 'individual-weapon' && data?.length && (
+        {dataType === 'individual-weapon' && slicedData?.length && (
           <>
-            {data.map((item, index) => (
+            {slicedData.map((item, index) => (
               <div
                 key={index}
                 className={`data-table-row h-14 flex justify-between items-center text-start ${
@@ -144,6 +166,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
             ))}
           </>
         )}
+        <PageControls currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
       </div>
     </>
   );
