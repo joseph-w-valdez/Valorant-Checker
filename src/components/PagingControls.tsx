@@ -26,7 +26,7 @@ const PageControls: React.FC<PageControlProps> = ({ currentPage, totalPages, onP
           }`}
         >
           <FiChevronLeft />
-          Previous
+          <span className='hidden 375:inline'>Previous</span>
         </button>
         {/* Line separator */}
         <div className="border-r h-4 mx-1"></div>
@@ -93,7 +93,7 @@ const PageControls: React.FC<PageControlProps> = ({ currentPage, totalPages, onP
             currentPage === totalPages ? '' : 'hover:bg-gray-700 transition duration-100'
           }`}
         >
-          Next
+          <span className='hidden 375:inline'>Next</span>
           <FiChevronRight />
         </button>
       </div>
