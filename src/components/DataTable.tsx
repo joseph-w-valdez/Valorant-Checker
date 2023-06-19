@@ -95,12 +95,12 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
+    // Update the URL with the new page number
+    navigate(`?page=${pageNumber}`);
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
-    // Update the URL with the new page number
-    navigate(`?page=${pageNumber}`);
   };
 
   // Calculate the start and end index for slicing the data array
