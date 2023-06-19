@@ -7,6 +7,8 @@ import { weaponCategories } from '../data/weaponCategories';
 import { fetchWeapons } from '../utilities/fetchWeapons';
 import { useLoadingContext } from '../contexts/LoadingContext';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
+import Subheader from '../components/Subheader';
+import { normalizeSelectedOption } from '../utilities/stringConversions';
 
 type WeaponsListProps = {
   selectedOption: string;
@@ -54,6 +56,9 @@ const WeaponsList: React.FC<WeaponsListProps> = ({ selectedOption, setSelectedOp
   return (
     <>
       <Header text={'Weapons'} />
+      <FlexBasisFull />
+      <Subheader
+        text={`There ${weapons.length === 1 ? 'is' : 'are'} currently ${weapons.length} ${normalizeSelectedOption(selectedOption)} ${weapons.length === 1 ? 'weapon' : 'weapons'} in game!`} />
       <FlexBasisFull />
       <FilterTable
         selectedOption={selectedOption}

@@ -7,6 +7,8 @@ import { agentRoles } from '../data/agentRoles';
 import { fetchAgents } from '../utilities/fetchAgents';
 import { useLoadingContext } from '../contexts/LoadingContext';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
+import Subheader from '../components/Subheader';
+import { normalizeSelectedOption } from '../utilities/stringConversions';
 
 type AgentsListProps = {
   selectedOption: string;
@@ -58,6 +60,9 @@ const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOpti
   return (
     <>
       <Header text={'Agents'} />
+      <FlexBasisFull />
+      <Subheader
+        text={`There ${agents.length === 1 ? 'is' : 'are'} currently ${agents.length} ${normalizeSelectedOption(selectedOption)} ${agents.length === 1 ? 'agent' : 'agents'} in game!`} />
       <FlexBasisFull />
       <FilterTable
         selectedOption={selectedOption}

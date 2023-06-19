@@ -6,6 +6,8 @@ import DataTable, { DataTableProps } from '../components/DataTable';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
 import { fetchWeapon } from '../utilities/fetchWeapons';
 import { useLoadingContext } from '../contexts/LoadingContext';
+import FlexBasisFull from '../components/FlexBasisFull';
+import Subheader from '../components/Subheader';
 
 const WeaponSkins = () => {
   const navigate = useNavigate();
@@ -58,6 +60,8 @@ const WeaponSkins = () => {
           <BackButton />
           <Header text={`${weaponData.displayName} Skins`} />
         </div>
+        <FlexBasisFull />
+        <Subheader text={`There are currently ${weaponData.skins.length} ${weaponData.displayName} skins in game!`} />
         <p>Click on a skin to view details, variations, and showcase clips!</p>
       </div>
       <DataTable {...dataTableProps} />

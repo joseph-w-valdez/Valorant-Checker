@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { weaponSkinExceptions } from '../data/weaponSkinExceptions';
 import { meleeIcon } from '../data/meleeInfo';
 import { onlyLettersAndNumbers } from '../utilities/stringConversions';
-import PageControls from './PagingControls';
+import PageControls from './PageControls';
 
 export type DataTableProps = {
   data: any[];
@@ -166,7 +166,13 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
             ))}
           </>
         )}
-        <PageControls currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+        <PageControls
+          results={data.length}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       </div>
     </>
   );

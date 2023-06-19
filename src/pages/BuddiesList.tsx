@@ -5,6 +5,7 @@ import { fetchBuddies } from '../utilities/fetchBuddies';
 import DataTable from '../components/DataTable';
 import BackButton from '../components/BackButton';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
+import Subheader from '../components/Subheader';
 
 type Buddy = {
   displayName: string;
@@ -30,10 +31,12 @@ const BuddiesList: React.FC = () => {
 
   return (
     <>
-      <div className='flex items-center justify-center'>
+      <div className='flex flex-wrap items-center justify-center'>
         <BackButton />
         <Header text='Buddies' />
       </div>
+      <FlexBasisFull />
+      <Subheader text={`There are currently ${buddies.length} buddies in game!`} />
       <FlexBasisFull />
       <DataTable data={buddies} selectedOption='' dataType='buddies' />
     </>

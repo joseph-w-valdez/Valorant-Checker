@@ -1,13 +1,16 @@
 import React from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import FlexBasisFull from './FlexBasisFull';
 
 type PageControlProps = {
+  results: number;
+  pageSize: number;
   currentPage: number;
   totalPages: number;
   onPageChange: (pageNumber: number) => void;
 };
 
-const PageControls: React.FC<PageControlProps> = ({ currentPage, totalPages, onPageChange }) => {
+const PageControls: React.FC<PageControlProps> = ({ results, pageSize, currentPage, totalPages, onPageChange }) => {
   const handlePageChange = (pageNumber: number) => {
     if (pageNumber >= 1 && pageNumber <= totalPages) {
       onPageChange(pageNumber);
@@ -15,7 +18,7 @@ const PageControls: React.FC<PageControlProps> = ({ currentPage, totalPages, onP
   };
 
   return (
-    <div className="w-full flex justify-center py-2">
+    <div className="w-full flex flex-wrap justify-center py-3">
       <div className="border border-2 rounded flex items-center">
         {/* Previous button */}
         <button
@@ -97,6 +100,12 @@ const PageControls: React.FC<PageControlProps> = ({ currentPage, totalPages, onP
           <FiChevronRight />
         </button>
       </div>
+      {/* Only show this message if there are more than 25 items */}
+      {results > 25 && (<>
+        <FlexBasisFull />
+        <p className='text-sm opacity-75'>{`(There are ${pageSize} results per page)`}</p>
+      </>)
+      }
     </div>
   );
 };
