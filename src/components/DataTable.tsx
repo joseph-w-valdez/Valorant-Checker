@@ -14,7 +14,7 @@ export type DataTableProps = {
 
 const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const navigate = useNavigate();
-  const pageSize = 20 // show 30 results per page
+  const pageSize = 25 // amount of results per page
   const totalPages = Math.ceil(data.length / pageSize);
 
   const [currentPage, setCurrentPage] = useState(1);

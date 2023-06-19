@@ -22,28 +22,34 @@ const PageControls: React.FC<PageControlProps> = ({ currentPage, totalPages, onP
       >
         Previous
       </button>
-      <button onClick={() => handlePageChange(1)} className="mx-1">
-        1
-      </button>
-      {currentPage > 3 && <span className="mx-1">...</span>}
       {currentPage > 2 && (
+        <>
+          <button onClick={() => handlePageChange(1)} className="mx-1">
+            1
+          </button>
+          {currentPage > 3 && <span className="mx-1">...</span>}
+        </>
+      )}
+      {currentPage > 1 && (
         <button onClick={() => handlePageChange(currentPage - 1)} className="mx-1">
           {currentPage - 1}
         </button>
       )}
-      <button onClick={() => handlePageChange(currentPage)} className="mx-1 font-bold">
+      <button onClick={() => handlePageChange(currentPage)} className="mx-1 font-bold" disabled>
         {currentPage}
       </button>
-      {currentPage < totalPages - 1 && (
+      {currentPage < totalPages && (
         <button onClick={() => handlePageChange(currentPage + 1)} className="mx-1">
           {currentPage + 1}
         </button>
       )}
-      {currentPage < totalPages - 2 && <span className="mx-1">...</span>}
-      {currentPage !== totalPages && (
-        <button onClick={() => handlePageChange(totalPages)} className="mx-1">
-          {totalPages}
-        </button>
+      {currentPage < totalPages - 1 && (
+        <>
+          {currentPage < totalPages - 2 && <span className="mx-1">...</span>}
+          <button onClick={() => handlePageChange(totalPages)} className="mx-1">
+            {totalPages}
+          </button>
+        </>
       )}
       <button
         onClick={() => handlePageChange(currentPage + 1)}
