@@ -14,7 +14,7 @@ export type DataTableProps = {
 
 const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const navigate = useNavigate();
-  const pageSize = 25 // amount of results per page
+  const pageSize = 25; // amount of results per page
   const totalPages = Math.ceil(data.length / pageSize);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -93,20 +93,22 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     );
   };
 
-  // Calculate the start and end index for slicing the data array
-  const startIndex = (currentPage - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-
-  // Slice the data array to retrieve the current page's results
-  const slicedData = data.slice(startIndex, endIndex);
-
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
+    // Update the URL with the new page number
+    navigate(`?page=${pageNumber}`);
   };
+
+  // Calculate the start and end index for slicing the data array
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+
+  // Slice the data array to retrieve the current page's results
+  const slicedData = data.slice(startIndex, endIndex);
 
   return (
     <>
@@ -166,14 +168,14 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
             ))}
           </>
         )}
-        <PageControls
-          results={data.length}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
       </div>
+      <PageControls
+        results={data.length}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </>
   );
 };
