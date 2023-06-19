@@ -1348,6 +1348,16 @@ video {
   .\33 75\:inline {
     display: inline;
   }
+
+  .\33 75\:text-5xl {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  .\33 75\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
 }
 
 @media (min-width: 640px) {
