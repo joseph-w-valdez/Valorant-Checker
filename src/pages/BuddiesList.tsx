@@ -6,6 +6,7 @@ import DataTable from '../components/DataTable';
 import BackButton from '../components/BackButton';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
 import Subheader from '../components/Subheader';
+import { useLoadingContext } from '../contexts/LoadingContext';
 
 type Buddy = {
   displayName: string;
@@ -13,7 +14,7 @@ type Buddy = {
 
 const BuddiesList: React.FC = () => {
   const [buddies, setBuddies] = useState<Buddy[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoading, setIsLoading } = useLoadingContext();
 
   useEffect(() => {
     const fetchBuddiesData = async () => {
