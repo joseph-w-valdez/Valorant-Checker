@@ -33,7 +33,10 @@ const WeaponsList: React.FC<WeaponsListProps> = ({ selectedOption, setSelectedOp
         console.error(error);
         setWeapons([]);
       } finally {
-        setIsLoading(false);
+        // Delay before setting isLoading to false to reduce visual bugs
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 300);
       }
     };
 
@@ -60,7 +63,7 @@ const WeaponsList: React.FC<WeaponsListProps> = ({ selectedOption, setSelectedOp
         <>
           <FlexBasisFull />
           <Subheader
-            text={`There ${weapons.length === 1 ? 'is' : 'are'} currently ${weapons.length} ${normalizeSelectedOption(selectedOption)} ${weapons.length === 1 ? 'weapon' : 'weapons'} in game!`}
+            text={`There ${weapons.length === 1 ? 'is' : 'are'} currently ${weapons.length} ${normalizeSelectedOption(selectedOption)} ${weapons.length === 1 ? 'weapon' : 'weapons'}!`}
           />
           <FlexBasisFull />
         </>
