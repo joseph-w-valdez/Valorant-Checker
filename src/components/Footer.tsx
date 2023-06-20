@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
           , a non-official API, which is not endorsed by Riot Games in any way.
         </p>
         <p className='pb-1'>
-          Valorant Tracker isn't endorsed by Riot Games and doesn't reflect the
+          ValoChecker isn't endorsed by Riot Games and doesn't reflect the
           views or opinions of Riot Games or anyone officially involved in
           producing or managing Riot Games properties. Riot Games, and all
           associated properties are trademarks or registered trademarks of

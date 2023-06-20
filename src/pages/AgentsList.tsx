@@ -9,6 +9,7 @@ import { useLoadingContext } from '../contexts/LoadingContext';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
 import Subheader from '../components/Subheader';
 import { normalizeSelectedOption } from '../utilities/stringConversions';
+import BackButton from '../components/BackButton';
 
 type AgentsListProps = {
   selectedOption: string;
@@ -71,7 +72,11 @@ const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOpti
 
   return (
     <>
-      <Header text={'Agents'} />
+      <div className='flex flex-wrap items-center justify-center'>
+          <BackButton />
+          <Header text='Agents' />
+      </div>
+      <FlexBasisFull />
       {!isLoading && agents.length > 0 && (
         <>
           <FlexBasisFull />

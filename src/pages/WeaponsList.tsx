@@ -9,6 +9,7 @@ import { useLoadingContext } from '../contexts/LoadingContext';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
 import Subheader from '../components/Subheader';
 import { normalizeSelectedOption } from '../utilities/stringConversions';
+import BackButton from '../components/BackButton';
 
 type WeaponsListProps = {
   selectedOption: string;
@@ -58,7 +59,11 @@ const WeaponsList: React.FC<WeaponsListProps> = ({ selectedOption, setSelectedOp
 
   return (
     <>
-      <Header text={'Weapons'} />
+       <div className='flex flex-wrap items-center justify-center'>
+          <BackButton />
+          <Header text='Weapons' />
+      </div>
+      <FlexBasisFull />
       {!isLoading && (
         <>
           <FlexBasisFull />
@@ -68,6 +73,7 @@ const WeaponsList: React.FC<WeaponsListProps> = ({ selectedOption, setSelectedOp
           <FlexBasisFull />
         </>
       )}
+      <FlexBasisFull />
       <FilterTable
         selectedOption={selectedOption}
         handleOptionChange={handleOptionChange}
