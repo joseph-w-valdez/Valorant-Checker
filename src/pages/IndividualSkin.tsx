@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import BackButton from '../components/BackButton';
 import Subheader from '../components/Subheader';
 import { convertCamelCase, shortenLevelText, convertContainsColons, removeParentheses, onlyLettersAndNumbers } from '../utilities/stringConversions';
-import { fetchWeapon } from '../utilities/FetchWeapons';
+import { fetchWeapon } from '../utilities/fetchWeapons';
 import { useLoadingContext } from '../contexts/LoadingContext';
 
 const IndividualSkin = () => {

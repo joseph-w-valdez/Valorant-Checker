@@ -5,7 +5,7 @@ import FlexBasisFull from '../components/FlexBasisFull';
 import FullAgentPortrait from '../components/FullAgentPortrait';
 import BackButton from '../components/BackButton';
 import { normalizeAbilitySlot, onlyLettersAndNumbers } from '../utilities/stringConversions';
-import { fetchAgent } from '../utilities/FetchAgents';
+import { fetchAgent } from '../utilities/fetchAgents';
 import { useLoadingContext } from '../contexts/LoadingContext';
 
 const IndividualAgent: React.FC<{ setSelectedOption: (option: string) => void }> = ({ setSelectedOption }) => {

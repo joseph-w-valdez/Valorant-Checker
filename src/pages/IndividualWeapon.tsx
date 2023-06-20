@@ -4,7 +4,7 @@ import BackButton from '../components/BackButton';
 import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
 import DataTable, { DataTableProps } from '../components/DataTable';
-import { fetchWeapon } from '../utilities/FetchWeapons';
+import { fetchWeapon } from '../utilities/fetchWeapons';
 import { useLoadingContext } from '../contexts/LoadingContext';
 import { convertWeaponStats, filterProps, modifyAccuracyProps } from '../utilities/weaponUtils';
 

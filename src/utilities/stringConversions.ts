@@ -127,3 +127,14 @@ export const normalizeAbilitySlot = (str: string): string => {
 export const onlyLettersAndNumbers = (input: string): string => {
   return input.replace(/[^a-zA-Z0-9]/g, '');
 };
+
+
+export const normalizeSelectedOption = (input:string) => {
+  if (input === 'SMG') {
+    return input;
+  } else if (input === 'No Filter') {
+    return '';
+  } else {
+    return input.toLowerCase();
+  }
+};

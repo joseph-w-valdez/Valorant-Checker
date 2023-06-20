@@ -4,15 +4,16 @@ import BackButton from '../components/BackButton';
 import Header from '../components/Header';
 import DataTable, { DataTableProps } from '../components/DataTable';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
-import { fetchWeapon } from '../utilities/FetchWeapons';
+import { fetchWeapon } from '../utilities/fetchWeapons';
 import { useLoadingContext } from '../contexts/LoadingContext';
+import FlexBasisFull from '../components/FlexBasisFull';
+import Subheader from '../components/Subheader';
 
 const WeaponSkins = () => {
   const navigate = useNavigate();
   const { weaponName } = useParams();
-  const { setIsLoading } = useLoadingContext();
+  const { isLoading, setIsLoading } = useLoadingContext();
   const [weaponData, setWeaponData] = useState<any>(null);
-  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
 
   useEffect(() => {
     const getWeaponData = async () => {
@@ -23,7 +24,6 @@ const WeaponSkins = () => {
       } catch (error) {
         console.error(error);
       } finally {
-        setIsFetchCompleted(true);
         setIsLoading(false);
       }
     };
@@ -32,12 +32,12 @@ const WeaponSkins = () => {
   }, [weaponName, setIsLoading]);
 
   useEffect(() => {
-    if (isFetchCompleted && !weaponData) {
+    if (isLoading && !weaponData) {
       navigate('/not-found');
     }
-  }, [isFetchCompleted, weaponData, navigate]);
+  }, [weaponData, navigate]);
 
-  if (!weaponData || !isFetchCompleted) {
+  if (!weaponData) {
     return null; // Don't try to render content until the fetch has completed
   }
 
@@ -58,6 +58,8 @@ const WeaponSkins = () => {
           <BackButton />
           <Header text={`${weaponData.displayName} Skins`} />
         </div>
+        <FlexBasisFull />
+        <Subheader text={`There are currently ${weaponData.skins.length} ${weaponData.displayName.toLowerCase()} skins in game!`} />
         <p>Click on a skin to view details, variations, and showcase clips!</p>
       </div>
       <DataTable {...dataTableProps} />

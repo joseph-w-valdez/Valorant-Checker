@@ -4,8 +4,11 @@ import FilterTable from '../components/FilterTable';
 import DataTable from '../components/DataTable';
 import FlexBasisFull from '../components/FlexBasisFull';
 import { agentRoles } from '../data/agentRoles';
-import { fetchAgents } from '../utilities/FetchAgents';
+import { fetchAgents } from '../utilities/fetchAgents';
 import { useLoadingContext } from '../contexts/LoadingContext';
+import { alphabetizeArray } from '../utilities/arrayManipulations';
+import Subheader from '../components/Subheader';
+import { normalizeSelectedOption } from '../utilities/stringConversions';
 
 type AgentsListProps = {
   selectedOption: string;
@@ -13,7 +16,7 @@ type AgentsListProps = {
 };
 
 const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOption }) => {
-  const { setIsLoading } = useLoadingContext();
+  const { isLoading, setIsLoading } = useLoadingContext();
   const [agents, setAgents] = useState<any[]>([]);
   const [agentRoleDescription, setAgentRoleDescription] = useState<string>('');
 
@@ -57,6 +60,11 @@ const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOpti
   return (
     <>
       <Header text={'Agents'} />
+      {!isLoading && (<>
+        <FlexBasisFull />
+        <Subheader
+          text={`There ${agents.length === 1 ? 'is' : 'are'} currently ${agents.length} ${normalizeSelectedOption(selectedOption)} ${agents.length === 1 ? 'agent' : 'agents'} in game!`} />
+      </>)}
       <FlexBasisFull />
       <FilterTable
         selectedOption={selectedOption}
@@ -69,7 +77,7 @@ const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOpti
           <p className=''>{agentRoleDescription}</p>
         </div>
       )}
-      <DataTable data={agents} selectedOption={selectedOption} dataType='agents' />
+      <DataTable data={alphabetizeArray(agents)} selectedOption={selectedOption} dataType='agents' />
     </>
   );
 };
