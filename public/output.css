@@ -931,6 +931,10 @@ video {
   max-width: 70%;
 }
 
+.max-w-none {
+  max-width: none;
+}
+
 .flex-grow {
   flex-grow: 1;
 }
@@ -1421,6 +1425,10 @@ video {
 
   .sm\:max-w-none {
     max-width: none;
+  }
+
+  .sm\:max-w-\[70\%\] {
+    max-width: 70%;
   }
 
   .sm\:text-2xl {
