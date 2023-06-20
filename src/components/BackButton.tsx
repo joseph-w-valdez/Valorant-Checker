@@ -7,6 +7,7 @@ const BackButton: React.FC = () => {
 
   const handleClick = (): void => {
     navigate(-1); // Go back to the previous page
+    window.scrollTo(0,0)
   };
 
   return (

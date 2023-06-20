@@ -137,9 +137,11 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   // Slice the data array to retrieve the current page's results
   const slicedData = data.slice(startIndex, endIndex);
 
+  console.log('agents', data)
+
   return (
     <>
-      <div className="table w-full flex mt-8">
+      <div className="table max-w-[70%] w-full flex mt-8 border border-2 rounded">
         <div className="table-header h-12 flex justify-between items-center bg-neutral-700">
           <p className="select-none flex-start ml-12 lg:ml-24">Name</p>
           <p className="select-none flex-end mr-12 sm:mr-24 lg:mr-48">

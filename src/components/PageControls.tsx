@@ -103,7 +103,7 @@ const PageControls: React.FC<PageControlProps> = ({ results, pageSize, currentPa
       {/* Only show this message if there are more than 25 items */}
       {results > 25 && (<>
         <FlexBasisFull />
-        <p className='text-sm opacity-75'>{`(There are ${pageSize} results per page)`}</p>
+        <p className='text-sm opacity-75'>{`(There are up to ${pageSize} results per page)`}</p>
       </>)
       }
     </div>
