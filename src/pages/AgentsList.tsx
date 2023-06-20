@@ -95,7 +95,10 @@ const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOpti
         </div>
       )}
       {Boolean(selectedOption) && agents.length > 0 && (
-        <DataTable data={alphabetizeArray(agents)} selectedOption={selectedOption} dataType='agents' />
+        <>
+          <FlexBasisFull />
+          <DataTable data={alphabetizeArray(agents)} selectedOption={selectedOption} dataType='agents' />
+        </>
       )}
     </>
   );
