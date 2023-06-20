@@ -43,7 +43,7 @@ const BuddiesList: React.FC = () => {
       {!isLoading && (
         <>
 
-          <Subheader text={`There are currently ${buddies.length} buddies in game!`} />
+          <Subheader text={`There are currently ${buddies.length} buddies!`} />
           <FlexBasisFull />
         </>
       )}

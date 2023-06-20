@@ -42,7 +42,7 @@ const SpraysList: React.FC = () => {
       </div>
       {!isLoading && (<>
         <FlexBasisFull />
-        <Subheader text={`There are currently ${sprays.length} sprays in game!`} />
+        <Subheader text={`There are currently ${sprays.length} sprays!`} />
       </>)}
       <FlexBasisFull />
       <DataTable data={sprays} selectedOption='' dataType='sprays' />

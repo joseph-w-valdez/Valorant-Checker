@@ -63,7 +63,7 @@ const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOpti
       {!isLoading && (<>
         <FlexBasisFull />
         <Subheader
-          text={`There ${agents.length === 1 ? 'is' : 'are'} currently ${agents.length} ${normalizeSelectedOption(selectedOption)} ${agents.length === 1 ? 'agent' : 'agents'} in game!`} />
+          text={`There ${agents.length === 1 ? 'is' : 'are'} currently ${agents.length} ${normalizeSelectedOption(selectedOption)} ${agents.length === 1 ? 'agent' : 'agents'}!`} />
       </>)}
       <FlexBasisFull />
       <FilterTable
