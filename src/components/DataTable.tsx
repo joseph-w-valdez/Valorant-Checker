@@ -67,6 +67,11 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
       case 'weapon-skins':
         linkPath = getWeaponSkinLinkPath(item.displayName);
         break;
+      /* PLACEHOLDER LINKS */
+      case 'sprays':
+        linkPath = '/'
+      case 'buddies':
+        linkPath = '/'
       default:
         break;
     }
@@ -147,24 +152,22 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
           slicedData
             ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
             .map((item, index) => (
-              <div
-                key={index}
-                className={`data-table-row ${
-                  dataType !== 'buddies' ? 'cursor-pointer hover:bg-[#f5f5f5] group' : ''
-                } h-[4.5rem] flex justify-between items-center text-start ${
-                  index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
-                }`}
-                onClick={() => handleRowClick(item)}
+             <div
+              key={index}
+              className={`data-table-row cursor-pointer hover:bg-[#f5f5f5] group h-[4.5rem] flex justify-between items-center text-start ${
+                index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
+              }`}
+              onClick={() => handleRowClick(item)}
+            >
+              <p
+                className={`select-none flex-start ml-12 lg:ml-24 ${
+                  index % 2 === 0 ? 'text-black' : 'text-white'
+                } group-hover:text-blue-600 group-hover:font-bold`}
               >
-                <p
-                  className={`select-none flex-start ml-12 lg:ml-24 ${
-                    index % 2 === 0 ? 'text-black' : 'text-white'
-                  } group-hover:text-blue-600 group-hover:font-bold`}
-                >
-                  {item.displayName}
-                </p>
-                {renderIcon(item)}
-              </div>
+                {item.displayName}
+              </p>
+              {renderIcon(item)}
+            </div>
             ))}
         {/* If the dataType is individual-weapon */}
         {dataType === 'individual-weapon' && slicedData?.length && (
