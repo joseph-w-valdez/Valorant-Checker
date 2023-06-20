@@ -12,7 +12,7 @@ const NavLinkItem: React.FC<NavLinkItemProps> = ({ to, text, handleNavLinkClick,
   return (
     <NavLink to={to}>
       <h4
-        className="select-none p-1 cursor-pointer active:font-bold"
+        className="p-1 cursor-pointer active:font-bold"
         onClick={() => {
           handleNavLinkClick();
           if (handleResetFilters && to === '/agents-list') {

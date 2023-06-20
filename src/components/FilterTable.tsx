@@ -42,7 +42,7 @@ const CheckboxItem: React.FC<CheckboxItemProps> = ({
       />
       <div className='text-xl flex items-center cursor-pointer'>
         {icon && <img src={icon} alt={`${category} icon`} className='w-5 h-5 mr-2 cursor-pointer' />}
-        <p className='select-none'>{category}</p>
+        <p>{category}</p>
       </div>
     </label>
   );
@@ -61,7 +61,7 @@ const FilterTable: React.FC<FilterTableProps> = ({ selectedOption, handleOptionC
     <div className='flex justify-center'>
       <form className='filter-table w-[320px] flex flex-wrap justify-center border border-2 rounded px-2 py-1'>
         <div className='w-1/2 flex justify-center'>
-          <h4 className='select-none font-bold'>Filter by Role</h4>
+          <h4 className='font-bold'>Filter by Role</h4>
         </div>
         {shouldRenderBasisFull && <div className='basis-full' />}
         {filterData.map((option, index) => (

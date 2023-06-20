@@ -102,13 +102,13 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
       <div className={iconClasses}>
         {isMelee ? (
           <img
-            className="select-none flex-end h-full object-contain sm:mr-8 lg:mr-32"
+            className="flex-end h-full object-contain sm:mr-8 lg:mr-32"
             src={meleeIcon}
             alt={`${item.displayName} portrait`}
           />
         ) : (
           <img
-            className="select-none flex-end h-full object-contain sm:mr-8 lg:mr-32"
+            className="flex-end h-full object-contain sm:mr-8 lg:mr-32"
             src={hasDisplayIcon ? item.displayIcon : item.chromas[0]?.fullRender}
             alt={`${item.displayName} portrait`}
           />
@@ -143,8 +143,8 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     <>
       <div className="table max-w-none sm:max-w-[70%] w-full flex mt-8 border border-2 rounded">
         <div className="table-header h-12 flex justify-between items-center bg-neutral-700">
-          <p className="select-none flex-start ml-12 lg:ml-24">Name</p>
-          <p className="select-none flex-end mr-12 sm:mr-24 lg:mr-48">
+          <p className="flex-start ml-12 lg:ml-24">Name</p>
+          <p className="flex-end mr-12 sm:mr-24 lg:mr-48">
             {dataType === 'individual-weapon' ? 'Value' : 'Portrait'}
           </p>
         </div>
@@ -162,7 +162,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
               onClick={() => handleRowClick(item)}
             >
               <p
-                className={`select-none flex-start ml-12 lg:ml-24 ${
+                className={`flex-start ml-12 lg:ml-24 ${
                   index % 2 === 0 ? 'text-black' : 'text-white'
                 } group-hover:text-blue-600 group-hover:font-bold`}
               >
@@ -184,7 +184,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
                 {Object.entries(item).map(([key, value]) => (
                   <p
                     key={key}
-                    className={`select-none flex-start ml-12 lg:ml-24 flex-end mr-12 sm:mr-24 lg:mr-48 ${
+                    className={`flex-start ml-12 lg:ml-24 flex-end mr-12 sm:mr-24 lg:mr-48 ${
                       index % 2 === 0 ? 'text-black' : 'text-white'
                     }`}
                   >
