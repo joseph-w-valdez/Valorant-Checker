@@ -16,7 +16,7 @@ type AgentsListProps = {
 };
 
 const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOption }) => {
-  const { setIsLoading } = useLoadingContext();
+  const { isLoading, setIsLoading } = useLoadingContext();
   const [agents, setAgents] = useState<any[]>([]);
   const [agentRoleDescription, setAgentRoleDescription] = useState<string>('');
 
@@ -60,9 +60,11 @@ const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOpti
   return (
     <>
       <Header text={'Agents'} />
-      <FlexBasisFull />
-      <Subheader
-        text={`There ${agents.length === 1 ? 'is' : 'are'} currently ${agents.length} ${normalizeSelectedOption(selectedOption)} ${agents.length === 1 ? 'agent' : 'agents'} in game!`} />
+      {!isLoading && (<>
+        <FlexBasisFull />
+        <Subheader
+          text={`There ${agents.length === 1 ? 'is' : 'are'} currently ${agents.length} ${normalizeSelectedOption(selectedOption)} ${agents.length === 1 ? 'agent' : 'agents'} in game!`} />
+      </>)}
       <FlexBasisFull />
       <FilterTable
         selectedOption={selectedOption}

@@ -13,16 +13,20 @@ type Buddy = {
 
 const BuddiesList: React.FC = () => {
   const [buddies, setBuddies] = useState<Buddy[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchBuddiesData = async () => {
       try {
+        setIsLoading(true);
         const data = await fetchBuddies();
         const sortedBuddies = alphabetizeArray(data.data);
         setBuddies(sortedBuddies);
       } catch (error) {
         console.error(error);
         setBuddies([]);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -36,8 +40,13 @@ const BuddiesList: React.FC = () => {
         <Header text='Buddies' />
       </div>
       <FlexBasisFull />
-      <Subheader text={`There are currently ${buddies.length} buddies in game!`} />
-      <FlexBasisFull />
+      {!isLoading && (
+        <>
+
+          <Subheader text={`There are currently ${buddies.length} buddies in game!`} />
+          <FlexBasisFull />
+        </>
+      )}
       <DataTable data={buddies} selectedOption='' dataType='buddies' />
     </>
   );

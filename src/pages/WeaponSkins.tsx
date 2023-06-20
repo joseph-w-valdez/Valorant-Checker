@@ -12,9 +12,8 @@ import Subheader from '../components/Subheader';
 const WeaponSkins = () => {
   const navigate = useNavigate();
   const { weaponName } = useParams();
-  const { setIsLoading } = useLoadingContext();
+  const { isLoading, setIsLoading } = useLoadingContext();
   const [weaponData, setWeaponData] = useState<any>(null);
-  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
 
   useEffect(() => {
     const getWeaponData = async () => {
@@ -25,7 +24,6 @@ const WeaponSkins = () => {
       } catch (error) {
         console.error(error);
       } finally {
-        setIsFetchCompleted(true);
         setIsLoading(false);
       }
     };
@@ -34,12 +32,12 @@ const WeaponSkins = () => {
   }, [weaponName, setIsLoading]);
 
   useEffect(() => {
-    if (isFetchCompleted && !weaponData) {
+    if (isLoading && !weaponData) {
       navigate('/not-found');
     }
-  }, [isFetchCompleted, weaponData, navigate]);
+  }, [weaponData, navigate]);
 
-  if (!weaponData || !isFetchCompleted) {
+  if (!weaponData) {
     return null; // Don't try to render content until the fetch has completed
   }
 

@@ -16,7 +16,7 @@ type WeaponsListProps = {
 };
 
 const WeaponsList: React.FC<WeaponsListProps> = ({ selectedOption, setSelectedOption }) => {
-  const { setIsLoading } = useLoadingContext();
+  const { isLoading, setIsLoading } = useLoadingContext();
   const [weapons, setWeapons] = useState<any[]>([]);
 
   useEffect(() => {
@@ -41,11 +41,11 @@ const WeaponsList: React.FC<WeaponsListProps> = ({ selectedOption, setSelectedOp
   }, [selectedOption, setIsLoading]);
 
   const handleOptionChange = (event: ChangeEvent<HTMLInputElement>) => {
-  const option = event.target.value;
-  setSelectedOption((prevState) =>
-    prevState === option && option !== 'No Filter' ? 'No Filter' : option
-  );
-};
+    const option = event.target.value;
+    setSelectedOption((prevState) =>
+      prevState === option && option !== 'No Filter' ? 'No Filter' : option
+    );
+  };
 
   const dataTableProps: DataTableProps = {
     data: alphabetizeArray(weapons),
@@ -56,10 +56,15 @@ const WeaponsList: React.FC<WeaponsListProps> = ({ selectedOption, setSelectedOp
   return (
     <>
       <Header text={'Weapons'} />
-      <FlexBasisFull />
-      <Subheader
-        text={`There ${weapons.length === 1 ? 'is' : 'are'} currently ${weapons.length} ${normalizeSelectedOption(selectedOption)} ${weapons.length === 1 ? 'weapon' : 'weapons'} in game!`} />
-      <FlexBasisFull />
+      {!isLoading && (
+        <>
+          <FlexBasisFull />
+          <Subheader
+            text={`There ${weapons.length === 1 ? 'is' : 'are'} currently ${weapons.length} ${normalizeSelectedOption(selectedOption)} ${weapons.length === 1 ? 'weapon' : 'weapons'} in game!`}
+          />
+          <FlexBasisFull />
+        </>
+      )}
       <FilterTable
         selectedOption={selectedOption}
         handleOptionChange={handleOptionChange}

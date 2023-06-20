@@ -6,6 +6,7 @@ import DataTable from '../components/DataTable';
 import BackButton from '../components/BackButton';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
 import Subheader from '../components/Subheader';
+import { useLoadingContext } from '../contexts/LoadingContext';
 
 type Spray = {
   displayName: string;
@@ -13,16 +14,20 @@ type Spray = {
 
 const SpraysList: React.FC = () => {
   const [sprays, setSprays] = useState<Spray[]>([]);
+  const { isLoading, setIsLoading } = useLoadingContext();
 
   useEffect(() => {
     const fetchSpraysData = async () => {
       try {
+        setIsLoading(true)
         const data = await fetchSprays();
         const sortedSprays = alphabetizeArray(data.data);
         setSprays(sortedSprays);
       } catch (error) {
         console.error(error);
         setSprays([]);
+      } finally {
+        setIsLoading(false)
       }
     };
 
@@ -35,8 +40,10 @@ const SpraysList: React.FC = () => {
         <BackButton />
         <Header text='Sprays' />
       </div>
-      <FlexBasisFull />
-      <Subheader text={`There are currently ${sprays.length} sprays in game!`} />
+      {!isLoading && (<>
+        <FlexBasisFull />
+        <Subheader text={`There are currently ${sprays.length} sprays in game!`} />
+      </>)}
       <FlexBasisFull />
       <DataTable data={sprays} selectedOption='' dataType='sprays' />
     </>
