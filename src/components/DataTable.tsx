@@ -20,23 +20,35 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const pageSize = 25; // amount of results per page
   const totalPages = Math.ceil(data.length / pageSize);
 
-   const [currentPage, setCurrentPage] = useState(pageParam ? parseInt(pageParam, 10) : 1);
+  const [currentPage, setCurrentPage] = useState(1);
 
- useEffect(() => {
-  setCurrentPage(pageParam ? parseInt(pageParam, 10) : 1);
-
-  if (pageParam) {
+useEffect(() => {
+  if (pageParam && totalPages > 0) {
     const parsedPage = parseInt(pageParam, 10);
-    /* if the page param is larger than the total pages, go to the final page */
-    if (parsedPage > totalPages) {
-      navigate(`${location.pathname}?page=${totalPages}`);
-    } else if (isNaN(parsedPage) || parsedPage < 1) {
-      /* if the page param is otherwise invalid, go to the first page */
+    if (isNaN(parsedPage) || parsedPage < 1 ) {
       navigate(`${location.pathname}?page=1`);
+      setCurrentPage(1);
+    } else if (parsedPage > totalPages) {
+      navigate(`${location.pathname}?page=${totalPages}`);
+      setCurrentPage(totalPages);
+    } else {
+      setCurrentPage(parsedPage);
     }
   }
-}, [pageParam, totalPages, navigate, location.pathname]);
+}, [location.pathname, totalPages, pageParam]);
 
+
+  useEffect(() => {
+    /* make sure pageParam is defined and the total number of pages has been calculated */
+    if (pageParam && totalPages > 0) {
+      const parsedPage = parseInt(pageParam, 10);
+      if (isNaN(parsedPage) || parsedPage < 1 ) {
+        navigate(`${location.pathname}?page=1`);
+      } else if (parsedPage > totalPages) {
+        navigate(`${location.pathname}?page=${totalPages}`);
+      }
+    }
+  }, [location.pathname, totalPages, pageParam]);
 
   const handleRowClick = (item: any) => {
     // Generate link path based on the clicked row's data type and display name
@@ -69,9 +81,11 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
         break;
       /* PLACEHOLDER LINKS */
       case 'sprays':
-        linkPath = '/'
+        linkPath = '/';
+        break;
       case 'buddies':
-        linkPath = '/'
+        linkPath = '/';
+        break;
       default:
         break;
     }
@@ -118,17 +132,16 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   };
 
   const handlePageChange = (pageNumber: number) => {
-  setCurrentPage(pageNumber);
-  // Update the URL with the new page number
-  navigate(`?page=${pageNumber}`);
-  setTimeout(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  }, 0);
-};
-
+    setCurrentPage(pageNumber);
+    // Update the URL with the new page number
+    navigate(`?page=${pageNumber}`);
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }, 0);
+  };
 
   // Calculate the start and end index for slicing the data array
   const startIndex = (currentPage - 1) * pageSize;
@@ -136,8 +149,6 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
 
   // Slice the data array to retrieve the current page's results
   const slicedData = data.slice(startIndex, endIndex);
-
-  console.log('agents', data)
 
   return (
     <>
