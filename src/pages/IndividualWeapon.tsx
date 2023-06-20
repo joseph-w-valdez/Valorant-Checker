@@ -52,7 +52,7 @@ const IndividualWeapon = () => {
   }
 
   const weaponStats = weaponData.weaponStats;
-  const weaponIconWidth = weaponData.shopData?.categoryText === 'Sidearms' ? 'w-[200px]' : 'w-[500px]';
+  const weaponIconWidth = weaponData.shopData?.categoryText === 'Sidearms' || weaponName === 'Melee' ? 'w-[250px]' : 'w-[500px]';
 
   const convertedStats = convertWeaponStats(weaponStats);
   const filteredStats = filterProps(convertedStats, weaponData);
@@ -77,7 +77,7 @@ const IndividualWeapon = () => {
           <Header text={weaponData.displayName} />
         </div>
         <FlexBasisFull />
-        <div className={`${weaponIconWidth} max-w-[95vw]`}>
+        <div className={`${weaponIconWidth} max-w-[95vw] my-8`}>
           <img src={weaponData.displayIcon} alt={weaponData.displayName} className='object-contain w-full' />
         </div>
         <FlexBasisFull />
