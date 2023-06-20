@@ -68,6 +68,7 @@ const WeaponsList: React.FC<WeaponsListProps> = ({ selectedOption, setSelectedOp
           <FlexBasisFull />
         </>
       )}
+      <FlexBasisFull />
       <FilterTable
         selectedOption={selectedOption}
         handleOptionChange={handleOptionChange}
