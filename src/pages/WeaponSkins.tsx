@@ -62,6 +62,7 @@ const WeaponSkins = () => {
         <Subheader text={`There are currently ${weaponData.skins.length} ${weaponData.displayName.toLowerCase()} skins!`} />
         <p>Click on a skin to view details, variations, and showcase clips!</p>
       </div>
+      <FlexBasisFull />
       <DataTable {...dataTableProps} />
     </>
   );
