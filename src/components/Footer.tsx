@@ -5,8 +5,8 @@ const Footer: React.FC = () => {
   return (
     <footer className="w-full relative top-[100px]">
       <div className="w-full bg-[#212121] h-[20px]"></div>
-      <div className="flex flex-wrap w-full bg-gradient-to-r from-[#ff5152] via-red-950 via-black to-black min-h-[100px] bg-stone-950 text-[12px] text-left px-5 pb-4">
-        <section className='w-full md:w-1/2 px-2'>
+      <div className="flex flex-wrap justify-center w-full bg-gradient-to-r from-[#ff5152] via-red-950 via-black to-black min-h-[100px] bg-stone-950 text-[12px] text-left px-5 pb-4">
+        <section className='w-full md:w-1/2 xl:w-[35%] px-2'>
           <p className='pt-4 pb-1'>
             This website uses{' '}
             <a
@@ -22,13 +22,15 @@ const Footer: React.FC = () => {
           <p className='pb-1'>
             ValoChecker isn't endorsed by Riot Games and doesn't reflect the
             views or opinions of Riot Games or anyone officially involved in
-            producing or managing Riot Games properties. Riot Games, and all
-            associated properties are trademarks or registered trademarks of
-            Riot Games, Inc.
+            Riot Games properties.
           </p>
-          <p>ValoChecker created by Joseph Valdez.</p>
+          <p className='pb-1'>
+            Riot Games, and all associated properties are trademarks or
+            registered trademarks of Riot Games, Inc.
+          </p>
+          <p>ValoChecker created by <a href="https://www.linkedin.com/in/joseph-w-valdez/" className='font-bold'>Joseph Valdez</a>.</p>
         </section>
-        <section className="flex flex-wrap items-center justify-center w-full md:w-1/2 mt-3 px-2">
+        <section className="flex flex-wrap items-center justify-center w-full md:w-1/3 mt-3 px-2">
           <div className="flex flex-wrap justify-center items-center h-[80px]">
             {socials.map((social: { link: string; imageSource: string; name: string; }, index: number) => (
               <div key={index} className="w-1/2 flex items-center pr-2">
