@@ -88,6 +88,7 @@ const IndividualWeapon = () => {
           Weapon Skins
         </button>
       </div>
+      <FlexBasisFull />
       <DataTable {...dataTableProps} />
     </>
   );
