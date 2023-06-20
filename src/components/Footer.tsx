@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
             Riot Games, and all associated properties are trademarks or
             registered trademarks of Riot Games, Inc.
           </p>
-          <p>ValoChecker created by Joseph Valdez.</p>
+          <p>ValoChecker created by <a href="https://www.linkedin.com/in/joseph-w-valdez/" className='font-bold'>Joseph Valdez</a>.</p>
         </section>
         <section className="flex flex-wrap items-center justify-center w-full md:w-1/3 mt-3 px-2">
           <div className="flex flex-wrap justify-center items-center h-[80px]">
