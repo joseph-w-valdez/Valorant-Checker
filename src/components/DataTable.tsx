@@ -22,17 +22,21 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
 
    const [currentPage, setCurrentPage] = useState(pageParam ? parseInt(pageParam, 10) : 1);
 
-  useEffect(() => {
-    setCurrentPage(pageParam ? parseInt(pageParam, 10) : 1);
+ useEffect(() => {
+  setCurrentPage(pageParam ? parseInt(pageParam, 10) : 1);
 
-    if (pageParam) {
-      const parsedPage = parseInt(pageParam, 10);
-      /* if the page param in the url is invalid, navigate to the final page of the results */
-      if (isNaN(parsedPage) || parsedPage < 1 || parsedPage > totalPages) {
-        navigate(`${location.pathname}?page=${totalPages}`);
-      }
+  if (pageParam) {
+    const parsedPage = parseInt(pageParam, 10);
+    /* if the page param is larger than the total pages, go to the final page */
+    if (parsedPage > totalPages) {
+      navigate(`${location.pathname}?page=${totalPages}`);
+    } else if (isNaN(parsedPage) || parsedPage < 1) {
+      /* if the page param is otherwise invalid, go to the first page */
+      navigate(`${location.pathname}?page=1`);
     }
-  }, [pageParam, totalPages, navigate, location.pathname]);
+  }
+}, [pageParam, totalPages, navigate, location.pathname]);
+
 
   const handleRowClick = (item: any) => {
     // Generate link path based on the clicked row's data type and display name
