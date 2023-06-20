@@ -20,6 +20,32 @@ const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOpti
   const [agents, setAgents] = useState<any[]>([]);
   const [agentRoleDescription, setAgentRoleDescription] = useState<string>('');
 
+  const fetchData = async (option: string) => {
+    try {
+      setIsLoading(true);
+      const filteredAgents = await fetchAgents(option);
+      setAgents(filteredAgents);
+    } catch (error) {
+      console.error(error);
+      setAgents([]);
+    } finally {
+      // Delay before setting isLoading to false to reduce visual bugs
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 300);
+    }
+  };
+
+  useEffect(() => {
+    const fetchDataOnInitialLoad = async () => {
+      setIsLoading(true);
+      // Delay before fetching data for the initial load with "No Filter" option
+      fetchData(selectedOption);
+    };
+
+    fetchDataOnInitialLoad();
+  }, [selectedOption]);
+
   useEffect(() => {
     setSelectedOption('No Filter');
   }, []);
@@ -33,38 +59,29 @@ const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOpti
     }
   }, [selectedOption]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const filteredAgents = await fetchAgents(selectedOption);
-        setAgents(filteredAgents);
-      } catch (error) {
-        console.error(error);
-        setAgents([]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [selectedOption, setIsLoading]);
-
-  const handleOptionChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleOptionChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const option = event.target.value;
-    setSelectedOption((prevState) =>
-      prevState === option && option !== 'No Filter' ? 'No Filter' : option
+    setSelectedOption((prevOption) =>
+      prevOption === option && option !== 'No Filter' ? 'No Filter' : option
     );
+    fetchData(option);
   };
+
+  if (isLoading && !agents) return null;
 
   return (
     <>
       <Header text={'Agents'} />
-      {!isLoading && (<>
-        <FlexBasisFull />
-        <Subheader
-          text={`There ${agents.length === 1 ? 'is' : 'are'} currently ${agents.length} ${normalizeSelectedOption(selectedOption)} ${agents.length === 1 ? 'agent' : 'agents'}!`} />
-      </>)}
+      {!isLoading && agents.length > 0 && (
+        <>
+          <FlexBasisFull />
+          <Subheader
+            text={`There ${agents.length === 1 ? 'is' : 'are'} currently ${agents.length} ${normalizeSelectedOption(
+              selectedOption
+            )} ${agents.length === 1 ? 'agent' : 'agents'}!`}
+          />
+        </>
+      )}
       <FlexBasisFull />
       <FilterTable
         selectedOption={selectedOption}
@@ -77,7 +94,9 @@ const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOpti
           <p className=''>{agentRoleDescription}</p>
         </div>
       )}
-      <DataTable data={alphabetizeArray(agents)} selectedOption={selectedOption} dataType='agents' />
+      {Boolean(selectedOption) && agents.length > 0 && (
+        <DataTable data={alphabetizeArray(agents)} selectedOption={selectedOption} dataType='agents' />
+      )}
     </>
   );
 };

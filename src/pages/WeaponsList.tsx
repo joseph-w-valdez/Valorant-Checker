@@ -33,7 +33,10 @@ const WeaponsList: React.FC<WeaponsListProps> = ({ selectedOption, setSelectedOp
         console.error(error);
         setWeapons([]);
       } finally {
-        setIsLoading(false);
+        // Delay before setting isLoading to false to reduce visual bugs
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 300);
       }
     };
 
