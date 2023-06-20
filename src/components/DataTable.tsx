@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { weaponSkinExceptions } from '../data/weaponSkinExceptions';
 import { meleeIcon } from '../data/meleeInfo';
 import { onlyLettersAndNumbers } from '../utilities/stringConversions';
@@ -14,10 +14,25 @@ export type DataTableProps = {
 
 const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const pageParam = queryParams.get('page');
   const pageSize = 25; // amount of results per page
   const totalPages = Math.ceil(data.length / pageSize);
 
-  const [currentPage, setCurrentPage] = useState(1);
+   const [currentPage, setCurrentPage] = useState(pageParam ? parseInt(pageParam, 10) : 1);
+
+  useEffect(() => {
+    setCurrentPage(pageParam ? parseInt(pageParam, 10) : 1);
+
+    if (pageParam) {
+      const parsedPage = parseInt(pageParam, 10);
+      /* if the page param in the url is invalid, navigate to the final page of the results */
+      if (isNaN(parsedPage) || parsedPage < 1 || parsedPage > totalPages) {
+        navigate(`${location.pathname}?page=${totalPages}`);
+      }
+    }
+  }, [pageParam, totalPages, navigate, location.pathname]);
 
   const handleRowClick = (item: any) => {
     // Generate link path based on the clicked row's data type and display name
