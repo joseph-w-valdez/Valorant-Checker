@@ -17,38 +17,34 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const pageParam = queryParams.get('page');
-  const pageSize = 25; // amount of results per page
-  const totalPages = Math.ceil(data.length / pageSize);
+  const pageSize = 25; // Amount of results per page
+  const totalPages = Math.ceil(data.length / pageSize); // Rounds up to largest whole number
 
   const [currentPage, setCurrentPage] = useState(1);
 
-useEffect(() => {
-  if (pageParam && totalPages > 0) {
-    const parsedPage = parseInt(pageParam, 10);
-    if (isNaN(parsedPage) || parsedPage < 1 ) {
-      navigate(`${location.pathname}?page=1`);
-      setCurrentPage(1);
-    } else if (parsedPage > totalPages) {
-      navigate(`${location.pathname}?page=${totalPages}`);
-      setCurrentPage(totalPages);
-    } else {
-      setCurrentPage(parsedPage);
-    }
-  }
-}, [location.pathname, totalPages, pageParam]);
-
-
+  // To handle the ?page= value in the url
   useEffect(() => {
-    /* make sure pageParam is defined and the total number of pages has been calculated */
-    if (pageParam && totalPages > 0) {
-      const parsedPage = parseInt(pageParam, 10);
-      if (isNaN(parsedPage) || parsedPage < 1 ) {
-        navigate(`${location.pathname}?page=1`);
-      } else if (parsedPage > totalPages) {
-        navigate(`${location.pathname}?page=${totalPages}`);
-      }
-    }
-  }, [location.pathname, totalPages, pageParam]);
+  /* Ensure that the pageParam is defined and the total number of pages has been calculated */
+  if(totalPages>0) {
+  // If pageParam is defined, parse it into an integer, otherwise set it to 1 for the first page
+  const parsedPage = pageParam ? parseInt(pageParam, 10) : 1;
+
+
+  // Check if pageParam is null or NaN or less than 1
+  if (isNaN(parsedPage) || parsedPage < 1) {
+    // Navigate to the URL with ?page=1 to set the default page to 1
+    navigate(`${location.pathname}?page=1`);
+    setCurrentPage(1);
+  } else if (parsedPage > totalPages) {
+    // If parsedPage is greater than totalPages, navigate to the URL with the last page number
+    navigate(`${location.pathname}?page=${totalPages}`);
+    setCurrentPage(totalPages);
+  } else {
+    // Otherwsie, navigate to the proper page according to the parsed value
+    navigate(`${location.pathname}?page=${parsedPage}`);
+    setCurrentPage(parsedPage);
+  }}
+}, [location.pathname, totalPages, pageParam]);
 
   const handleRowClick = (item: any) => {
     // Generate link path based on the clicked row's data type and display name
