@@ -24,11 +24,11 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
 
   // To handle the ?page= value in the url
   useEffect(() => {
-  /* Ensure that the pageParam is defined and the total number of pages has been calculated */
+  /* Check if the total number of pages has been calculated to make sure all data has been received properly*/
   if(totalPages>0) {
+
   // If pageParam is defined, parse it into an integer, otherwise set it to 1 for the first page
   const parsedPage = pageParam ? parseInt(pageParam, 10) : 1;
-
 
   // Check if pageParam is null or NaN or less than 1
   if (isNaN(parsedPage) || parsedPage < 1) {
