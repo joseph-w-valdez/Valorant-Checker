@@ -17,26 +17,34 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const pageParam = queryParams.get('page');
-  const pageSize = 25; // amount of results per page
-  const totalPages = Math.ceil(data.length / pageSize);
+  const pageSize = 25; // Amount of results per page
+  const totalPages = Math.ceil(data.length / pageSize); // Rounds up to largest whole number
 
-   const [currentPage, setCurrentPage] = useState(pageParam ? parseInt(pageParam, 10) : 1);
+  const [currentPage, setCurrentPage] = useState(1);
 
- useEffect(() => {
-  setCurrentPage(pageParam ? parseInt(pageParam, 10) : 1);
+  // To handle the ?page= value in the url
+  useEffect(() => {
+  /* Check if the total number of pages has been calculated to make sure all data has been received properly*/
+  if(totalPages>0) {
 
-  if (pageParam) {
-    const parsedPage = parseInt(pageParam, 10);
-    /* if the page param is larger than the total pages, go to the final page */
-    if (parsedPage > totalPages) {
-      navigate(`${location.pathname}?page=${totalPages}`);
-    } else if (isNaN(parsedPage) || parsedPage < 1) {
-      /* if the page param is otherwise invalid, go to the first page */
-      navigate(`${location.pathname}?page=1`);
-    }
-  }
-}, [pageParam, totalPages, navigate, location.pathname]);
+  // If pageParam is defined, parse it into an integer, otherwise set it to 1 for the first page
+  const parsedPage = pageParam ? parseInt(pageParam, 10) : 1;
 
+  // Check if pageParam is null or NaN or less than 1
+  if (isNaN(parsedPage) || parsedPage < 1) {
+    // Navigate to the URL with ?page=1 to set the default page to 1
+    navigate(`${location.pathname}?page=1`);
+    setCurrentPage(1);
+  } else if (parsedPage > totalPages) {
+    // If parsedPage is greater than totalPages, navigate to the URL with the last page number
+    navigate(`${location.pathname}?page=${totalPages}`);
+    setCurrentPage(totalPages);
+  } else {
+    // Otherwsie, navigate to the proper page according to the parsed value
+    navigate(`${location.pathname}?page=${parsedPage}`);
+    setCurrentPage(parsedPage);
+  }}
+}, [location.pathname, totalPages, pageParam]);
 
   const handleRowClick = (item: any) => {
     // Generate link path based on the clicked row's data type and display name
@@ -69,9 +77,11 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
         break;
       /* PLACEHOLDER LINKS */
       case 'sprays':
-        linkPath = '/'
+        linkPath = '/';
+        break;
       case 'buddies':
-        linkPath = '/'
+        linkPath = '/';
+        break;
       default:
         break;
     }
@@ -102,13 +112,13 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
       <div className={iconClasses}>
         {isMelee ? (
           <img
-            className="select-none flex-end h-full object-contain sm:mr-8 lg:mr-32"
+            className="flex-end h-full object-contain sm:mr-8 lg:mr-32"
             src={meleeIcon}
             alt={`${item.displayName} portrait`}
           />
         ) : (
           <img
-            className="select-none flex-end h-full object-contain sm:mr-8 lg:mr-32"
+            className="flex-end h-full object-contain sm:mr-8 lg:mr-32"
             src={hasDisplayIcon ? item.displayIcon : item.chromas[0]?.fullRender}
             alt={`${item.displayName} portrait`}
           />
@@ -118,17 +128,16 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   };
 
   const handlePageChange = (pageNumber: number) => {
-  setCurrentPage(pageNumber);
-  // Update the URL with the new page number
-  navigate(`?page=${pageNumber}`);
-  setTimeout(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  }, 0);
-};
-
+    setCurrentPage(pageNumber);
+    // Update the URL with the new page number
+    navigate(`?page=${pageNumber}`);
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }, 0);
+  };
 
   // Calculate the start and end index for slicing the data array
   const startIndex = (currentPage - 1) * pageSize;
@@ -137,14 +146,12 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   // Slice the data array to retrieve the current page's results
   const slicedData = data.slice(startIndex, endIndex);
 
-  console.log('agents', data)
-
   return (
     <>
       <div className="table max-w-none sm:max-w-[70%] w-full flex mt-8 border border-2 rounded">
         <div className="table-header h-12 flex justify-between items-center bg-neutral-700">
-          <p className="select-none flex-start ml-12 lg:ml-24">Name</p>
-          <p className="select-none flex-end mr-12 sm:mr-24 lg:mr-48">
+          <p className="flex-start ml-12 lg:ml-24">Name</p>
+          <p className="flex-end mr-12 sm:mr-24 lg:mr-48">
             {dataType === 'individual-weapon' ? 'Value' : 'Portrait'}
           </p>
         </div>
@@ -162,7 +169,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
               onClick={() => handleRowClick(item)}
             >
               <p
-                className={`select-none flex-start ml-12 lg:ml-24 ${
+                className={`flex-start ml-12 lg:ml-24 ${
                   index % 2 === 0 ? 'text-black' : 'text-white'
                 } group-hover:text-blue-600 group-hover:font-bold`}
               >
@@ -184,7 +191,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
                 {Object.entries(item).map(([key, value]) => (
                   <p
                     key={key}
-                    className={`select-none flex-start ml-12 lg:ml-24 flex-end mr-12 sm:mr-24 lg:mr-48 ${
+                    className={`flex-start ml-12 lg:ml-24 flex-end mr-12 sm:mr-24 lg:mr-48 ${
                       index % 2 === 0 ? 'text-black' : 'text-white'
                     }`}
                   >

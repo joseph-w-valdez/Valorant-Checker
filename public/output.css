@@ -647,11 +647,6 @@ video {
   margin: 1rem;
 }
 
-.mx-0 {
-  margin-left: 0px;
-  margin-right: 0px;
-}
-
 .mx-1 {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
@@ -660,6 +655,11 @@ video {
 .mx-10 {
   margin-left: 2.5rem;
   margin-right: 2.5rem;
+}
+
+.mx-12 {
+  margin-left: 3rem;
+  margin-right: 3rem;
 }
 
 .mx-\[50px\] {
@@ -675,16 +675,6 @@ video {
 .my-8 {
   margin-top: 2rem;
   margin-bottom: 2rem;
-}
-
-.mx-12 {
-  margin-left: 3rem;
-  margin-right: 3rem;
-}
-
-.mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
 }
 
 .mb-1 {
@@ -721,10 +711,6 @@ video {
 
 .ml-auto {
   margin-left: auto;
-}
-
-.mr-1 {
-  margin-right: 0.25rem;
 }
 
 .mr-12 {
@@ -773,10 +759,6 @@ video {
 
 .mt-\[-16px\] {
   margin-top: -16px;
-}
-
-.mt-6 {
-  margin-top: 1.5rem;
 }
 
 .block {
@@ -835,6 +817,10 @@ video {
   height: 600px;
 }
 
+.h-\[80px\] {
+  height: 80px;
+}
+
 .h-fit {
   height: -webkit-fit-content;
   height: -moz-fit-content;
@@ -843,22 +829,6 @@ video {
 
 .h-full {
   height: 100%;
-}
-
-.h-\[264px\] {
-  height: 264px;
-}
-
-.h-\[56px\] {
-  height: 56px;
-}
-
-.h-\[64px\] {
-  height: 64px;
-}
-
-.h-\[80px\] {
-  height: 80px;
 }
 
 .min-h-\[100px\] {
@@ -933,10 +903,6 @@ video {
   max-width: 100vw;
 }
 
-.max-w-\[80\%\] {
-  max-width: 80%;
-}
-
 .max-w-\[80vw\] {
   max-width: 80vw;
 }
@@ -1007,11 +973,6 @@ video {
 
 .cursor-pointer {
   cursor: pointer;
-}
-
-.select-none {
-  -webkit-user-select: none;
-          user-select: none;
 }
 
 .resize {
@@ -1372,21 +1333,6 @@ video {
 }
 
 @media (min-width: 375px) {
-  .\33 75\:mx-8 {
-    margin-left: 2rem;
-    margin-right: 2rem;
-  }
-
-  .\33 75\:mx-10 {
-    margin-left: 2.5rem;
-    margin-right: 2.5rem;
-  }
-
-  .\33 75\:mx-14 {
-    margin-left: 3.5rem;
-    margin-right: 3.5rem;
-  }
-
   .\33 75\:mx-16 {
     margin-left: 4rem;
     margin-right: 4rem;
@@ -1406,16 +1352,6 @@ video {
   .sm\:mx-0 {
     margin-left: 0px;
     margin-right: 0px;
-  }
-
-  .sm\:mx-6 {
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
-  }
-
-  .sm\:mx-10 {
-    margin-left: 2.5rem;
-    margin-right: 2.5rem;
   }
 
   .sm\:mx-8 {
@@ -1456,11 +1392,6 @@ video {
     line-height: 2rem;
   }
 
-  .sm\:text-5xl {
-    font-size: 3rem;
-    line-height: 1;
-  }
-
   .sm\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;
@@ -1468,36 +1399,12 @@ video {
 }
 
 @media (min-width: 768px) {
-  .md\:mt-8 {
-    margin-top: 2rem;
-  }
-
-  .md\:mt-12 {
-    margin-top: 3rem;
-  }
-
-  .md\:mt-3 {
-    margin-top: 0.75rem;
-  }
-
   .md\:w-1\/2 {
     width: 50%;
   }
 
   .md\:w-1\/3 {
     width: 33.333333%;
-  }
-
-  .md\:w-\[40\%\] {
-    width: 40%;
-  }
-
-  .md\:w-\[35\%\] {
-    width: 35%;
-  }
-
-  .md\:max-w-none {
-    max-width: none;
   }
 
   .md\:text-5xl {

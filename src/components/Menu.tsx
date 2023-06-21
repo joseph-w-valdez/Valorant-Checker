@@ -18,7 +18,7 @@ const Menu: React.FC<MenuProps> = ({ navLinks, handleNavLinkClick, handleResetFi
       {navLinks.map((navLink, index) => (
         <NavLink key={index} to={navLink.to}>
           <h4
-            className="select-none p-1 cursor-pointer text-white font-bold"
+            className="p-1 cursor-pointer text-white font-bold"
             onClick={() => {
               handleNavLinkClick();
               if (index === 0) {
