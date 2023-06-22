@@ -181,15 +181,13 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     <>
       {dataType !== 'individual-weapon' && (
         <>
-          <form>
-            <input
-              type="text"
-              value={filterValue}
-              onChange={handleFilterSubmit}
-              placeholder="Filter by name"
-              className="mt-2 pl-2 border border-2 border-white bg-black rounded"
-            />
-          </form>
+          <input
+            type="text"
+            value={filterValue}
+            onChange={handleFilterSubmit}
+            placeholder="Filter by name"
+            className="mt-2 pl-2 border border-2 border-white bg-black rounded"
+          />
           <FlexBasisFull />
           {filterValue && (
           <>
