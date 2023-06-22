@@ -48,15 +48,15 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
         navigate(`${location.pathname}?page=${parsedPage}`);
         setCurrentPage(parsedPage);
       }
-    } else {
-      // If there is only one page of results, append ?page=1 to the url
+    } else if (dataType !== 'individual-weapon') {
+      // If there is only one page of results, append ?page=1 to the url, except on the individual-weapon page
       navigate(`${location.pathname}?page=1`);
       setCurrentPage(1);
     }
   }, [location.pathname, pageParam, navigate, filteredData, pageSize]);
 
   useEffect(() => {
-    // Filter the data based on the filter value if it's not on the individual-weapon page
+    // Filter the data based on the filter value, except on the individual-weapon page
     if (dataType !== 'individual-weapon') {
       const filtered = data.filter((item) =>
       item.displayName.toLowerCase().includes(filterValue.toLowerCase())
@@ -181,13 +181,13 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     <>
       {dataType !== 'individual-weapon' && (
         <>
-          <input
-            type="text"
-            value={filterValue}
-            onChange={handleFilterSubmit}
-            placeholder="Filter by name"
-            className="mt-2 pl-2 border border-2 border-white bg-black rounded"
-          />
+            <input
+              type="text"
+              value={filterValue}
+              onChange={handleFilterSubmit}
+              placeholder="Filter by name"
+              className="mt-2 pl-2 border border-2 border-white bg-black rounded"
+            />
           <FlexBasisFull />
           {filterValue && (
           <>
@@ -198,10 +198,8 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
             )}
           </>
         )}
-
         </>
       )}
-
       <FlexBasisFull />
       <div className="table max-w-none sm:max-w-[70%] w-full flex mt-8 border border-2 rounded">
         <div className="table-header h-12 flex justify-between items-center bg-neutral-700">

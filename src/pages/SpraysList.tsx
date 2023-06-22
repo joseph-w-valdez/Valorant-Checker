@@ -3,7 +3,6 @@ import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
 import { fetchSprays } from '../utilities/fetchSprays';
 import DataTable from '../components/DataTable';
-import BackButton from '../components/BackButton';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
 import Subheader from '../components/Subheader';
 import { useLoadingContext } from '../contexts/LoadingContext';
@@ -37,7 +36,6 @@ const SpraysList: React.FC = () => {
   return (
     <>
       <div className='flex items-center justify-center'>
-        <BackButton />
         <Header text='Sprays' />
       </div>
       {!isLoading && (<>

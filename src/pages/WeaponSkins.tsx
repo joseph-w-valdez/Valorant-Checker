@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import BackButton from '../components/BackButton';
 import Header from '../components/Header';
 import DataTable, { DataTableProps } from '../components/DataTable';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
@@ -55,7 +54,6 @@ const WeaponSkins = () => {
     <>
       <div>
         <div className='flex items-center justify-center'>
-          <BackButton />
           <Header text={`${weaponData.displayName} Skins`} />
         </div>
         <FlexBasisFull />
