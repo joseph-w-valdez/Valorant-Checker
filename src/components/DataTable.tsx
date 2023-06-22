@@ -192,14 +192,16 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
           />
           <FlexBasisFull />
           {filterValue && (
-          <>
-            {filteredData.length > 0 ? (
-              <p className="mt-2 text-green-500">There are {filteredData.length} matches!</p>
-            ) : (
-              <p className="mt-2 text-red-500">No matches found! Try searching for another term!</p>
-            )}
-          </>
-        )}
+        <>
+          {filteredData.length === 1 ? (
+            <p className="mt-2 text-green-500">There is 1 match!</p>
+          ) : filteredData.length > 1 ? (
+            <p className="mt-2 text-green-500">There are {filteredData.length} matches!</p>
+          ) : (
+            <p className="mt-2 text-red-500">No matches found! Try searching for another term!</p>
+          )}
+        </>
+      )}
         </>
       )}
       <FlexBasisFull />
