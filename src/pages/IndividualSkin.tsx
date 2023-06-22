@@ -77,7 +77,7 @@ const IndividualSkin = () => {
       </div>
       <FlexBasisFull />
       <div className="flex flex-wrap justify-center w-full">
-        <div className="w-full lg:w-1/2">
+        <section className="w-full lg:w-1/2">
           <Subheader text={'Variations'} />
           {variations.map((variation: any, index: number) => (
             <div key={index} className="flex flex-wrap justify-center w-full mb-8">
@@ -93,8 +93,8 @@ const IndividualSkin = () => {
               </div>
             </div>
           ))}
-        </div>
-        <div className="w-full sm:w-1/2">
+        </section>
+        <section className="w-full sm:w-1/2">
           <Subheader text={'Upgrades'} />
           <FlexBasisFull />
           {upgrades.length > 1 ? (
@@ -121,7 +121,7 @@ const IndividualSkin = () => {
           ) : (
             <div className="mb-10 text-lg sm:text-2xl">There are no upgrades for this skin! 😲</div>
           )}
-        </div>
+        </section>
       </div>
     </>
   );

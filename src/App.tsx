@@ -85,11 +85,11 @@ function App(): JSX.Element {
               <Route path="/sprays" element={<SpraysList />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </ScrollToTop>
+          </ScrollToTop> {/* Ensure that the window scrolls to the top whenever the location changes */}
         </div>
       </main>
       <Footer />
-      {showButton && <ScrollToTopButton />}
+      {showButton && <ScrollToTopButton />} {/* Conditionally render a clickable scroll to top button for the user */}
     </div>
   );
 }
