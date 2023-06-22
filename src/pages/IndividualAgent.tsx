@@ -83,11 +83,11 @@ const IndividualAgent: React.FC<{ setSelectedOption: (option: string) => void }>
             <FullAgentPortrait agent={agentData} />
           </div>
           <div className='w-full max-w-[80vw] sm:w-1/2 flex flex-wrap justify-center'>
-            <div className='w-full max-w-[100vw] text-left mb-4'>
+            <section className='w-full max-w-[100vw] text-left mb-4'>
               <p>{agentData.description}</p>
-            </div>
+            </section>
             <FlexBasisFull />
-            <div className='mt-4 flex flex-wrap'>
+            <section className='mt-4 flex flex-wrap'>
               {agentData.abilities?.map((ability: any, index: number) => (
                 <div
                   key={index}
@@ -110,7 +110,7 @@ const IndividualAgent: React.FC<{ setSelectedOption: (option: string) => void }>
                   )}
                 </div>
               ))}
-            </div>
+            </section>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { weaponSkinExceptions } from '../data/weaponSkinExceptions';
 import { meleeIcon } from '../data/meleeInfo';
 import { onlyLettersAndNumbers } from '../utilities/stringConversions';
 import PageControls from './PageControls';
+import FlexBasisFull from './FlexBasisFull';
 
 export type DataTableProps = {
   data: any[];
@@ -18,33 +19,42 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const queryParams = new URLSearchParams(location.search);
   const pageParam = queryParams.get('page');
   const pageSize = 25; // Amount of results per page
-  const totalPages = Math.ceil(data.length / pageSize); // Rounds up to largest whole number
+  const totalPages = Math.ceil(data.length / pageSize); // Rounds up to the largest whole number
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [filterValue, setFilterValue] = useState('');
+  const [filteredData, setFilteredData] = useState<any[]>(data);
 
-  // To handle the ?page= value in the url
+  // To handle the ?page= value in the URL
   useEffect(() => {
-  /* Check if the total number of pages has been calculated to make sure all data has been received properly*/
-  if(totalPages>0) {
+    // If pageParam is defined, parse it into an integer, otherwise set it to 1 for the first page
+    const parsedPage = pageParam ? parseInt(pageParam, 10) : 1;
 
-  // If pageParam is defined, parse it into an integer, otherwise set it to 1 for the first page
-  const parsedPage = pageParam ? parseInt(pageParam, 10) : 1;
+    // Check if pageParam is null or NaN or less than 1
+    if (isNaN(parsedPage) || parsedPage < 1) {
+      // Navigate to the URL with ?page=1 to set the default page to 1
+      navigate(`${location.pathname}?page=1`);
+      setCurrentPage(1);
+    } else if (parsedPage > totalPages) {
+      // If parsedPage is greater than totalPages, navigate to the URL with the last page number
+      navigate(`${location.pathname}?page=${totalPages}`);
+      setCurrentPage(totalPages);
+    } else {
+      // Otherwise, navigate to the proper page according to the parsed value
+      navigate(`${location.pathname}?page=${parsedPage}`);
+      setCurrentPage(parsedPage);
+    }
+  }, [location.pathname, totalPages, pageParam, navigate]);
 
-  // Check if pageParam is null or NaN or less than 1
-  if (isNaN(parsedPage) || parsedPage < 1) {
-    // Navigate to the URL with ?page=1 to set the default page to 1
-    navigate(`${location.pathname}?page=1`);
-    setCurrentPage(1);
-  } else if (parsedPage > totalPages) {
-    // If parsedPage is greater than totalPages, navigate to the URL with the last page number
-    navigate(`${location.pathname}?page=${totalPages}`);
-    setCurrentPage(totalPages);
-  } else {
-    // Otherwsie, navigate to the proper page according to the parsed value
-    navigate(`${location.pathname}?page=${parsedPage}`);
-    setCurrentPage(parsedPage);
-  }}
-}, [location.pathname, totalPages, pageParam]);
+  if (dataType !== 'individual-weapon') {
+    useEffect(() => {
+    // Filter the data based on the filter value
+    const filtered = data.filter((item) =>
+      item.displayName.toLowerCase().includes(filterValue.toLowerCase())
+    );
+    setFilteredData(filtered);
+  }, [data, filterValue]);
+  }
 
   const handleRowClick = (item: any) => {
     // Generate link path based on the clicked row's data type and display name
@@ -127,6 +137,11 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     );
   };
 
+  const handleFilterSubmit = (event:any) => {
+    setFilterValue(event.target.value);
+    navigate(`${location.pathname}?page=1`);
+  };
+
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
     // Update the URL with the new page number
@@ -143,11 +158,21 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
 
-  // Slice the data array to retrieve the current page's results
-  const slicedData = data.slice(startIndex, endIndex);
+  // Slice the filtered data array to retrieve the current page's results
+  const slicedData = filteredData.slice(startIndex, endIndex);
 
   return (
     <>
+      {(dataType !== 'individual-weapon' && <form>
+        <input
+          type="text"
+          value={filterValue}
+          onChange={(e) => handleFilterSubmit(e)}
+          placeholder="Filter by name"
+          className="mt-2 pl-2 border border-2 border-white bg-black rounded"
+        />
+      </form>)}
+      <FlexBasisFull />
       <div className="table max-w-none sm:max-w-[70%] w-full flex mt-8 border border-2 rounded">
         <div className="table-header h-12 flex justify-between items-center bg-neutral-700">
           <p className="flex-start ml-12 lg:ml-24">Name</p>
@@ -161,50 +186,51 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
           slicedData
             ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
             .map((item, index) => (
-             <div
-              key={index}
-              className={`data-table-row cursor-pointer hover:bg-[#f5f5f5] group h-[4.5rem] flex justify-between items-center text-start ${
-                index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
-              }`}
-              onClick={() => handleRowClick(item)}
-            >
-              <p
-                className={`flex-start ml-12 lg:ml-24 ${
-                  index % 2 === 0 ? 'text-black' : 'text-white'
-                } group-hover:text-blue-600 group-hover:font-bold`}
-              >
-                {item.displayName}
-              </p>
-              {renderIcon(item)}
-            </div>
-            ))}
-        {/* If the dataType is individual-weapon */}
-        {dataType === 'individual-weapon' && slicedData?.length && (
-          <>
-            {slicedData.map((item, index) => (
               <div
                 key={index}
-                className={`data-table-row h-14 flex justify-between items-center text-start ${
+                className={`data-table-row cursor-pointer hover:bg-[#f5f5f5] group h-[4.5rem] flex justify-between items-center text-start ${
                   index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
                 }`}
+                onClick={() => handleRowClick(item)}
               >
-                {Object.entries(item).map(([key, value]) => (
-                  <p
-                    key={key}
-                    className={`flex-start ml-12 lg:ml-24 flex-end mr-12 sm:mr-24 lg:mr-48 ${
-                      index % 2 === 0 ? 'text-black' : 'text-white'
-                    }`}
-                  >
-                    {`${value}`}
-                  </p>
-                ))}
+                <p
+                  className={`flex-start ml-12 lg:ml-24 ${
+                    index % 2 === 0 ? 'text-black' : 'text-white'
+                  } group-hover:text-blue-600 group-hover:font-bold`}
+                >
+                  {item.displayName}
+                </p>
+                {renderIcon(item)}
               </div>
             ))}
-          </>
-        )}
+        {/* If the dataType is individual-weapon */}
+        {dataType === 'individual-weapon' &&
+          slicedData?.length && (
+            <>
+              {slicedData.map((item, index) => (
+                <div
+                  key={index}
+                  className={`data-table-row h-14 flex justify-between items-center text-start ${
+                    index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
+                  }`}
+                >
+                  {Object.entries(item).map(([key, value]) => (
+                    <p
+                      key={key}
+                      className={`flex-start ml-12 lg:ml-24 flex-end mr-12 sm:mr-24 lg:mr-48 ${
+                        index % 2 === 0 ? 'text-black' : 'text-white'
+                      }`}
+                    >
+                      {`${value}`}
+                    </p>
+                  ))}
+                </div>
+              ))}
+            </>
+          )}
       </div>
       <PageControls
-        results={data.length}
+        results={filteredData.length}
         pageSize={pageSize}
         currentPage={currentPage}
         totalPages={totalPages}
