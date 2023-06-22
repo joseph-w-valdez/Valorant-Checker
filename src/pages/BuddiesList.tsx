@@ -3,7 +3,6 @@ import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
 import { fetchBuddies } from '../utilities/fetchBuddies';
 import DataTable from '../components/DataTable';
-import BackButton from '../components/BackButton';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
 import Subheader from '../components/Subheader';
 import { useLoadingContext } from '../contexts/LoadingContext';
@@ -37,7 +36,6 @@ const BuddiesList: React.FC = () => {
   return (
     <>
       <div className='flex flex-wrap items-center justify-center'>
-        <BackButton />
         <Header text='Buddies' />
       </div>
       <FlexBasisFull />
