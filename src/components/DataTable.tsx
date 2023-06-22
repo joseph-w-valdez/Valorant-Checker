@@ -28,6 +28,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
 
   // To handle the ?page= value in the URL
   useEffect(() => {
+    // Check if there are more than 1 page of results to handle various page loading
     if (totalPages>1) {
       // If pageParam is defined, parse it into an integer, otherwise set it to 1 for the first page
     const parsedPage = pageParam ? parseInt(pageParam, 10) : 1;
@@ -47,6 +48,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
       setCurrentPage(parsedPage);
     }}
     else {
+      // If there is only one page of results, append ?page=1 to the url
       navigate(`${location.pathname}?page=1`);
     }
   }, [location.pathname, totalPages, pageParam, navigate]);
@@ -58,7 +60,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
         item.displayName.toLowerCase().includes(filterValue.toLowerCase())
       );
       setFilteredData(filtered);
-    }, [data]);
+    }, [data, filterValue]);
   }
 
   const handleRowClick = (item: any) => {
@@ -146,7 +148,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const debouncedHandleFilterSubmit = debounce((newFilterValue: string) => {
     setFilterValue(newFilterValue);
     navigate(`${location.pathname}?page=1`);
-  }, 200);
+  }, 10);
 
   const handleFilterSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFilterValue = event.target.value;
