@@ -5,6 +5,7 @@ import { meleeIcon } from '../data/meleeInfo';
 import { onlyLettersAndNumbers } from '../utilities/stringConversions';
 import PageControls from './PageControls';
 import FlexBasisFull from './FlexBasisFull';
+import { debounce } from 'lodash'; // Import debounce from lodash
 
 export type DataTableProps = {
   data: any[];
@@ -27,7 +28,8 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
 
   // To handle the ?page= value in the URL
   useEffect(() => {
-    // If pageParam is defined, parse it into an integer, otherwise set it to 1 for the first page
+    if (totalPages>1) {
+      // If pageParam is defined, parse it into an integer, otherwise set it to 1 for the first page
     const parsedPage = pageParam ? parseInt(pageParam, 10) : 1;
 
     // Check if pageParam is null or NaN or less than 1
@@ -43,17 +45,20 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
       // Otherwise, navigate to the proper page according to the parsed value
       navigate(`${location.pathname}?page=${parsedPage}`);
       setCurrentPage(parsedPage);
+    }}
+    else {
+      navigate(`${location.pathname}?page=1`);
     }
   }, [location.pathname, totalPages, pageParam, navigate]);
 
   if (dataType !== 'individual-weapon') {
     useEffect(() => {
-    // Filter the data based on the filter value
-    const filtered = data.filter((item) =>
-      item.displayName.toLowerCase().includes(filterValue.toLowerCase())
-    );
-    setFilteredData(filtered);
-  }, [data, filterValue]);
+      // Filter the data based on the filter value
+      const filtered = data.filter((item) =>
+        item.displayName.toLowerCase().includes(filterValue.toLowerCase())
+      );
+      setFilteredData(filtered);
+    }, [data]);
   }
 
   const handleRowClick = (item: any) => {
@@ -137,21 +142,28 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     );
   };
 
-  const handleFilterSubmit = (event:any) => {
-    setFilterValue(event.target.value);
+  // Debounce the handleFilterSubmit function using lodash's debounce
+  const debouncedHandleFilterSubmit = debounce((newFilterValue: string) => {
+    setFilterValue(newFilterValue);
     navigate(`${location.pathname}?page=1`);
+  }, 200);
+
+  const handleFilterSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newFilterValue = event.target.value;
+    debouncedHandleFilterSubmit(newFilterValue);
   };
 
   const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-    // Update the URL with the new page number
-    navigate(`?page=${pageNumber}`);
-    setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    }, 0);
+    if (currentPage !== pageNumber) {
+      setCurrentPage(pageNumber);
+      navigate(`?page=${pageNumber}`);
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      }, 0);
+    }
   };
 
   // Calculate the start and end index for slicing the data array
@@ -163,15 +175,17 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
 
   return (
     <>
-      {(dataType !== 'individual-weapon' && <form>
-        <input
-          type="text"
-          value={filterValue}
-          onChange={(e) => handleFilterSubmit(e)}
-          placeholder="Filter by name"
-          className="mt-2 pl-2 border border-2 border-white bg-black rounded"
-        />
-      </form>)}
+      {dataType !== 'individual-weapon' && (
+        <form>
+          <input
+            type="text"
+            value={filterValue}
+            onChange={handleFilterSubmit}
+            placeholder="Filter by name"
+            className="mt-2 pl-2 border border-2 border-white bg-black rounded"
+          />
+        </form>
+      )}
       <FlexBasisFull />
       <div className="table max-w-none sm:max-w-[70%] w-full flex mt-8 border border-2 rounded">
         <div className="table-header h-12 flex justify-between items-center bg-neutral-700">
