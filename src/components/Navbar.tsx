@@ -61,9 +61,9 @@ const Navbar: React.FC<NavbarProps> = ({ setSelectedOption }) => {
   };
 
   return (
-    <nav className="bg-gradient-to-r from-[#ff5152] via-red-950 via-black to-black p-2 w-full flex items-center fixed z-10">
+    <nav className="bg-gradient-to-r from-[#ff5152] via-red-950 via-black to-black sm:pl-24 p-2 w-full flex items-center fixed z-10">
       <NavLink to="/">
-        <h3 className="p-1 font-bold cursor-pointer sm:ml-24">ValoChecker</h3>
+        <h3 className="p-1 font-bold cursor-pointer">ValoChecker</h3>
       </NavLink>
       {/* if the screen is small, show the menu icon */}
       {!isMediumScreen && (
