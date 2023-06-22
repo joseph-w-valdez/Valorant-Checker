@@ -180,16 +180,30 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   return (
     <>
       {dataType !== 'individual-weapon' && (
-        <form>
-          <input
-            type="text"
-            value={filterValue}
-            onChange={handleFilterSubmit}
-            placeholder="Filter by name"
-            className="mt-2 pl-2 border border-2 border-white bg-black rounded"
-          />
-        </form>
+        <>
+          <form>
+            <input
+              type="text"
+              value={filterValue}
+              onChange={handleFilterSubmit}
+              placeholder="Filter by name"
+              className="mt-2 pl-2 border border-2 border-white bg-black rounded"
+            />
+          </form>
+          <FlexBasisFull />
+          {filterValue && (
+          <>
+            {filteredData.length > 0 ? (
+              <p className="mt-2 text-green-500">There are {filteredData.length} matches!</p>
+            ) : (
+              <p className="mt-2 text-red-500">No matches found! Try searching for another term!</p>
+            )}
+          </>
+        )}
+
+        </>
       )}
+
       <FlexBasisFull />
       <div className="table max-w-none sm:max-w-[70%] w-full flex mt-8 border border-2 rounded">
         <div className="table-header h-12 flex justify-between items-center bg-neutral-700">
