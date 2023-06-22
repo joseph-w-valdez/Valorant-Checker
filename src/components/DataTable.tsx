@@ -150,7 +150,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   // Debounce the handleFilterSubmit function using lodash's debounce
   const debouncedHandleFilterSubmit = debounce((newFilterValue: string) => {
     setFilterValue(newFilterValue);
-  }, 10);
+  }, 25);
 
   const handleFilterSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFilterValue = event.target.value;
@@ -166,7 +166,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
           top: 0,
           behavior: 'smooth',
         });
-      }, 0);
+      }, 40);
     }
   };
 
@@ -181,13 +181,15 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     <>
       {dataType !== 'individual-weapon' && (
         <>
-            <input
-              type="text"
-              value={filterValue}
-              onChange={handleFilterSubmit}
-              placeholder="Filter by name"
-              className="mt-2 pl-2 border border-2 border-white bg-black rounded"
-            />
+          <p className='mt-1 mb-2'>Type below to filter results:</p>
+          <FlexBasisFull />
+          <input
+            type="text"
+            value={filterValue}
+            onChange={handleFilterSubmit}
+            placeholder="Filter by name"
+            className="pl-2 border border-2 border-white bg-black rounded w-[250px]"
+          />
           <FlexBasisFull />
           {filterValue && (
           <>
