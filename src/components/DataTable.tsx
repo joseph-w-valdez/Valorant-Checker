@@ -5,7 +5,9 @@ import { meleeIcon } from '../data/meleeInfo';
 import { onlyLettersAndNumbers } from '../utilities/stringConversions';
 import PageControls from './PageControls';
 import FlexBasisFull from './FlexBasisFull';
-import { debounce } from 'lodash'; // Import debounce from lodash
+import { debounce } from 'lodash';
+import { DataRow, DataRowIndividualWeapon } from './DataRows';
+import FilterSearchBar from './FilterSearchBar';
 
 export type DataTableProps = {
   data: any[];
@@ -186,29 +188,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   return (
     <>
       {dataType !== 'individual-weapon' && (
-        <>
-          <p className='mt-1 mb-2'>Type below to filter results:</p>
-          <FlexBasisFull />
-          <input
-            type="text"
-            value={filterValue}
-            onChange={handleFilterSubmit}
-            placeholder="Filter by name"
-            className="pl-2 border border-2 border-white bg-black rounded w-[250px]"
-          />
-          <FlexBasisFull />
-          {filterValue && (
-        <>
-          {filteredData.length === 1 ? (
-            <p className="mt-2 text-green-500">There is 1 match!</p>
-          ) : filteredData.length > 1 ? (
-            <p className="mt-2 text-green-500">There are {filteredData.length} matches!</p>
-          ) : (
-            <p className="mt-2 text-red-500">No matches found! Try searching for another term!</p>
-          )}
-        </>
-      )}
-        </>
+        <FilterSearchBar filterValue={filterValue} onFilterSubmit={handleFilterSubmit} results={filteredData.length} />
       )}
       <FlexBasisFull />
       <div className="table max-w-none sm:max-w-[70%] w-full flex mt-8 border border-2 rounded">
@@ -224,45 +204,14 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
           slicedData
             ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
             .map((item, index) => (
-              <div
-                key={index}
-                className={`data-table-row cursor-pointer hover:bg-[#f5f5f5] group h-[4.5rem] flex justify-between items-center text-start ${
-                  index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
-                }`}
-                onClick={() => handleRowClick(item)}
-              >
-                <p
-                  className={`flex-start ml-12 lg:ml-24 ${
-                    index % 2 === 0 ? 'text-black' : 'text-white'
-                  } group-hover:text-blue-600 group-hover:font-bold`}
-                >
-                  {item.displayName}
-                </p>
-                {renderIcon(item)}
-              </div>
+              <DataRow key={index} item={item} index={index} onClick={handleRowClick} renderIcon={()=>renderIcon(item)} dataType={dataType} />
             ))}
         {/* If the dataType is individual-weapon */}
         {dataType === 'individual-weapon' &&
           slicedData?.length && (
             <>
               {slicedData.map((item, index) => (
-                <div
-                  key={index}
-                  className={`data-table-row h-14 flex justify-between items-center text-start ${
-                    index % 2 === 0 ? 'bg-[#bcbcbc]' : 'bg-[#727272]'
-                  }`}
-                >
-                  {Object.entries(item).map(([key, value]) => (
-                    <p
-                      key={key}
-                      className={`flex-start ml-12 lg:ml-24 flex-end mr-12 sm:mr-24 lg:mr-48 ${
-                        index % 2 === 0 ? 'text-black' : 'text-white'
-                      }`}
-                    >
-                      {`${value}`}
-                    </p>
-                  ))}
-                </div>
+                <DataRowIndividualWeapon key={index} item={item} index={index} onClick={handleRowClick} dataType={dataType} />
               ))}
             </>
           )}
