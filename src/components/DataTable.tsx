@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { weaponSkinExceptions } from '../data/weaponSkinExceptions';
 import { meleeIcon } from '../data/meleeInfo';
-import { onlyLettersAndNumbers } from '../utilities/stringConversions';
 import PageControls from './PageControls';
 import FlexBasisFull from './FlexBasisFull';
 import { debounce } from 'lodash';
 import { DataRow, DataRowIndividualWeapon } from './DataRows';
 import FilterSearchBar from './FilterSearchBar';
+import constructPath from '../utilities/constructLinkPath';
 
 export type DataTableProps = {
   data: any[];
@@ -65,45 +65,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
      }}, [data, filterValue, navigate, location.pathname]);
 
   const handleRowClick = (item: any) => {
-    // Generate link path based on the clicked row's data type and display name
-    const getAgentLinkPath = (displayName: string) => {
-      const agentName = displayName === 'KAY/O' ? 'Kayo' : displayName.replace('/', '');
-      return `/agent/${agentName}`;
-    };
-
-    const getWeaponLinkPath = (displayName: string) => {
-      return `/weapon/${displayName}`;
-    };
-
-    const getWeaponSkinLinkPath = (displayName: string) => {
-      const skinName = onlyLettersAndNumbers(displayName);
-      return `/weapon/${weapon}/skins/${skinName}`;
-    };
-
-    /* handle row click link navigations */
-    let linkPath = '';
-
-    switch (dataType) {
-      case 'agents':
-        linkPath = getAgentLinkPath(item.displayName);
-        break;
-      case 'weapons':
-        linkPath = getWeaponLinkPath(item.displayName);
-        break;
-      case 'weapon-skins':
-        linkPath = getWeaponSkinLinkPath(item.displayName);
-        break;
-      /* PLACEHOLDER LINKS */
-      case 'sprays':
-        linkPath = '/';
-        break;
-      case 'buddies':
-        linkPath = '/';
-        break;
-      default:
-        break;
-    }
-
+    const linkPath = constructPath(item, dataType, weapon);
     navigate(linkPath);
   };
 
