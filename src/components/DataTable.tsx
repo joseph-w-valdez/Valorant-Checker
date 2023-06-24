@@ -38,15 +38,15 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   if (totalPages > 1) {
     if (desiredPage < 1) {
       handlePageChange(1);
-      navigate(`${location.pathname}?page=1${searchParam ? `&search=${searchParam}` : ''}`);
+      navigate(`${location.pathname}?page=1${searchParam ? `&search=${filterValue}` : ''}`);
     } else if (desiredPage > totalPages) {
       handlePageChange(totalPages);
     } else {
       setCurrentPage(desiredPage);
-      navigate(`${location.pathname}?page=${desiredPage}${searchParam ? `&search=${searchParam}` : ''}`);
+      navigate(`${location.pathname}?page=${desiredPage}${searchParam ? `&search=${filterValue}` : ''}`);
     }
   } else if (dataType !== 'individual-weapon') {
-    navigate(`${location.pathname}?page=1${searchParam ? `&search=${searchParam}` : ''}`);
+    navigate(`${location.pathname}?page=1${searchParam ? `&search=${filterValue}` : ''}`);
     setCurrentPage(1);
   }
 }, [location.pathname, pageParam, navigate, filteredData, pageSize, filterValue]);
@@ -90,18 +90,20 @@ const renderIcon = (item: any) => {
   };
 
   const handlePageChange = (pageNumber: number) => {
-    if (currentPage !== pageNumber) {
-      setCurrentPage(pageNumber);
-      setDesiredPage(pageNumber)
-      navigate(`?page=${pageNumber}`);
-      setTimeout(() => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
-      }, 40);
-    }
-  };
+  if (currentPage !== pageNumber) {
+    setCurrentPage(pageNumber);
+    setDesiredPage(pageNumber);
+    const searchQuery = filterValue ? `&search=${filterValue}` : '';
+    navigate(`?page=${pageNumber}${searchQuery}`);
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }, 40);
+  }
+};
+
 
   // Calculate the start and end index for slicing the filtered data array
   const startIndex = (currentPage - 1) * pageSize;
