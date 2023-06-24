@@ -22,31 +22,26 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const pageSize = 25; // Amount of results per page
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [desiredPage, setDesiredPage] = useState(1)
   const [filterValue, setFilterValue] = useState('');
   const [filteredData, setFilteredData] = useState<any[]>(data);
 
   // To handle the ?page= value in the URL
   useEffect(() => {
-    // Check if there are more than 1 page of results to handle various page loading
     const totalPages = Math.ceil(filteredData.length / pageSize); // Rounds up to the largest whole number
-
+    const parsedPage = pageParam ? parseInt(pageParam, 10) : 1;
+    if (parsedPage !== currentPage) {
+      setDesiredPage(parsedPage)
+    }
     if (totalPages > 1) {
-      // If pageParam is defined, parse it into an integer, otherwise set it to 1 for the first page
-      const parsedPage = pageParam ? parseInt(pageParam, 10) : 1;
-
-      // Check if pageParam is null or NaN or less than 1
-      if (isNaN(parsedPage) || parsedPage < 1) {
-        // Navigate to the URL with ?page=1 to set the default page to 1
+      if (desiredPage < 1) {
+        handlePageChange(1);
         navigate(`${location.pathname}?page=1`);
-        setCurrentPage(1);
-      } else if (parsedPage > totalPages) {
-        // If parsedPage is greater than totalPages, navigate to the URL with the last page number
-        navigate(`${location.pathname}?page=${totalPages}`);
-        setCurrentPage(totalPages);
+      } else if (desiredPage > totalPages) {
+        handlePageChange(totalPages);
       } else {
-        // Otherwise, navigate to the proper page according to the parsed value
-        navigate(`${location.pathname}?page=${parsedPage}`);
-        setCurrentPage(parsedPage);
+        setCurrentPage(desiredPage); // Use setCurrentPage here to update the currentPage state
+        navigate(`${location.pathname}?page=${desiredPage}`);
       }
     } else if (dataType !== 'individual-weapon') {
       // If there is only one page of results, append ?page=1 to the url, except on the individual-weapon page
@@ -62,9 +57,8 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
       item.displayName.toLowerCase().includes(filterValue.toLowerCase())
     );
     setFilteredData(filtered);
-    setCurrentPage(1); // Reset the current page to 1 when the filter changes
-    navigate(`${location.pathname}?page=1`); // Update the URL with the new page number}
-  }}, [data, filterValue, navigate, location.pathname]);
+    setCurrentPage(1); // Reset the current page  to 1 when the filter changes
+     }}, [data, filterValue, navigate, location.pathname]);
 
   const handleRowClick = (item: any) => {
     // Generate link path based on the clicked row's data type and display name
@@ -155,11 +149,15 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const handleFilterSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFilterValue = event.target.value;
     debouncedHandleFilterSubmit(newFilterValue);
+    setCurrentPage(1);
+    setDesiredPage(1)
+    navigate(`?page=1`);
   };
 
   const handlePageChange = (pageNumber: number) => {
     if (currentPage !== pageNumber) {
       setCurrentPage(pageNumber);
+      setDesiredPage(pageNumber)
       navigate(`?page=${pageNumber}`);
       setTimeout(() => {
         window.scrollTo({
