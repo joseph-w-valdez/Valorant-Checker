@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { weaponSkinExceptions } from '../data/weaponSkinExceptions';
-import { meleeIcon } from '../data/meleeInfo';
 import PageControls from './PageControls';
 import FlexBasisFull from './FlexBasisFull';
 import { debounce } from 'lodash';
 import { DataRow, DataRowIndividualWeapon } from './DataRows';
 import FilterSearchBar from './FilterSearchBar';
 import constructPath from '../utilities/constructLinkPath';
+import RenderIcon from './RenderIcon';
 
 export type DataTableProps = {
   data: any[];
@@ -52,8 +51,6 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   }
 }, [location.pathname, pageParam, navigate, filteredData, pageSize, filterValue]);
 
-
-
   useEffect(() => {
     // Filter the data based on the filter value, except on the individual-weapon page
     if (dataType !== 'individual-weapon') {
@@ -69,43 +66,9 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     navigate(linkPath);
   };
 
-  const renderIcon = (item: any) => {
-    const isMelee = item.displayName === 'Melee';
-    const hasDisplayIcon = item.displayIcon && !weaponSkinExceptions.includes(item.displayName);
-
-    let iconClasses = 'h-10';
-
-    switch (dataType) {
-      case 'buddies':
-        iconClasses = 'h-full mr-[3.5rem] p-[2px]';
-        break;
-      case 'agents':
-      case 'sprays':
-        iconClasses = 'h-full mr-[3rem]';
-        break;
-      default:
-        // Keep the default value 'h-10'
-        break;
-    }
-
-    return (
-      <div className={iconClasses}>
-        {isMelee ? (
-          <img
-            className="flex-end h-full object-contain sm:mr-8 lg:mr-32"
-            src={meleeIcon}
-            alt={`${item.displayName} portrait`}
-          />
-        ) : (
-          <img
-            className="flex-end h-full object-contain sm:mr-8 lg:mr-32"
-            src={hasDisplayIcon ? item.displayIcon : item.chromas[0]?.fullRender}
-            alt={`${item.displayName} portrait`}
-          />
-        )}
-      </div>
-    );
-  };
+const renderIcon = (item: any) => {
+  return <RenderIcon item={item} dataType={dataType} />;
+};
 
   // Debounce the handleFilterSubmit function using lodash's debounce
   const debouncedHandleFilterSubmit = debounce((newFilterValue: string) => {
