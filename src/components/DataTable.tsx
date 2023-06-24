@@ -19,41 +19,38 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const pageParam = queryParams.get('page');
+  const searchParam = queryParams.get('search') || '';
   const pageSize = 25; // Amount of results per page
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [desiredPage, setDesiredPage] = useState(1)
   const [filterValue, setFilterValue] = useState('');
   const [filteredData, setFilteredData] = useState<any[]>(data);
 
   // To handle the ?page= value in the URL
   useEffect(() => {
-    // Check if there are more than 1 page of results to handle various page loading
-    const totalPages = Math.ceil(filteredData.length / pageSize); // Rounds up to the largest whole number
-
-    if (totalPages > 1) {
-      // If pageParam is defined, parse it into an integer, otherwise set it to 1 for the first page
-      const parsedPage = pageParam ? parseInt(pageParam, 10) : 1;
-
-      // Check if pageParam is null or NaN or less than 1
-      if (isNaN(parsedPage) || parsedPage < 1) {
-        // Navigate to the URL with ?page=1 to set the default page to 1
-        navigate(`${location.pathname}?page=1`);
-        setCurrentPage(1);
-      } else if (parsedPage > totalPages) {
-        // If parsedPage is greater than totalPages, navigate to the URL with the last page number
-        navigate(`${location.pathname}?page=${totalPages}`);
-        setCurrentPage(totalPages);
-      } else {
-        // Otherwise, navigate to the proper page according to the parsed value
-        navigate(`${location.pathname}?page=${parsedPage}`);
-        setCurrentPage(parsedPage);
-      }
-    } else if (dataType !== 'individual-weapon') {
-      // If there is only one page of results, append ?page=1 to the url, except on the individual-weapon page
-      navigate(`${location.pathname}?page=1`);
-      setCurrentPage(1);
+  const totalPages = Math.ceil(filteredData.length / pageSize);
+  const parsedPage = pageParam ? parseInt(pageParam, 10) : 1;
+  if (parsedPage !== currentPage) {
+    setDesiredPage(parsedPage)
+  }
+  if (totalPages > 1) {
+    if (desiredPage < 1) {
+      handlePageChange(1);
+      navigate(`${location.pathname}?page=1${searchParam ? `&search=${searchParam}` : ''}`);
+    } else if (desiredPage > totalPages) {
+      handlePageChange(totalPages);
+    } else {
+      setCurrentPage(desiredPage);
+      navigate(`${location.pathname}?page=${desiredPage}${searchParam ? `&search=${searchParam}` : ''}`);
     }
-  }, [location.pathname, pageParam, navigate, filteredData, pageSize]);
+  } else if (dataType !== 'individual-weapon') {
+    navigate(`${location.pathname}?page=1${searchParam ? `&search=${searchParam}` : ''}`);
+    setCurrentPage(1);
+  }
+}, [location.pathname, pageParam, navigate, filteredData, pageSize, filterValue]);
+
+
 
   useEffect(() => {
     // Filter the data based on the filter value, except on the individual-weapon page
@@ -62,9 +59,8 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
       item.displayName.toLowerCase().includes(filterValue.toLowerCase())
     );
     setFilteredData(filtered);
-    setCurrentPage(1); // Reset the current page to 1 when the filter changes
-    navigate(`${location.pathname}?page=1`); // Update the URL with the new page number}
-  }}, [data, filterValue, navigate, location.pathname]);
+    setCurrentPage(1); // Reset the current page  to 1 when the filter changes
+     }}, [data, filterValue, navigate, location.pathname]);
 
   const handleRowClick = (item: any) => {
     // Generate link path based on the clicked row's data type and display name
@@ -152,14 +148,24 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     setFilterValue(newFilterValue);
   }, 25);
 
+  useEffect(()=> {
+    if (searchParam) {
+      setFilterValue(searchParam)
+    }
+  }, [])
+
   const handleFilterSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFilterValue = event.target.value;
     debouncedHandleFilterSubmit(newFilterValue);
+    navigate(`${location.pathname}?page=1${newFilterValue ? `&search=${newFilterValue}` : ''}`); // Append newFilterValue to URL only if it is truthy
+    setCurrentPage(1);
+    setDesiredPage(1)
   };
 
   const handlePageChange = (pageNumber: number) => {
     if (currentPage !== pageNumber) {
       setCurrentPage(pageNumber);
+      setDesiredPage(pageNumber)
       navigate(`?page=${pageNumber}`);
       setTimeout(() => {
         window.scrollTo({
