@@ -19,6 +19,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const pageParam = queryParams.get('page');
+  const searchParam = queryParams.get('search') || '';
   const pageSize = 25; // Amount of results per page
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,27 +29,28 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
 
   // To handle the ?page= value in the URL
   useEffect(() => {
-    const totalPages = Math.ceil(filteredData.length / pageSize); // Rounds up to the largest whole number
-    const parsedPage = pageParam ? parseInt(pageParam, 10) : 1;
-    if (parsedPage !== currentPage) {
-      setDesiredPage(parsedPage)
+  const totalPages = Math.ceil(filteredData.length / pageSize);
+  const parsedPage = pageParam ? parseInt(pageParam, 10) : 1;
+  if (parsedPage !== currentPage) {
+    setDesiredPage(parsedPage)
+  }
+  if (totalPages > 1) {
+    if (desiredPage < 1) {
+      handlePageChange(1);
+      navigate(`${location.pathname}?page=1${searchParam ? `&search=${searchParam}` : ''}`);
+    } else if (desiredPage > totalPages) {
+      handlePageChange(totalPages);
+    } else {
+      setCurrentPage(desiredPage);
+      navigate(`${location.pathname}?page=${desiredPage}${searchParam ? `&search=${searchParam}` : ''}`);
     }
-    if (totalPages > 1) {
-      if (desiredPage < 1) {
-        handlePageChange(1);
-        navigate(`${location.pathname}?page=1`);
-      } else if (desiredPage > totalPages) {
-        handlePageChange(totalPages);
-      } else {
-        setCurrentPage(desiredPage); // Use setCurrentPage here to update the currentPage state
-        navigate(`${location.pathname}?page=${desiredPage}`);
-      }
-    } else if (dataType !== 'individual-weapon') {
-      // If there is only one page of results, append ?page=1 to the url, except on the individual-weapon page
-      navigate(`${location.pathname}?page=1`);
-      setCurrentPage(1);
-    }
-  }, [location.pathname, pageParam, navigate, filteredData, pageSize]);
+  } else if (dataType !== 'individual-weapon') {
+    navigate(`${location.pathname}?page=1${searchParam ? `&search=${searchParam}` : ''}`);
+    setCurrentPage(1);
+  }
+}, [location.pathname, pageParam, navigate, filteredData, pageSize, filterValue]);
+
+
 
   useEffect(() => {
     // Filter the data based on the filter value, except on the individual-weapon page
@@ -146,12 +148,18 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     setFilterValue(newFilterValue);
   }, 25);
 
+  useEffect(()=> {
+    if (searchParam) {
+      setFilterValue(searchParam)
+    }
+  }, [])
+
   const handleFilterSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFilterValue = event.target.value;
     debouncedHandleFilterSubmit(newFilterValue);
+    navigate(`${location.pathname}?page=1${newFilterValue ? `&search=${newFilterValue}` : ''}`); // Append newFilterValue to URL only if it is truthy
     setCurrentPage(1);
     setDesiredPage(1)
-    navigate(`?page=1`);
   };
 
   const handlePageChange = (pageNumber: number) => {
