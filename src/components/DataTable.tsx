@@ -83,6 +83,12 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     navigate(`${location.pathname}?page=1${newFilterValue ? `&search=${newFilterValue}` : ''}`);
     setCurrentPage(1);
     setDesiredPage(1);
+    setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      }, 0);
   };
 
   const handlePageChange = (pageNumber: number) => {
