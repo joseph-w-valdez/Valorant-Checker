@@ -10,7 +10,6 @@ import { useDataFilter } from '../hooks/useDataFilter';
 import { useSearchValue } from '../hooks/useSearchValue';
 import { usePageNavigation } from '../hooks/usePageNavigation';
 
-
 export type DataTableProps = {
   data: any[];
   dataType: string;

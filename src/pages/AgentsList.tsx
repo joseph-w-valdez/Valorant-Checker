@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent, Dispatch, SetStateAction } from 'react';
+import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import Header from '../components/Header';
 import FilterTable from '../components/FilterTable';
 import DataTable from '../components/DataTable';
@@ -9,6 +9,7 @@ import { useLoadingContext } from '../contexts/LoadingContext';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
 import Subheader from '../components/Subheader';
 import { normalizeSelectedOption } from '../utilities/stringConversions';
+import { useHandleFilterBoxChange } from '../hooks/useHandleFilterBoxChange';
 
 type AgentsListProps = {
   selectedOption: string;
@@ -59,13 +60,7 @@ const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOpti
     }
   }, [selectedOption]);
 
-  const handleOptionChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    const option = event.target.value;
-    setSelectedOption((prevOption) =>
-      prevOption === option && option !== 'No Filter' ? 'No Filter' : option
-    );
-    fetchData(option);
-  };
+  const handleFilterBoxChange = useHandleFilterBoxChange(setSelectedOption)
 
   if (isLoading && !agents) return null;
 
@@ -88,7 +83,7 @@ const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOpti
       <FlexBasisFull />
       <FilterTable
         selectedOption={selectedOption}
-        handleOptionChange={handleOptionChange}
+        handleOptionChange={handleFilterBoxChange}
         filterData={agentRoles}
       />
       <FlexBasisFull />
