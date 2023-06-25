@@ -104,7 +104,6 @@ const renderIcon = (item: any) => {
   }
 };
 
-
   // Calculate the start and end index for slicing the filtered data array
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
@@ -125,15 +124,14 @@ const renderIcon = (item: any) => {
             {dataType === 'individual-weapon' ? 'Value' : 'Portrait'}
           </p>
         </div>
-        {/* Data rows */}
-        {/* If the dataType isn't individual-weapon */}
+        {/* Data row rendering for everything but the individual-weapon page */}
         {dataType !== 'individual-weapon' &&
           slicedData
             ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
             .map((item, index) => (
               <DataRow key={index} item={item} index={index} onClick={handleRowClick} renderIcon={()=>renderIcon(item)} dataType={dataType} />
             ))}
-        {/* If the dataType is individual-weapon */}
+        {/* Data row rendering for the individual-weapon page */}
         {dataType === 'individual-weapon' &&
           slicedData?.length && (
             <>
