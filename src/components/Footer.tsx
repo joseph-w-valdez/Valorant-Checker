@@ -3,7 +3,7 @@ import { socials } from '../data/socials';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="w-full relative top-[100px]">
+    <footer className="w-full relative top-[70px]">
       <div className="w-full bg-[#212121] h-[20px]"></div>
       <div className="flex flex-wrap justify-center w-full bg-gradient-to-r from-[#ff5152] via-red-950 via-black to-black min-h-[100px] bg-stone-950 text-[12px] text-left px-5 pb-4">
         <section className='w-full md:w-1/2 xl:w-[35%] px-2'>
