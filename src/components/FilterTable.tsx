@@ -25,7 +25,7 @@ const CheckboxItem: React.FC<CheckboxItemProps> = ({
     backgroundSize: isSelected ? 'cover' : 'auto',
   };
 
-  return (
+   return (
     <label
       htmlFor={id}
       className='checkbox-item flex flex-wrap items-center justify-start w-1/2 hover:bg-white hover:bg-opacity-25 cursor-pointer'
@@ -34,7 +34,7 @@ const CheckboxItem: React.FC<CheckboxItemProps> = ({
         id={id}
         className='h-5 w-5 border border-white border-2 rounded-sm mr-2 bg-transparent appearance-none cursor-pointer'
         type='checkbox'
-        name='category'
+        name={id} // Use the id prop as the name
         value={category}
         checked={isSelected}
         onChange={handleOptionChange}

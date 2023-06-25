@@ -1,16 +1,19 @@
-import React from 'react'
+import React from 'react';
 import FlexBasisFull from './FlexBasisFull';
 
-const FilterSearchBar: React.FC<{ filterValue: string; onFilterSubmit: (event: React.ChangeEvent<HTMLInputElement>) => void; results: number }> = ({
-  filterValue,
-  onFilterSubmit,
-  results,
-}) => {
+const FilterSearchBar: React.FC<{
+  filterValue: string;
+  onFilterSubmit: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  results: number;
+}> = ({ filterValue, onFilterSubmit, results }) => {
+  const inputId = 'filter-input'; // Unique id for the input element
+
   return (
     <>
-      <p className='mt-1 mb-2'>Type below to filter results:</p>
+      <p className="mt-1 mb-2">Type below to filter results:</p>
       <FlexBasisFull />
       <input
+        id={inputId}
         type="text"
         value={filterValue}
         onChange={onFilterSubmit}
@@ -33,4 +36,4 @@ const FilterSearchBar: React.FC<{ filterValue: string; onFilterSubmit: (event: R
   );
 };
 
-export default FilterSearchBar
+export default FilterSearchBar;
