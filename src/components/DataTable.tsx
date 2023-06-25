@@ -1,6 +1,5 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { debounce } from 'lodash';
 import { DataRow, DataRowIndividualWeapon } from './DataRows';
 import FilterSearchBar from './FilterSearchBar';
 import constructPath from '../utilities/constructLinkPath';
@@ -8,7 +7,7 @@ import RenderIcon from './RenderIcon';
 import PageControls from './PageControls';
 import FlexBasisFull from './FlexBasisFull';
 import { useDataFilter } from '../hooks/useDataFilter';
-/* import { useSearchValue } from '../hooks/useSearchValue'; */
+import { useSearchValue } from '../hooks/useSearchValue';
 
 export type DataTableProps = {
   data: any[];
@@ -27,8 +26,8 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [desiredPage, setDesiredPage] = useState(1);
-  const [searchValue, setSearchValue] = useState('');
-  const filteredData = useDataFilter(data, searchValue, dataType)
+  const { searchValue, handleSearchSubmit } = useSearchValue({ searchParam, navigate, location });
+  const filteredData = useDataFilter(data, searchValue, dataType);
 
   useEffect(() => {
     const totalPages = Math.ceil(filteredData.length / pageSize);
@@ -61,30 +60,6 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     return <RenderIcon item={item} dataType={dataType} />;
   };
 
-  const debouncedHandleSearchSubmit = debounce((newFilterValue: string) => {
-    setSearchValue(newFilterValue);
-  }, 25);
-
-  useEffect(() => {
-    if (searchParam) {
-      setSearchValue(searchParam);
-    }
-  }, []);
-
-  const handleSearchSubmit = (event: ChangeEvent<HTMLInputElement>) => {
-    const newSearchValue = event.target.value;
-    debouncedHandleSearchSubmit(newSearchValue);
-    navigate(`${location.pathname}?page=1${newSearchValue ? `&search=${newSearchValue}` : ''}`);
-    setCurrentPage(1);
-    setDesiredPage(1);
-    setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    }, 0);
-  };
-
   const handlePageChange = (pageNumber: number) => {
     if (currentPage !== pageNumber) {
       setCurrentPage(pageNumber);
@@ -100,7 +75,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     }
   };
 
-   const startIndex = (currentPage - 1) * pageSize;
+  const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const slicedData = filteredData.slice(startIndex, endIndex);
 
@@ -121,33 +96,32 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
           <p className="flex-end mr-12 sm:mr-24 lg:mr-48">{dataType === 'individual-weapon' ? 'Value' : 'Portrait'}</p>
         </div>
         {/* Data row rendering for everything but the individual-weapon page */}
-        {dataType !== 'individual-weapon' &&
-          slicedData
-            ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
-            .map((item, index) => (
-              <DataRow
-                key={index}
-                item={item}
-                index={index}
-                onClick={handleRowClick}
-                renderIcon={() => renderIcon(item)}
-                dataType={dataType}
-              />
-            ))}
-        {/* Data row rendering for the individual-weapon page */}
+       {dataType !== 'individual-weapon' &&
+         slicedData
+           ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
+           .map((item, index) => (
+             <DataRow
+               key={`${item.id}-${index}`}
+               item={item}
+               index={index}
+               onClick={handleRowClick}
+               renderIcon={() => renderIcon(item)}
+               dataType={dataType}
+             />
+         ))}
         {dataType === 'individual-weapon' &&
-          slicedData?.length && (
-            <>
-              {slicedData.map((item, index) => (
-                <DataRowIndividualWeapon
-                  key={index}
-                  item={item}
-                  index={index}
-                  onClick={handleRowClick}
-                  dataType={dataType}
-                />
-              ))}
-            </>
+        slicedData?.length && (
+         <>
+          {slicedData.map((item, index) => (
+            <DataRowIndividualWeapon
+            key={`${item.id}-${index}`}
+            item={item}
+            index={index}
+            onClick={handleRowClick}
+            dataType={dataType}
+            />
+          ))}
+          </>
           )}
       </div>
       <PageControls
