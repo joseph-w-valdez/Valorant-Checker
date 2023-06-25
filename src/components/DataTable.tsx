@@ -8,6 +8,7 @@ import RenderIcon from './RenderIcon';
 import PageControls from './PageControls';
 import FlexBasisFull from './FlexBasisFull';
 import { useDataFilter } from '../hooks/useDataFilter';
+/* import { useSearchValue } from '../hooks/useSearchValue'; */
 
 export type DataTableProps = {
   data: any[];
@@ -26,8 +27,8 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [desiredPage, setDesiredPage] = useState(1);
-  const [filterValue, setFilterValue] = useState('');
-  const filteredData = useDataFilter(data, filterValue, dataType)
+  const [searchValue, setSearchValue] = useState('');
+  const filteredData = useDataFilter(data, searchValue, dataType)
 
   useEffect(() => {
     const totalPages = Math.ceil(filteredData.length / pageSize);
@@ -38,18 +39,18 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     if (totalPages > 1) {
       if (desiredPage < 1) {
         handlePageChange(1);
-        navigate(`${location.pathname}?page=1${searchParam ? `&search=${filterValue}` : ''}`);
+        navigate(`${location.pathname}?page=1${searchParam ? `&search=${searchValue}` : ''}`);
       } else if (desiredPage > totalPages) {
         handlePageChange(totalPages);
       } else {
         setCurrentPage(desiredPage);
-        navigate(`${location.pathname}?page=${desiredPage}${searchParam ? `&search=${filterValue}` : ''}`);
+        navigate(`${location.pathname}?page=${desiredPage}${searchParam ? `&search=${searchValue}` : ''}`);
       }
     } else if (dataType !== 'individual-weapon') {
-      navigate(`${location.pathname}?page=1${searchParam ? `&search=${filterValue}` : ''}`);
+      navigate(`${location.pathname}?page=1${searchParam ? `&search=${searchValue}` : ''}`);
       setCurrentPage(1);
     }
-  }, [location.pathname, pageParam, navigate, filteredData, pageSize, filterValue]);
+  }, [location.pathname, pageParam, navigate, filteredData, pageSize, searchValue]);
 
   const handleRowClick = (item: any) => {
     const linkPath = constructPath(item, dataType, weapon);
@@ -60,20 +61,20 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     return <RenderIcon item={item} dataType={dataType} />;
   };
 
-  const debouncedHandleFilterSubmit = debounce((newFilterValue: string) => {
-    setFilterValue(newFilterValue);
+  const debouncedHandleSearchSubmit = debounce((newFilterValue: string) => {
+    setSearchValue(newFilterValue);
   }, 25);
 
   useEffect(() => {
     if (searchParam) {
-      setFilterValue(searchParam);
+      setSearchValue(searchParam);
     }
   }, []);
 
-  const handleFilterSubmit = (event: ChangeEvent<HTMLInputElement>) => {
-    const newFilterValue = event.target.value;
-    debouncedHandleFilterSubmit(newFilterValue);
-    navigate(`${location.pathname}?page=1${newFilterValue ? `&search=${newFilterValue}` : ''}`);
+  const handleSearchSubmit = (event: ChangeEvent<HTMLInputElement>) => {
+    const newSearchValue = event.target.value;
+    debouncedHandleSearchSubmit(newSearchValue);
+    navigate(`${location.pathname}?page=1${newSearchValue ? `&search=${newSearchValue}` : ''}`);
     setCurrentPage(1);
     setDesiredPage(1);
     setTimeout(() => {
@@ -88,7 +89,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     if (currentPage !== pageNumber) {
       setCurrentPage(pageNumber);
       setDesiredPage(pageNumber);
-      const searchQuery = filterValue ? `&search=${filterValue}` : '';
+      const searchQuery = searchValue ? `&search=${searchValue}` : '';
       navigate(`?page=${pageNumber}${searchQuery}`);
       setTimeout(() => {
         window.scrollTo({
@@ -105,10 +106,11 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
 
   return (
     <>
+      {/* Render the search bar, except on the individual-weapon page */}
       {dataType !== 'individual-weapon' && (
         <FilterSearchBar
-          filterValue={filterValue}
-          onFilterSubmit={handleFilterSubmit}
+          searchValue={searchValue}
+          onSearchSubmit={handleSearchSubmit}
           results={filteredData.length}
         />
       )}
