@@ -7,6 +7,7 @@ import constructPath from '../utilities/constructLinkPath';
 import RenderIcon from './RenderIcon';
 import PageControls from './PageControls';
 import FlexBasisFull from './FlexBasisFull';
+import { useDataFilter } from '../hooks/useDataFilter';
 
 export type DataTableProps = {
   data: any[];
@@ -26,7 +27,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [desiredPage, setDesiredPage] = useState(1);
   const [filterValue, setFilterValue] = useState('');
-  const [filteredData, setFilteredData] = useState<any[]>(data);
+  const filteredData = useDataFilter(data, filterValue, dataType)
 
   useEffect(() => {
     const totalPages = Math.ceil(filteredData.length / pageSize);
@@ -49,14 +50,6 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
       setCurrentPage(1);
     }
   }, [location.pathname, pageParam, navigate, filteredData, pageSize, filterValue]);
-
-  useEffect(() => {
-    if (dataType !== 'individual-weapon') {
-      const filtered = data.filter((item) => item.displayName.toLowerCase().includes(filterValue.toLowerCase()));
-      setFilteredData(filtered);
-      setCurrentPage(1); // Reset the current page to 1 when the filter changes
-    }
-  }, [data, filterValue, navigate, location.pathname]);
 
   const handleRowClick = (item: any) => {
     const linkPath = constructPath(item, dataType, weapon);
@@ -84,11 +77,11 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     setCurrentPage(1);
     setDesiredPage(1);
     setTimeout(() => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
-      }, 0);
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }, 0);
   };
 
   const handlePageChange = (pageNumber: number) => {
@@ -106,7 +99,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
     }
   };
 
-  const startIndex = (currentPage - 1) * pageSize;
+   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const slicedData = filteredData.slice(startIndex, endIndex);
 
