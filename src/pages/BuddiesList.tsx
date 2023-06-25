@@ -4,10 +4,10 @@ import FlexBasisFull from '../components/FlexBasisFull';
 import { fetchBuddies } from '../utilities/fetchBuddies';
 import DataTable from '../components/DataTable';
 import Subheader from '../components/Subheader';
-import useFetchRequest from '../hooks/useFetchRequest'
+import { useFetchArray } from '../hooks/useFetchRequest';
 
 const BuddiesList: React.FC = () => {
-  const buddies = useFetchRequest(fetchBuddies, '');
+  const buddies = useFetchArray(fetchBuddies, '');
 
   return (
     <>

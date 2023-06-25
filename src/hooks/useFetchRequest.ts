@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLoadingContext } from '../contexts/LoadingContext';
 
-const useFetch = (fetchFunction: (option: string) => Promise<any[]>, selectedOption: string) => {
+export const useFetchArray = (fetchFunction: (option: string) => Promise<any[]>, selectedOption: string) => {
   const { setIsLoading } = useLoadingContext();
   const [data, setData] = useState<any[]>([]);
 
@@ -28,4 +28,28 @@ const useFetch = (fetchFunction: (option: string) => Promise<any[]>, selectedOpt
   return data;
 };
 
-export default useFetch;
+export const useFetchObject = (fetchFunction: (arg: string) => Promise<any | null>, arg: string) => {
+  const { setIsLoading } = useLoadingContext();
+  const [data, setData] = useState<any | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const fetchedData = await fetchFunction(arg);
+        setData(fetchedData);
+      } catch (error) {
+        console.error(error);
+        setData(null);
+      } finally {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 300);
+      }
+    };
+
+    fetchData();
+  }, [arg, setIsLoading, fetchFunction]);
+
+  return data;
+};

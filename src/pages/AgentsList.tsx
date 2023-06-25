@@ -9,7 +9,7 @@ import { alphabetizeArray } from '../utilities/arrayManipulations';
 import Subheader from '../components/Subheader';
 import { normalizeSelectedOption } from '../utilities/stringConversions';
 import { useHandleFilterBoxChange } from '../hooks/useHandleFilterBoxChange';
-import useFetchRequest from '../hooks/useFetchRequest'
+import { useFetchArray } from '../hooks/useFetchRequest'
 
 type AgentsListProps = {
   selectedOption: string;
@@ -18,7 +18,7 @@ type AgentsListProps = {
 
 const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOption }) => {
   const [agentRoleDescription, setAgentRoleDescription] = useState<string>('');
-  const agents = useFetchRequest(fetchAgents, selectedOption);
+  const agents = useFetchArray(fetchAgents, selectedOption);
 
   useEffect(() => {
     setSelectedOption('No Filter');

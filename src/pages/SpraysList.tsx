@@ -4,10 +4,10 @@ import FlexBasisFull from '../components/FlexBasisFull';
 import { fetchSprays } from '../utilities/fetchSprays';
 import DataTable from '../components/DataTable';
 import Subheader from '../components/Subheader';
-import useFetchRequest from '../hooks/useFetchRequest'
+import { useFetchArray } from '../hooks/useFetchRequest';
 
 const SpraysList: React.FC = () => {
-  const sprays = useFetchRequest(fetchSprays, '');
+  const sprays = useFetchArray(fetchSprays, '');
 
   return (
     <>

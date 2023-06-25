@@ -9,7 +9,7 @@ import { alphabetizeArray } from '../utilities/arrayManipulations';
 import Subheader from '../components/Subheader';
 import { normalizeSelectedOption } from '../utilities/stringConversions';
 import { useHandleFilterBoxChange } from '../hooks/useHandleFilterBoxChange';
-import useFetchRequest from '../hooks/useFetchRequest'
+import { useFetchArray } from '../hooks/useFetchRequest';
 
 type WeaponsListProps = {
   selectedOption: string;
@@ -17,7 +17,7 @@ type WeaponsListProps = {
 };
 
 const WeaponsList: React.FC<WeaponsListProps> = ({ selectedOption, setSelectedOption }) => {
-  const weapons = useFetchRequest(fetchWeapons, selectedOption);
+  const weapons = useFetchArray(fetchWeapons, selectedOption);
 
   useEffect(() => {
     setSelectedOption('No Filter');
