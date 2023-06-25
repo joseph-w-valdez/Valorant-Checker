@@ -26,8 +26,8 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [desiredPage, setDesiredPage] = useState(1);
-  const { searchValue, handleSearchSubmit } = useSearchValue({ searchParam, navigate, location });
-  const filteredData = useDataFilter(data, searchValue, dataType);
+  const { searchValue, handleSearchSubmit } = useSearchValue({ searchParam, navigate, location }); // custom hook for handling searches
+  const filteredData = useDataFilter(data, searchValue, dataType); // custom hook for handling filtering if a search has been made
 
   useEffect(() => {
     const totalPages = Math.ceil(filteredData.length / pageSize);
@@ -101,7 +101,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
            ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
            .map((item, index) => (
              <DataRow
-               key={`${item.id}-${index}`}
+               key={`${item.id}-${index}`} // use a template literal to create a unique key value for React, since item.id is not unique from the API
                item={item}
                index={index}
                onClick={handleRowClick}
@@ -114,7 +114,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
          <>
           {slicedData.map((item, index) => (
             <DataRowIndividualWeapon
-            key={`${item.id}-${index}`}
+            key={`${item.id}-${index}`} // use a template literal to create a unique key value for React, since item.id is not unique from the API
             item={item}
             index={index}
             onClick={handleRowClick}
