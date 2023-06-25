@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
 import FullAgentPortrait from '../components/FullAgentPortrait';
 import BackButton from '../components/BackButton';
 import { normalizeAbilitySlot, onlyLettersAndNumbers } from '../utilities/stringConversions';
+import { useFetchObject } from '../hooks/useFetchRequest';
 import { fetchAgent } from '../utilities/fetchAgents';
-import { useLoadingContext } from '../contexts/LoadingContext';
 
 const IndividualAgent: React.FC<{ setSelectedOption: (option: string) => void }> = ({ setSelectedOption }) => {
   const navigate = useNavigate();
   const { agentName } = useParams<{ agentName: string }>();
-  const { setIsLoading } = useLoadingContext();
-  const [agentData, setAgentData] = useState<any>(null);
-  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
+
+  const agentData = useFetchObject(fetchAgent, agentName);
 
   const handleRoleClick = (role: any) => {
     setSelectedOption(role.displayName);
@@ -25,32 +24,7 @@ const IndividualAgent: React.FC<{ setSelectedOption: (option: string) => void }>
     navigate(`/agent/${agentName}/${abilityName}`);
   };
 
-  useEffect(() => {
-    const getAgentData = async () => {
-      try {
-        setIsLoading(true);
-        if (agentName) {
-          const agentData = await fetchAgent(agentName);
-          setAgentData(agentData);
-        }
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsFetchCompleted(true);
-        setIsLoading(false);
-      }
-    };
-
-    getAgentData();
-  }, [agentName, setIsLoading]);
-
-  useEffect(() => {
-    if (isFetchCompleted && !agentData) {
-      navigate('/not-found');
-    }
-  }, [isFetchCompleted, agentData, navigate]);
-
-  if (!agentData || !isFetchCompleted) {
+  if (!agentData) {
     return null; // Don't try to render content until the fetch has completed
   }
 

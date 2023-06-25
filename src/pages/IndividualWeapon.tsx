@@ -1,53 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
 import DataTable, { DataTableProps } from '../components/DataTable';
 import { fetchWeapon } from '../utilities/fetchWeapons';
-import { useLoadingContext } from '../contexts/LoadingContext';
 import { convertWeaponStats, filterProps, modifyAccuracyProps } from '../utilities/weaponUtils';
-
-type WeaponData = {
-  displayName: string;
-  displayIcon: string;
-  weaponStats: Record<string, unknown>;
-  shopData?: {
-    categoryText: string;
-  };
-};
+import { useFetchObject } from '../hooks/useFetchRequest';
 
 const IndividualWeapon = () => {
   const navigate = useNavigate();
   const { weaponName } = useParams();
-  const { setIsLoading } = useLoadingContext();
-  const [weaponData, setWeaponData] = useState<WeaponData | null>(null);
-  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
+  const weaponData = useFetchObject(fetchWeapon, weaponName);
 
-  useEffect(() => {
-    const getWeaponData = async () => {
-      setIsLoading(true);
-      try {
-        const weaponData = await fetchWeapon(weaponName);
-        setWeaponData(weaponData);
-        setIsFetchCompleted(true);
-      } catch (error) {
-        console.error(error);
-        setIsFetchCompleted(true);
-      }
-      setIsLoading(false);
-    };
-
-    getWeaponData();
-  }, [weaponName, setIsLoading]);
-
-  useEffect(() => {
-    if (isFetchCompleted && !weaponData) {
-      navigate('/not-found');
-    }
-  }, [isFetchCompleted, weaponData, navigate]);
-
-  if (!weaponData || !isFetchCompleted) {
+  if (!weaponData) {
     return null; // Don't try to render content until the fetch has completed
   }
 
@@ -73,7 +39,7 @@ const IndividualWeapon = () => {
     <>
       <div>
         <div className='flex items-center justify-center'>
-          <BackButton />
+          <BackButton targetPage='/weapons' />
           <Header text={weaponData.displayName} />
         </div>
         <FlexBasisFull />

@@ -1,24 +1,29 @@
 import { useState, useEffect } from 'react';
 import { useLoadingContext } from '../contexts/LoadingContext';
+import { useNavigate } from 'react-router-dom';
 
-export const useFetchArray = (fetchFunction: (option: string) => Promise<any[]>, selectedOption: string) => {
+export const useFetchArray = (fetchFunction: (option: string) => Promise<any[]>, selectedOption: any) => {
   const { setIsLoading } = useLoadingContext();
   const [data, setData] = useState<any[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
         const fetchedData = await fetchFunction(selectedOption);
-        setData(fetchedData);
+        if (!fetchedData) {
+          navigate('/not-found');
+        } else {
+          setData(fetchedData);
+        }
       } catch (error) {
         console.error(error);
         setData([]);
       } finally {
-        // Delay before setting isLoading to false to reduce visual bugs
         setTimeout(() => {
           setIsLoading(false);
-        }, 300);
+        }, 150);
       }
     };
 
@@ -28,28 +33,33 @@ export const useFetchArray = (fetchFunction: (option: string) => Promise<any[]>,
   return data;
 };
 
-export const useFetchObject = (fetchFunction: (arg: string) => Promise<any | null>, arg: string) => {
+export const useFetchObject = (fetchFunction: (option: string) => Promise<any | null>, arg: any) => {
   const { setIsLoading } = useLoadingContext();
   const [data, setData] = useState<any | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
         const fetchedData = await fetchFunction(arg);
-        setData(fetchedData);
+        if (!fetchedData) {
+          navigate('/not-found');
+        } else {
+          setData(fetchedData);
+        }
       } catch (error) {
         console.error(error);
         setData(null);
       } finally {
         setTimeout(() => {
           setIsLoading(false);
-        }, 300);
+        }, 150);
       }
     };
 
     fetchData();
-  }, [arg, setIsLoading, fetchFunction]);
+  }, [arg, setIsLoading, fetchFunction, navigate]);
 
   return data;
 };
