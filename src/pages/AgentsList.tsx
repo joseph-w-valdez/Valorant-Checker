@@ -5,11 +5,11 @@ import DataTable from '../components/DataTable';
 import FlexBasisFull from '../components/FlexBasisFull';
 import { agentRoles } from '../data/agentRoles';
 import { fetchAgents } from '../utilities/fetchAgents';
-import { useLoadingContext } from '../contexts/LoadingContext';
 import { alphabetizeArray } from '../utilities/arrayManipulations';
 import Subheader from '../components/Subheader';
 import { normalizeSelectedOption } from '../utilities/stringConversions';
 import { useHandleFilterBoxChange } from '../hooks/useHandleFilterBoxChange';
+import useFetchRequest from '../hooks/useFetchRequest'
 
 type AgentsListProps = {
   selectedOption: string;
@@ -17,35 +17,8 @@ type AgentsListProps = {
 };
 
 const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOption }) => {
-  const { isLoading, setIsLoading } = useLoadingContext();
-  const [agents, setAgents] = useState<any[]>([]);
   const [agentRoleDescription, setAgentRoleDescription] = useState<string>('');
-
-  const fetchData = async (option: string) => {
-    try {
-      setIsLoading(true);
-      const filteredAgents = await fetchAgents(option);
-      setAgents(filteredAgents);
-    } catch (error) {
-      console.error(error);
-      setAgents([]);
-    } finally {
-      // Delay before setting isLoading to false to reduce visual bugs
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 300);
-    }
-  };
-
-  useEffect(() => {
-    const fetchDataOnInitialLoad = async () => {
-      setIsLoading(true);
-      // Delay before fetching data for the initial load with "No Filter" option
-      fetchData(selectedOption);
-    };
-
-    fetchDataOnInitialLoad();
-  }, [selectedOption]);
+  const agents = useFetchRequest(fetchAgents, selectedOption);
 
   useEffect(() => {
     setSelectedOption('No Filter');
@@ -62,7 +35,7 @@ const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOpti
 
   const handleFilterBoxChange = useHandleFilterBoxChange(setSelectedOption)
 
-  if (isLoading && !agents) return null;
+  if (!agents) return null;
 
   return (
     <>
@@ -70,7 +43,7 @@ const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOpti
           <Header text='Agents' />
       </div>
       <FlexBasisFull />
-      {!isLoading && agents.length > 0 && (
+      {agents && agents.length > 0 && (
         <>
           <FlexBasisFull />
           <Subheader
@@ -92,7 +65,7 @@ const AgentsList: React.FC<AgentsListProps> = ({ selectedOption, setSelectedOpti
           <p className=''>{agentRoleDescription}</p>
         </div>
       )}
-      {Boolean(selectedOption) && agents.length > 0 && (
+      {Boolean(selectedOption) && agents && agents.length > 0 && (
         <>
           <FlexBasisFull />
           <DataTable data={alphabetizeArray(agents)} selectedOption={selectedOption} dataType='agents' />
