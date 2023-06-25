@@ -35,8 +35,8 @@ const Navbar: React.FC<NavbarProps> = ({ setSelectedOption }) => {
 
   // nav link data
   const navLinks = [
-    { to: '/agents-list', text: 'Agents' },
-    { to: '/weapons-list', text: 'Weapons' },
+    { to: '/agents', text: 'Agents' },
+    { to: '/weapons', text: 'Weapons' },
     { to: '/buddies', text: 'Buddies'},
     { to: '/sprays', text: 'Sprays'},
   ];

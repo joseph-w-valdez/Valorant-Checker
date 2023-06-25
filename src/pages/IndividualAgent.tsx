@@ -17,7 +17,7 @@ const IndividualAgent: React.FC<{ setSelectedOption: (option: string) => void }>
 
   const handleRoleClick = (role: any) => {
     setSelectedOption(role.displayName);
-    navigate('/agents-list');
+    navigate('/agents');
   };
 
   const handleAbilityClick = (ability: any) => {

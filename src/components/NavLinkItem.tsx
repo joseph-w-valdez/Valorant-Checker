@@ -15,7 +15,7 @@ const NavLinkItem: React.FC<NavLinkItemProps> = ({ to, text, handleNavLinkClick,
         className="p-1 cursor-pointer active:font-bold"
         onClick={() => {
           handleNavLinkClick();
-          if (handleResetFilters && to === '/agents-list') {
+          if (handleResetFilters && to === '/agents') {
             handleResetFilters();
           }
         }}

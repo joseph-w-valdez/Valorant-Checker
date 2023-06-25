@@ -50,7 +50,7 @@ function App(): JSX.Element {
             <Routes>
               <Route path="/" element={<Homepage />} />
               <Route
-                path="/agents-list"
+                path="/agents"
                 element={
                   <AgentsList
                     selectedOption={selectedOption}
@@ -59,7 +59,7 @@ function App(): JSX.Element {
                 }
               />
               <Route
-                path="/weapons-list"
+                path="/weapons"
                 element={
                   <WeaponsList
                     selectedOption={selectedOption}
