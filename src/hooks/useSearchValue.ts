@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { Location } from 'react-router-dom';
+import { debounce } from 'lodash';
 
 type UseSearchValueProps = {
   searchParam: string;
@@ -15,9 +17,13 @@ export function useSearchValue({ searchParam, navigate, location }: UseSearchVal
     }
   }, [searchParam]);
 
+  const debouncedHandleSearchSubmit = debounce((newSearchValue: string) => {
+    setSearchValue(newSearchValue);
+  }, 40);
+
   const handleSearchSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newSearchValue = event.target.value;
-    setSearchValue(newSearchValue);
+    debouncedHandleSearchSubmit(newSearchValue);
     navigate(`${location.pathname}?page=1${newSearchValue ? `&search=${newSearchValue}` : ''}`);
   };
 
