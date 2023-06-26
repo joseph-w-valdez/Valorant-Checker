@@ -9,6 +9,12 @@ export const useDataFilter = (data: any[], filterValue: string, dataType: string
         item.displayName.toLowerCase().includes(filterValue.toLowerCase())
       );
       setFilteredData(filtered);
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      }, 40);
     }
   }, [data, filterValue, dataType]);
 

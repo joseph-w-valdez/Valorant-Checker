@@ -1,37 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Header from '../components/Header';
 import FlexBasisFull from '../components/FlexBasisFull';
 import { fetchBuddies } from '../utilities/fetchBuddies';
 import DataTable from '../components/DataTable';
-import { alphabetizeArray } from '../utilities/arrayManipulations';
 import Subheader from '../components/Subheader';
-import { useLoadingContext } from '../contexts/LoadingContext';
-
-type Buddy = {
-  displayName: string;
-};
+import { useFetchArray } from '../hooks/useFetchRequest';
 
 const BuddiesList: React.FC = () => {
-  const [buddies, setBuddies] = useState<Buddy[]>([]);
-  const { isLoading, setIsLoading } = useLoadingContext();
-
-  useEffect(() => {
-    const fetchBuddiesData = async () => {
-      try {
-        setIsLoading(true);
-        const data = await fetchBuddies();
-        const sortedBuddies = alphabetizeArray(data.data);
-        setBuddies(sortedBuddies);
-      } catch (error) {
-        console.error(error);
-        setBuddies([]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchBuddiesData();
-  }, []);
+  const buddies = useFetchArray(fetchBuddies, '');
 
   return (
     <>
@@ -39,9 +15,8 @@ const BuddiesList: React.FC = () => {
         <Header text='Buddies' />
       </div>
       <FlexBasisFull />
-      {!isLoading && (
+      {buddies && (
         <>
-
           <Subheader text={`There are currently ${buddies.length} buddies!`} />
           <FlexBasisFull />
         </>

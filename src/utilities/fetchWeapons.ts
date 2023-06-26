@@ -1,4 +1,4 @@
-export const fetchWeapons = async (selectedOption: string, setWeapons: React.Dispatch<React.SetStateAction<any[]>>) => {
+export const fetchWeapons = async (selectedOption: string): Promise<any[]> => {
   try {
     const response = await fetch('https://valorant-api.com/v1/weapons');
     const data = await response.json();
@@ -6,10 +6,8 @@ export const fetchWeapons = async (selectedOption: string, setWeapons: React.Dis
       /* convert the selectedOption string to the format used in the API */
       const selectedOptionQuery = `EEquippableCategory::${selectedOption}`
       const filteredWeapons = data.data.filter((weapon: any) => weapon.category === selectedOptionQuery);
-      setWeapons(filteredWeapons);
       return filteredWeapons; // Explicitly return the filtered weapons
     } else {
-      setWeapons(data.data);
       return data.data; // Explicitly return all weapons
     }
   } catch (error) {

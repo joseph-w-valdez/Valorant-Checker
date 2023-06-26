@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import FlexBasisFull from '../components/FlexBasisFull';
 import Header from '../components/Header';
@@ -6,48 +6,22 @@ import FullAgentPortrait from '../components/FullAgentPortrait';
 import BackButton from '../components/BackButton';
 import { normalizeAbilitySlot, onlyLettersAndNumbers } from '../utilities/stringConversions';
 import { fetchAgent } from '../utilities/fetchAgents';
-import { useLoadingContext } from '../contexts/LoadingContext';
+import { useFetchObject } from '../hooks/useFetchRequest';
 
 const IndividualAbility: React.FC = () => {
   const navigate = useNavigate();
   const { agentName, abilityName } = useParams();
-  const { setIsLoading } = useLoadingContext();
-  const [agentData, setAgentData] = useState<any>(null);
-  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
+  const agentData = useFetchObject(fetchAgent, agentName);
 
-  useEffect(() => {
-    const getAgentData = async () => {
-  try {
-    setIsLoading(true);
-    if (agentName) {
-      const agentData = await fetchAgent(agentName);
-      setAgentData(agentData);
-    }
-  } catch (error) {
-    console.error(error);
-  } finally {
-    setIsFetchCompleted(true);
-    setIsLoading(false);
-  }
-};
-    getAgentData();
-  }, [agentName, setIsLoading]);
-
-  useEffect(() => {
-    if (isFetchCompleted && !agentData) {
-      navigate('/not-found');
-    }
-  }, [isFetchCompleted, agentData, navigate]);
-
-  if (!agentData || !isFetchCompleted) {
+  if (!agentData) {
     return null; // Don't try to render content until the fetch has completed
   }
 
   const abilityData = agentData.abilities.find(
-  (ability: any) =>
-    abilityName &&
-    onlyLettersAndNumbers(ability.displayName.toLowerCase()) === onlyLettersAndNumbers(abilityName.toLowerCase())
-);
+    (ability: any) =>
+      abilityName &&
+      onlyLettersAndNumbers(ability.displayName.toLowerCase()) === onlyLettersAndNumbers(abilityName.toLowerCase())
+  );
 
   const iconSrc = abilityData?.slot === 'Passive' ? agentData.displayIcon : abilityData?.displayIcon;
 

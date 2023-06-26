@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { DataRow, DataRowIndividualWeapon } from './DataRows';
 import FilterSearchBar from './FilterSearchBar';
@@ -8,6 +8,7 @@ import PageControls from './PageControls';
 import FlexBasisFull from './FlexBasisFull';
 import { useDataFilter } from '../hooks/useDataFilter';
 import { useSearchValue } from '../hooks/useSearchValue';
+import { usePageNavigation } from '../hooks/usePageNavigation';
 
 export type DataTableProps = {
   data: any[];
@@ -20,36 +21,17 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const pageParam = queryParams.get('page');
   const searchParam = queryParams.get('search') || '';
   const pageSize = 25; // Amount of results per page
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [desiredPage, setDesiredPage] = useState(1);
-  const { searchValue, handleSearchSubmit } = useSearchValue({ searchParam, navigate, location });
-  const filteredData = useDataFilter(data, searchValue, dataType);
+  const { searchValue, handleSearchSubmit } = useSearchValue({ searchParam, navigate, location }); // custom hook for handling searches
+  const filteredData = useDataFilter(data, searchValue, dataType); // custom hook for handling filtering if a search has been made
 
-  useEffect(() => {
-    const totalPages = Math.ceil(filteredData.length / pageSize);
-    const parsedPage = pageParam ? parseInt(pageParam, 10) : 1;
-    if (parsedPage !== currentPage) {
-      setDesiredPage(parsedPage);
-    }
-    if (totalPages > 1) {
-      if (desiredPage < 1) {
-        handlePageChange(1);
-        navigate(`${location.pathname}?page=1${searchParam ? `&search=${searchValue}` : ''}`);
-      } else if (desiredPage > totalPages) {
-        handlePageChange(totalPages);
-      } else {
-        setCurrentPage(desiredPage);
-        navigate(`${location.pathname}?page=${desiredPage}${searchParam ? `&search=${searchValue}` : ''}`);
-      }
-    } else if (dataType !== 'individual-weapon') {
-      navigate(`${location.pathname}?page=1${searchParam ? `&search=${searchValue}` : ''}`);
-      setCurrentPage(1);
-    }
-  }, [location.pathname, pageParam, navigate, filteredData, pageSize, searchValue]);
+  const { currentPage, setCurrentPage, setDesiredPage } = usePageNavigation(
+  filteredData.length,
+  pageSize,
+  searchValue
+);
 
   const handleRowClick = (item: any) => {
     const linkPath = constructPath(item, dataType, weapon);
@@ -101,7 +83,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
            ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
            .map((item, index) => (
              <DataRow
-               key={`${item.id}-${index}`}
+               key={`${item.id}-${index}`} // use a template literal to create a unique key value for React, since item.id is not unique from the API
                item={item}
                index={index}
                onClick={handleRowClick}
@@ -114,7 +96,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
          <>
           {slicedData.map((item, index) => (
             <DataRowIndividualWeapon
-            key={`${item.id}-${index}`}
+            key={`${item.id}-${index}`} // use a template literal to create a unique key value for React, since item.id is not unique from the API
             item={item}
             index={index}
             onClick={handleRowClick}

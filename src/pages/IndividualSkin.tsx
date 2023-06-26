@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import FlexBasisFull from '../components/FlexBasisFull';
 import Header from '../components/Header';
@@ -6,39 +6,14 @@ import BackButton from '../components/BackButton';
 import Subheader from '../components/Subheader';
 import { convertCamelCase, shortenLevelText, convertContainsColons, removeParentheses, onlyLettersAndNumbers } from '../utilities/stringConversions';
 import { fetchWeapon } from '../utilities/fetchWeapons';
-import { useLoadingContext } from '../contexts/LoadingContext';
+import { useFetchObject } from '../hooks/useFetchRequest';
 
 const IndividualSkin = () => {
   const navigate = useNavigate();
   const { weaponName, skinName } = useParams();
-  const { setIsLoading } = useLoadingContext();
-  const [weaponData, setWeaponData] = useState<any>(null);
-  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
+  const weaponData = useFetchObject(fetchWeapon, weaponName);
 
-  useEffect(() => {
-    const getWeaponData = async () => {
-      setIsLoading(true);
-      try {
-        const weaponData = await fetchWeapon(weaponName);
-        setWeaponData(weaponData);
-        setIsFetchCompleted(true);
-      } catch (error) {
-        console.error(error);
-        setIsFetchCompleted(true);
-      }
-      setIsLoading(false);
-    };
-
-    getWeaponData();
-  }, [weaponName, setIsLoading]);
-
-  useEffect(() => {
-    if (isFetchCompleted && !weaponData) {
-      navigate('/not-found');
-    }
-  }, [isFetchCompleted, weaponData, navigate]);
-
-  if (!weaponData || !isFetchCompleted) {
+  if (!weaponData) {
     return null; // Don't try to render content until the fetch has completed
   }
 
