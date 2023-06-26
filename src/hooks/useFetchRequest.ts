@@ -33,7 +33,7 @@ export const useFetchArray = (fetchFunction: (option: string) => Promise<any[]>,
   return data;
 };
 
-export const useFetchObject = (fetchFunction: (option: string) => Promise<any | null>, arg: any) => {
+export const useFetchObject = (fetchFunction: (option: string) => Promise<any | null>, arg?: any) => {
   const { setIsLoading } = useLoadingContext();
   const [data, setData] = useState<any | null>(null);
   const navigate = useNavigate();

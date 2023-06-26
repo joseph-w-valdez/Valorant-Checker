@@ -13,6 +13,18 @@ export const fetchAgents = async (selectedOption: string): Promise<any[]> => {
   }
 };
 
+export const fetchNewestAgent = async () => {
+  try {
+    const response = await fetch('https://valorant-api.com/v1/agents');
+    const data = await response.json()
+    const newestAgent = data.data[0]
+    return newestAgent
+  } catch (error) {
+    console.error(error);
+    return []
+  }
+}
+
 export const fetchAgent = async (agentName: string): Promise<any | null> => {
   try {
     const adjustedAgentName = agentName === 'Kayo' ? 'KAY/O' : agentName;
