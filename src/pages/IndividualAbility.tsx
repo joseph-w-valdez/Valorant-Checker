@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import FlexBasisFull from '../components/FlexBasisFull';
 import Header from '../components/Header';
 import FullAgentPortrait from '../components/FullAgentPortrait';
@@ -9,7 +9,6 @@ import { fetchAgent } from '../utilities/fetchAgents';
 import { useFetchObject } from '../hooks/useFetchRequest';
 
 const IndividualAbility: React.FC = () => {
-  const navigate = useNavigate();
   const { agentName, abilityName } = useParams();
   const agentData = useFetchObject(fetchAgent, agentName);
 
@@ -26,7 +25,6 @@ const IndividualAbility: React.FC = () => {
   const iconSrc = abilityData?.slot === 'Passive' ? agentData.displayIcon : abilityData?.displayIcon;
 
   if (!abilityData) {
-    navigate('/not-found');
     return null; // Don't try to render content until the fetch has completed
   }
 

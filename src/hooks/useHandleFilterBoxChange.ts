@@ -13,7 +13,7 @@ export const useHandleFilterBoxChange = (
     setSelectedOption((prevOption) =>
       prevOption === option && option !== 'No Filter' ? 'No Filter' : option
     );
-    console.log('location.pathname', location.pathname)
+    /* console.log('location.pathname', location.pathname) */
     /* navigate(`${location.pathname}&filter=${option === 'No Filter' ? 'none' : option}`); */
   };
 };

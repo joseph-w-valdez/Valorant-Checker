@@ -5,7 +5,7 @@ type SubheaderProps = {
 };
 
 const Subheader: React.FC<SubheaderProps> = ({ text }) => {
-  return <h1 className='mb-4 text-md 375:text-lg'>{text}</h1>;
+  return <h1 className='my-4 text-xl 375:text-2xl'>{text}</h1>;
 };
 
 export default Subheader;
