@@ -20,6 +20,11 @@ const constructPath = (item: any, dataType: string, weapon?: string) => {
     return `/buddy/${buddyName}`;
   };
 
+  const getSprayLinkPath = (displayName: string) => {
+    const sprayName = onlyLettersAndNumbers(displayName);
+    return `/spray/${sprayName}`;
+  };
+
   /* handle row click link navigations */
   let linkPath = '';
 
@@ -33,9 +38,8 @@ const constructPath = (item: any, dataType: string, weapon?: string) => {
     case 'weapon-skins':
       linkPath = getWeaponSkinLinkPath(item.displayName);
       break;
-    /* PLACEHOLDER LINKS */
     case 'sprays':
-      linkPath = '/';
+      linkPath = getSprayLinkPath(item.displayName);
       break;
     case 'buddies':
       linkPath = getBuddyLinkPath(item.displayName);

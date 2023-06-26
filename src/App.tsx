@@ -17,9 +17,11 @@ import IndividualWeapon from './pages/IndividualWeapon';
 import WeaponSkins from './pages/WeaponSkins';
 import IndividualSkin from './pages/IndividualSkin';
 import BuddiesList from './pages/BuddiesList';
-import SpraysList from './pages/SpraysList';
-import NotFound from './pages/NotFound';
 import IndividualBuddy from './pages/IndividualBuddy';
+import SpraysList from './pages/SpraysList';
+import IndividualSpray from './pages/IndividualSpray';
+import NotFound from './pages/NotFound';
+
 
 import { useLoadingContext } from './contexts/LoadingContext';
 
@@ -53,41 +55,17 @@ function App(): JSX.Element {
           <ScrollToTop>
             <Routes>
               <Route path="/" element={<Homepage />} />
-              <Route
-                path="/agents"
-                element={
-                  <AgentsList
-                    selectedOption={selectedOption}
-                    setSelectedOption={setSelectedOption}
-                  />
-                }
-              />
-              <Route
-                path="/weapons"
-                element={
-                  <WeaponsList
-                    selectedOption={selectedOption}
-                    setSelectedOption={setSelectedOption}
-                  />
-                }
-              />
-              <Route
-                path="/agent/:agentName"
-                element={<IndividualAgent setSelectedOption={setSelectedOption} />}
-              />
+              <Route path="/agents" element={<AgentsList selectedOption={selectedOption} setSelectedOption={setSelectedOption} />} />
+              <Route path="/weapons" element={<WeaponsList selectedOption={selectedOption} setSelectedOption={setSelectedOption} />} />
+              <Route path="/agent/:agentName"element={<IndividualAgent setSelectedOption={setSelectedOption} />} />
               <Route path="/weapon/:weaponName" element={<IndividualWeapon />} />
-              <Route
-                path="/agent/:agentName/:abilityName"
-                element={<IndividualAbility />}
-              />
+              <Route path="/agent/:agentName/:abilityName" element={<IndividualAbility />} />
               <Route path="/weapon/:weaponName/skins" element={<WeaponSkins />} />
-              <Route
-                path="/weapon/:weaponName/skins/:skinName"
-                element={<IndividualSkin />}
-              />
+              <Route path="/weapon/:weaponName/skins/:skinName" element={<IndividualSkin />} />
               <Route path="/buddies" element={<BuddiesList />} />
               <Route path="/buddy/:buddyName" element={<IndividualBuddy />} />
               <Route path="/sprays" element={<SpraysList />} />
+              <Route path="/spray/:sprayName" element={<IndividualSpray />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </ScrollToTop> {/* Ensure that the window scrolls to the top whenever the location changes */}
