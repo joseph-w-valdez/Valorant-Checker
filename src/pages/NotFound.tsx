@@ -14,6 +14,7 @@ const BackTwiceButton = () => {
     <button
       className="fixed left-0 z-10 p-2 m-4 bg-[#ff5152] text-white rounded-full hover:scale-125 transition-transform duration-100"
       onClick={handleClick}
+      aria-label="Back Button"
     >
       <FiArrowLeft className="text-white text-2xl" />
     </button>

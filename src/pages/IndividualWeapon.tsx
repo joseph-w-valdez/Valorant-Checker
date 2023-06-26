@@ -50,6 +50,7 @@ const IndividualWeapon = () => {
         <button
           className='bg-[#ff5152] py-2 px-5 font-bold rounded mt-4 hover:scale-110 transition-transform duration-100'
           onClick={handleWeaponSkinsButton}
+          aria-label="View Weapon Skins"
         >
           Weapon Skins
         </button>

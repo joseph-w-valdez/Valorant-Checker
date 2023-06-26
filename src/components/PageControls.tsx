@@ -27,9 +27,10 @@ const PageControls: React.FC<PageControlProps> = ({ results, pageSize, currentPa
           className={`px-2 py-2 flex items-center ${
             currentPage === 1 ? '' : 'hover:bg-gray-700 transition duration-100'
           }`}
+          aria-label="Previous Page"
         >
           <FiChevronLeft />
-          <span className='hidden 375:inline'>Previous</span>
+          <span className="hidden 375:inline">Previous</span>
         </button>
         {/* Line separator */}
         <div className="border-r h-4 mx-1"></div>
@@ -40,6 +41,7 @@ const PageControls: React.FC<PageControlProps> = ({ results, pageSize, currentPa
             <button
               onClick={() => handlePageChange(1)}
               className={`px-2 py-2 ${currentPage === 1 ? 'font-bold' : 'hover:bg-gray-700 transition duration-100'}`}
+              aria-label="Go to Page 1"
             >
               1
             </button>
@@ -52,13 +54,14 @@ const PageControls: React.FC<PageControlProps> = ({ results, pageSize, currentPa
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             className={`px-2 py-2 ${currentPage === 1 ? 'font-bold' : 'hover:bg-gray-700 transition duration-100'}`}
+            aria-label={`Go to Page ${currentPage - 1}`}
           >
             {currentPage - 1}
           </button>
         )}
 
         {/* Rendering the current page button */}
-        <button onClick={() => handlePageChange(currentPage)} className="px-2 py-2 font-bold" disabled>
+        <button onClick={() => handlePageChange(currentPage)} className="px-2 py-2 font-bold" disabled aria-label={`Current Page, Page ${currentPage}`}>
           {currentPage}
         </button>
 
@@ -67,6 +70,7 @@ const PageControls: React.FC<PageControlProps> = ({ results, pageSize, currentPa
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             className={`px-2 py-2 ${currentPage === totalPages ? 'font-bold' : 'hover:bg-gray-700 transition duration-100'}`}
+            aria-label={`Go to Page ${currentPage + 1}`}
           >
             {currentPage + 1}
           </button>
@@ -79,6 +83,7 @@ const PageControls: React.FC<PageControlProps> = ({ results, pageSize, currentPa
             <button
               onClick={() => handlePageChange(totalPages)}
               className={`px-2 py-2 ${currentPage === totalPages ? 'font-bold' : 'hover:bg-gray-700 transition duration-100'}`}
+              aria-label={`Go to Page ${totalPages}`}
             >
               {totalPages}
             </button>
@@ -95,17 +100,19 @@ const PageControls: React.FC<PageControlProps> = ({ results, pageSize, currentPa
           className={`px-2 py-2 flex items-center ${
             currentPage === totalPages ? '' : 'hover:bg-gray-700 transition duration-100'
           }`}
+          aria-label="Next Page"
         >
-          <span className='hidden 375:inline'>Next</span>
+          <span className="hidden 375:inline">Next</span>
           <FiChevronRight />
         </button>
       </div>
       {/* Only show this message if there are more than 25 items */}
-      {results > 25 && (<>
-        <FlexBasisFull />
-        <p className='text-sm opacity-75'>{`(There are up to ${pageSize} results per page)`}</p>
-      </>)
-      }
+      {results > 25 && (
+        <>
+          <FlexBasisFull />
+          <p className="text-sm opacity-75">{`(There are up to ${pageSize} results per page)`}</p>
+        </>
+      )}
     </div>
   );
 };

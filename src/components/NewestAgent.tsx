@@ -17,6 +17,7 @@ const NewestAgent: React.FC<NewestAgentProps> = ({
       <button
         className='flex flex-wrap w-96 mx-10 my-4 border border-2 rounded hover:bg-white hover:bg-opacity-25'
         onClick={()=>navigate(`/agent/${displayName}`)}
+        aria-label='View Latest Agent'
       >
         <h1 className='w-full text-2xl'>Newest Agent!</h1>
         <h2 className='w-full text-lg bg-white text-black'>{displayName} - {role.displayName}</h2>
