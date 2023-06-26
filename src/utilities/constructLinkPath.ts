@@ -15,6 +15,11 @@ const constructPath = (item: any, dataType: string, weapon?: string) => {
     return `/weapon/${weapon}/skins/${skinName}`;
   };
 
+  const getBuddyLinkPath = (displayName: string) => {
+    const buddyName = onlyLettersAndNumbers(displayName);
+    return `/buddy/${buddyName}`;
+  };
+
   /* handle row click link navigations */
   let linkPath = '';
 
@@ -33,7 +38,7 @@ const constructPath = (item: any, dataType: string, weapon?: string) => {
       linkPath = '/';
       break;
     case 'buddies':
-      linkPath = '/';
+      linkPath = getBuddyLinkPath(item.displayName);
       break;
     default:
       break;

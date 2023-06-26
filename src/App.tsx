@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
-import Navbar from './components/Navbar';
 import { Route, Routes } from 'react-router-dom';
+import ReactLoading from 'react-loading';
+import './App.css';
+
+import Navbar from './components/Navbar';
+import ScrollToTop from './components/ScrollToTop';
+import ScrollToTopButton from './components/ScrollToTopButton';
+import Footer from './components/Footer';
+
 import Homepage from './pages/Homepage';
 import AgentsList from './pages/AgentsList';
 import WeaponsList from './pages/WeaponsList';
@@ -12,12 +18,10 @@ import WeaponSkins from './pages/WeaponSkins';
 import IndividualSkin from './pages/IndividualSkin';
 import BuddiesList from './pages/BuddiesList';
 import SpraysList from './pages/SpraysList';
-import ScrollToTop from './components/ScrollToTop';
-import ScrollToTopButton from './components/ScrollToTopButton';
-import Footer from './components/Footer';
-import ReactLoading from 'react-loading';
-import { useLoadingContext } from './contexts/LoadingContext';
 import NotFound from './pages/NotFound';
+import IndividualBuddy from './pages/IndividualBuddy';
+
+import { useLoadingContext } from './contexts/LoadingContext';
 
 function App(): JSX.Element {
   const [selectedOption, setSelectedOption] = useState<string>('No Filter');
@@ -82,6 +86,7 @@ function App(): JSX.Element {
                 element={<IndividualSkin />}
               />
               <Route path="/buddies" element={<BuddiesList />} />
+              <Route path="/buddy/:buddyName" element={<IndividualBuddy />} />
               <Route path="/sprays" element={<SpraysList />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
