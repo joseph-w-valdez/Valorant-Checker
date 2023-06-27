@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { debounce } from 'lodash';
@@ -10,7 +10,7 @@ import { useLoadingContext } from '../contexts/LoadingContext';
 import { getRandomSkins } from '../utilities/getRandomSkins';
 
 const MyCarousel: React.FC = () => {
-  const { setIsLoading } = useLoadingContext();
+  const { isLoading, setIsLoading } = useLoadingContext();
   const skins = useFetchArray(fetchAllSkins, '');
   const [randomKey, setRandomKey] = useState<number>(0);
 
@@ -27,9 +27,18 @@ const MyCarousel: React.FC = () => {
     img: skin.levels[0].displayIcon
   }));
 
+  // Check if the skins data is available before rendering the Carousel component
+  if (!skins && isLoading) {
+    return null
+  }
+
+  useEffect(()=>{
+    regenerateRandomSkins()
+  }, [])
+
   return (
     <>
-      <Subheader text='Featured Random Skins' />
+      <Subheader text='Featured Random Skins:' />
       <FlexBasisFull />
       <Carousel
         key={randomKey} // Re-render the Carousel with a new randomKey to populate it with new random items
@@ -39,18 +48,46 @@ const MyCarousel: React.FC = () => {
         infiniteLoop={true}
         autoPlay={true}
         interval={2000}
-        swipeable={true}
-        emulateTouch={true}
-        stopOnHover={true}
         className='mx-10 w-1/2 flex flex-wrap items-center w-96 h-96 border border-4 border-white rounded box-content overflow-hidden'
         aria-label="Featured Random Skins Carousel"
+        renderIndicator={(onClickHandler, isSelected, index, label) => {
+          const defStyle = {
+              marginLeft: 20,
+              backgroundColor: "white",
+              cursor: "pointer",
+              height: "9px",
+              width: "9px",
+              borderRadius: '50%',
+              display: 'inline-block',
+              opacity: '75%',
+              border: 'none',
+              transition: 'opacity 0.1s ease-in-out', // Add a transition for the opacity
+          };
+          const style = isSelected
+              ? { ...defStyle, backgroundColor: "#FE5152", opacity: 1 } // When selected, opacity is 100%
+              : { ...defStyle };
+          return (
+              <span
+                  style={style}
+                  onMouseEnter={(e) => e.currentTarget.style.opacity = '1'} // On hover, opacity becomes 100%
+                  onMouseLeave={(e) => e.currentTarget.style.opacity = '0.75'} // When mouse leaves, opacity goes back to 75%
+                  onClick={onClickHandler}
+                  onKeyDown={onClickHandler}
+                  key={index}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`${label} ${index + 1}`}
+              >
+              </span>
+          );
+        }}
       >
         {slides.map((slide, index) => (
           <div
             key={index}
             className={`w-full h-96 flex flex-wrap items-center justify-center text-2xl`}
           >
-            <h3 className="text-black absolute top-0 mt-4 w-full bg-white bg-opacity-[95%] p-2 ">{slide.title}</h3>
+            <h3 className="text-black absolute top-0 mt-4 w-full bg-white bg-opacity-[85%] p-2 ">{slide.title}</h3>
             <img src={slide.img} alt={`${slide.title} image`} className='p-8' />
           </div>
         ))}
