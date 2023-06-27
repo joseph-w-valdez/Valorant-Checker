@@ -30,3 +30,14 @@ export const fetchWeapon = async (weaponName: string | undefined) => {
     return null;
   }
 };
+
+export const fetchAllSkins = async (): Promise<any[]> => {
+  try {
+    const response = await fetch('https://valorant-api.com/v1/weapons/skins');
+    const data = await response.json();
+    return data.data || [];
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};

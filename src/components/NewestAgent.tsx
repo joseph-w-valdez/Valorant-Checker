@@ -20,7 +20,7 @@ const NewestAgent: React.FC<NewestAgentProps> = ({
         aria-label='View Latest Agent'
       >
         <h1 className='w-full text-2xl'>Newest Agent!</h1>
-        <h2 className='w-full text-lg bg-white text-black'>{displayName} - {role.displayName}</h2>
+        <h2 className='w-full text-lg bg-white bg-opacity-[95%] text-black'>{displayName} - {role.displayName}</h2>
         <div className='flex items-center my-2'>
           <div className='w-[200px]'>
             <img src={killfeedPortrait} alt={`${displayName} Portrait`} className='object-contain'/>
