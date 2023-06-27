@@ -4,6 +4,7 @@ import FlexBasisFull from '../components/FlexBasisFull';
 import { useFetchObject } from '../hooks/useFetchRequest';
 import { fetchNewestAgent } from '../utilities/fetchAgents';
 import NewestAgent, { NewestAgentProps } from '../components/NewestAgent';
+import Carousel from '../components/Carousel';
 
 const Homepage: React.FC = () => {
   const newestAgent = useFetchObject(fetchNewestAgent);
@@ -18,10 +19,7 @@ const Homepage: React.FC = () => {
         <Header text='Welcome!' />
       </div>
       <FlexBasisFull />
-      <div className="basis-full"></div>
-      <div className="logo-frame w-96 mx-10">
-        <img src="../assets/images/valorant-logo.webp" alt="Valorant Logo" />
-      </div>
+      <Carousel />
       <FlexBasisFull />
       <NewestAgent displayName={displayName} killfeedPortrait={killfeedPortrait} role={role} />
     </>
