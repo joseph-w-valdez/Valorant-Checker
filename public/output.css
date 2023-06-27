@@ -835,6 +835,10 @@ video {
   margin-top: -16px;
 }
 
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -1742,6 +1746,15 @@ video {
     margin-right: 4rem;
   }
 
+  .\33 75\:my-6 {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .\33 75\:mb-6 {
+    margin-bottom: 1.5rem;
+  }
+
   .\33 75\:inline {
     display: inline;
   }
@@ -1773,6 +1786,10 @@ video {
 
   .sm\:mr-8 {
     margin-right: 2rem;
+  }
+
+  .sm\:mb-6 {
+    margin-bottom: 1.5rem;
   }
 
   .sm\:w-1\/2 {
