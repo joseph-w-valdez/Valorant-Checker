@@ -13,6 +13,7 @@ const ScrollToTopButton: React.FC = () => {
     <button
       onClick={scrollToTop}
       className="p-2 m-4 bg-[#ff5152] text-white rounded-full fixed bottom-0 right-0 active:translate-y-1 hover:scale-125 transition-transform duration-100"
+      aria-label='Scroll To Top'
     >
       <FiArrowUp className="text-white text-2xl" />
     </button>

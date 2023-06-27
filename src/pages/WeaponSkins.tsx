@@ -24,7 +24,7 @@ const WeaponSkins = () => {
     data: sortedWeaponSkins,
     dataType: 'weapon-skins',
     weapon: weaponName,
-    selectedOption: '', // Add the selectedOption property here
+    selectedOption: '',
   };
 
   return (

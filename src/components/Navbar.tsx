@@ -72,6 +72,8 @@ const Navbar: React.FC<NavbarProps> = ({ setSelectedOption }) => {
             <button
               className="text-gray-500 w-10 h-10 relative focus:outline-none"
               onClick={handleMenuToggle}
+              aria-label="Toggle Menu"
+
             >
               <span className="sr-only">Open main menu</span>
               <span
