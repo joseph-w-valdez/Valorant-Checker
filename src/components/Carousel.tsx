@@ -28,7 +28,7 @@ const MyCarousel: React.FC = () => {
   }, 200);
 
   const slides = getRandomSkins(skins, 8).map((skin: any, index: number) => {
-
+    // Cross-check the name of the skin with the array of weapon names; if there's a match return that match, otherwise, return 'Melee'
     const matchingWeapon = findMatchingString(skin.displayName, weapons);
 
   return {
@@ -37,7 +37,6 @@ const MyCarousel: React.FC = () => {
     link: `/weapon/${matchingWeapon}/skins/${onlyLettersAndNumbers(skin.displayName)}`,
   };
 });
-
 
   // Check if the skins data is available before rendering the Carousel component
   if (!skins && isLoading) {
