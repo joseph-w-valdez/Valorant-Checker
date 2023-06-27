@@ -15,15 +15,17 @@ export const fetchAgents = async (selectedOption: string): Promise<any[]> => {
 
 export const fetchNewestAgent = async () => {
   try {
-    const response = await fetch('https://valorant-api.com/v1/agents');
-    const data = await response.json()
-    const newestAgent = data.data[0]
-    return newestAgent
+    const newestAgent = 'Deadlock';
+    const response = await fetch(`https://valorant-api.com/v1/agents?developerName=${newestAgent}`);
+    const data = await response.json();
+    const agent = data.data.find((agent: any) => agent.isPlayableCharacter && agent.displayName.toLowerCase() === newestAgent.toLowerCase());
+    return agent || null;
   } catch (error) {
     console.error(error);
-    return []
+    return null;
   }
-}
+};
+
 
 export const fetchAgent = async (agentName: string): Promise<any | null> => {
   try {
