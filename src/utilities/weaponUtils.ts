@@ -124,3 +124,8 @@ export const modifyAccuracyProps = (props: any) => {
 
   return modifiedProps;
 };
+
+export const findMatchingString = (title:string, strings:any[]) => {
+  const matchingString = strings.find((str) => title.includes(str));
+  return matchingString || 'Melee';
+};
