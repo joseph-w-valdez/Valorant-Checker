@@ -679,6 +679,10 @@ video {
   top: 0px;
 }
 
+.top-\[-30px\] {
+  top: -30px;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -1749,6 +1753,10 @@ video {
 }
 
 @media (min-width: 640px) {
+  .sm\:top-\[75px\] {
+    top: 75px;
+  }
+
   .sm\:mx-0 {
     margin-left: 0px;
     margin-right: 0px;
