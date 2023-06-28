@@ -17,6 +17,6 @@ export const socials: { name: string; imageSource: string; link: string }[] = [
   {
     name: 'Repository',
     imageSource: '../../assets/images/repository.png',
-    link: 'https://github.com/joseph-w-valdez/Valorant-Checker/tree/react-conversion',
+    link: 'https://github.com/joseph-w-valdez/Valorant-Checker',
   },
 ];
