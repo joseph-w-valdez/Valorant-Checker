@@ -34,7 +34,7 @@ const IndividualAbility: React.FC = () => {
         <BackButton />
         <Header text={abilityData.displayName} />
         <FlexBasisFull />
-        <h3 className='mt-[-16px] text-lg sm:3xl'>({normalizeAbilitySlot(abilityData.slot)})</h3>
+        <h3 className='text-lg sm:3xl'>({normalizeAbilitySlot(abilityData.slot)})</h3>
       </div>
       <FlexBasisFull />
       <div className='flex flex-wrap justify-center items-center position relative top-[50px]'>

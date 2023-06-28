@@ -40,8 +40,8 @@ const IndividualAgent: React.FC<{ setSelectedOption: (option: string) => void }>
           className='flex flex-wrap items-center justify-center cursor-pointer hover:bg-white hover:bg-opacity-25 p-1'
           onClick={() => handleRoleClick(agentData.role)}
         >
-          <h3 className='text-lg sm:3xl'>{agentData.role.displayName}</h3>
-          <div className='w-6 ml-2'>
+          <h3 className='text-lg sm:3xl mt-4'>{agentData.role.displayName}</h3>
+          <div className='w-6 ml-2 mt-4'>
             <img
               src={agentData.role.displayIcon}
               alt={agentData.role.displayName}
@@ -52,7 +52,7 @@ const IndividualAgent: React.FC<{ setSelectedOption: (option: string) => void }>
         <FlexBasisFull />
         <h4 className='mt-2'>{`Codename: ${agentData.developerName}`}</h4>
         <FlexBasisFull />
-        <div className='flex flex-wrap justify-center items-center top-[-30px] relative sm:top-[75px]'>
+        <div className='flex flex-wrap justify-center items-center top-[5px] relative sm:top-[75px]'>
           <div className='w-full max-w-[80vw] sm:w-1/3 flex flex-wrap justify-center mb-10'>
             <FullAgentPortrait agent={agentData} />
           </div>

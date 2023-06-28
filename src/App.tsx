@@ -50,7 +50,7 @@ function App(): JSX.Element {
         </div>
       )}
       <Navbar setSelectedOption={setSelectedOption} />
-      <main className="flex-grow">
+      <main className="flex-grow relative top-6">
         <div className="content-container mt-12 flex flex-wrap justify-center">
           <ScrollToTop>
             <Routes>
