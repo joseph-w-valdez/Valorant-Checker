@@ -1,7 +1,8 @@
 import './globals.css'
-import Link from 'next/link';
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import React from 'react';
+import Navbar from '@/components/Navbar';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,9 +18,9 @@ export default function RootLayout({
 }) {
   return (
      <html>
-      <body>
-        <main>
-          <nav></nav>
+      <body className='App flex flex-col min-h-screen'>
+        <Navbar />
+        <main className='flex-grow relative top-14'>
           {children}
         </main>
       </body>
