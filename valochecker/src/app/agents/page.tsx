@@ -8,6 +8,7 @@ import { agentRoles } from '@/data/agentRoles';
 import { fetchAgents } from '@/utilities/fetchAgents';
 import { useHandleFilterBoxChange } from '@/hooks/useHandleFilterBoxChange';
 import { useFetchArray } from '@/hooks/useFetchRequest'
+import { normalizeSelectedOption } from '@/utilities/stringConversions';
 
 
 const agents: React.FC = () => {
@@ -19,6 +20,16 @@ const agents: React.FC = () => {
     setSelectedOption('No Filter');
   }, []);
 
+  useEffect(() => {
+    const agentRole = agentRoles.find((role) => role.category === selectedOption);
+    if (agentRole) {
+      setAgentRoleDescription(agentRole.description || '');
+    } else {
+      setAgentRoleDescription('');
+    }
+  }, [selectedOption]);
+
+  if (!agents) return null;
 
   return (
     <>
@@ -42,6 +53,12 @@ const agents: React.FC = () => {
         handleOptionChange={handleFilterBoxChange}
         filterData={agentRoles}
       />
+      <FlexBasisFull />
+      {selectedOption && selectedOption !== 'No Filter' && (
+        <div className='mt-2'>
+          <p className=''>{agentRoleDescription}</p>
+        </div>
+      )}
     </>
   );
 };

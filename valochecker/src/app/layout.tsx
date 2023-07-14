@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import React from 'react';
 import Navbar from '@/components/Navbar';
+import { LoadingProvider, useLoadingContext } from '@/contexts/LoadingContext';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,14 +17,19 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
   return (
      <html>
-      <body className='App flex flex-col min-h-screen'>
-        <Navbar />
-        <main className='flex-grow relative top-14'>
-          {children}
-        </main>
-      </body>
+      <LoadingProvider>
+        <body className='App flex flex-col min-h-screen'>
+          <Navbar />
+          <main className='flex-grow relative top-14'>
+            <div className="flex flex-wrap justify-center">
+              {children}
+            </div>
+          </main>
+        </body>
+      </LoadingProvider>
     </html>
   )
 }

@@ -1,3 +1,4 @@
+'use client'
 import React, { createContext, useState, ReactNode, Dispatch, SetStateAction, useContext } from 'react';
 
 interface LoadingContextProps {

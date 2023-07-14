@@ -1,8 +1,11 @@
+import Header from "@/components/Header"
+
 export default function Home() {
   return (
      <>
-      <h1>Home Page</h1>
-      <p>Some content</p>
+      <div className='flex flex-wrap items-center justify-center'>
+          <Header text='Welcome!' />
+      </div>
     </>
   )
 }
