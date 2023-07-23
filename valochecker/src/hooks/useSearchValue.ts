@@ -7,7 +7,7 @@ type UseSearchValueProps = {
 };
 
 export function useSearchValue({ searchParam }: UseSearchValueProps) {
-  const router = useRouter();
+
   const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
@@ -21,6 +21,7 @@ export function useSearchValue({ searchParam }: UseSearchValueProps) {
   }, 40);
 
   const handleSearchSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const router = useRouter();
     const newSearchValue = event.target.value;
     debouncedHandleSearchSubmit(newSearchValue);
     router.push({

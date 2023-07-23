@@ -1,24 +1,27 @@
 'use client'
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import Header from '@/components/Header';
-import FlexBasisFull from '@/components/FlexBasisFull';
-import FilterTable from '@/components/FilterTable';
-import Subheader from '@/components/Subheader';
-import { agentRoles } from '@/data/agentRoles';
-import { fetchAgents } from '@/utilities/fetchAgents';
-import { useHandleFilterBoxChange } from '@/hooks/useHandleFilterBoxChange';
+import { useState, useEffect } from 'react'
+import Header from '@/components/Header'
+import DataTable from '@/components/DataTable'
+import FlexBasisFull from '@/components/FlexBasisFull'
+import FilterTable from '@/components/FilterTable'
+import Subheader from '@/components/Subheader'
+import { agentRoles } from '@/data/agentRoles'
+import { fetchAgents } from '@/utilities/fetchAgents'
 import { useFetchArray } from '@/hooks/useFetchRequest'
-import { normalizeSelectedOption } from '@/utilities/stringConversions';
+import { alphabetizeArray } from '@/utilities/arrayManipulations'
+import { normalizeSelectedOption } from '@/utilities/stringConversions'
+import { handleFilterBoxChange } from '@/utilities/filterboxChange'
 
+export default function Agents() {
 
-const agents: React.FC = () => {
-  const [selectedOption, setSelectedOption] = useState<string>('No Filter');
-  const [agentRoleDescription, setAgentRoleDescription] = useState<string>('');
-  const handleFilterBoxChange = useHandleFilterBoxChange(setSelectedOption)
+  const [selectedOption, setSelectedOption] = useState('No Filter')
+  const [agentRoleDescription, setAgentRoleDescription] = useState('')
+
+  const handleChange = handleFilterBoxChange(setSelectedOption)
 
   useEffect(() => {
-    setSelectedOption('No Filter');
-  }, []);
+    setSelectedOption('No Filter')
+  }, [])
 
   useEffect(() => {
     const agentRole = agentRoles.find((role) => role.category === selectedOption);
@@ -29,15 +32,17 @@ const agents: React.FC = () => {
     }
   }, [selectedOption]);
 
-  if (!agents) return null;
+  const agents = useFetchArray(fetchAgents, selectedOption)
+
+  if (!agents) return null
 
   return (
     <>
       <div className='flex flex-wrap items-center justify-center'>
           <Header text='Agents' />
       </div>
-       <FlexBasisFull />
-       {agents && agents.length > 0 && (
+      <FlexBasisFull />
+      {agents && agents.length > 0 && (
         <>
           <FlexBasisFull />
           <Subheader
@@ -50,7 +55,7 @@ const agents: React.FC = () => {
       <FlexBasisFull />
       <FilterTable
         selectedOption={selectedOption}
-        handleOptionChange={handleFilterBoxChange}
+        handleOptionChange={handleChange}
         filterData={agentRoles}
       />
       <FlexBasisFull />
@@ -59,8 +64,12 @@ const agents: React.FC = () => {
           <p className=''>{agentRoleDescription}</p>
         </div>
       )}
+      {Boolean(selectedOption) && agents && agents.length > 0 && (
+        <>
+          <FlexBasisFull />
+          <DataTable data={alphabetizeArray(agents)} selectedOption={selectedOption} dataType='agents' />
+        </>
+      )}
     </>
   );
 };
-
-export default agents;

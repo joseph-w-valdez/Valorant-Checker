@@ -1,11 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useLoadingContext } from '../contexts/LoadingContext';
-import { useRouter } from 'next/router';
+import { NextRouter } from 'next/router';
 
-export const useFetchArray = (fetchFunction: (option: string) => Promise<any[]>, selectedOption: any) => {
+interface FetchArrayOptions {
+  fetchFunction: (option: string) => Promise<any[]>
+  selectedOption: string
+}
+
+export function useFetchArray({
+  fetchFunction,
+  selectedOption,
+  router
+}: FetchArrayOptions & { router: NextRouter }) {
   const { setIsLoading } = useLoadingContext();
   const [data, setData] = useState<any[]>([]);
-  const router = useRouter();
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,15 +37,23 @@ export const useFetchArray = (fetchFunction: (option: string) => Promise<any[]>,
     };
 
     fetchData();
-  }, [selectedOption, setIsLoading, fetchFunction, router]);
+  }, [selectedOption, fetchFunction]);
 
   return data;
 };
 
-export const useFetchObject = (fetchFunction: (option: string) => Promise<any | null>, arg?: any) => {
+interface FetchObjectOptions {
+  fetchFunction: (option: string) => Promise<any>
+  arg?: any
+}
+
+export function useFetchObject({
+  fetchFunction,
+  arg,
+  router
+}: FetchObjectOptions & { router: NextRouter }) {
   const { setIsLoading } = useLoadingContext();
   const [data, setData] = useState<any | null>(null);
-  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,7 +76,7 @@ export const useFetchObject = (fetchFunction: (option: string) => Promise<any | 
     };
 
     fetchData();
-  }, [arg, setIsLoading, fetchFunction, router]);
+  }, [arg, fetchFunction]);
 
   return data;
 };
