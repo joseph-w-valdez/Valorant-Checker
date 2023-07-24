@@ -1,27 +1,27 @@
 'use client'
-import { useState, useEffect } from 'react'
-import Header from '@/components/Header'
-import DataTable from '@/components/DataTable'
-import FlexBasisFull from '@/components/FlexBasisFull'
-import FilterTable from '@/components/FilterTable'
-import Subheader from '@/components/Subheader'
-import { agentRoles } from '@/data/agentRoles'
-import { fetchAgents } from '@/utilities/fetchAgents'
-import { useFetchArray } from '@/hooks/useFetchRequest'
-import { alphabetizeArray } from '@/utilities/arrayManipulations'
-import { normalizeSelectedOption } from '@/utilities/stringConversions'
-import { handleFilterBoxChange } from '@/utilities/filterboxChange'
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Header from '@/components/Header';
+import DataTable from '@/components/DataTable';
+import FlexBasisFull from '@/components/FlexBasisFull';
+import FilterTable from '@/components/FilterTable';
+import Subheader from '@/components/Subheader';
+import { agentRoles } from '@/data/agentRoles';
+import { fetchAgents } from '@/utilities/fetchAgents';
+import { useFetchArray } from '@/hooks/useFetchRequest';
+import { alphabetizeArray } from '@/utilities/arrayManipulations';
+import { normalizeSelectedOption } from '@/utilities/stringConversions';
+import { handleFilterBoxChange } from '@/utilities/filterboxChange';
 
 export default function Agents() {
+  const [selectedOption, setSelectedOption] = useState('No Filter');
+  const [agentRoleDescription, setAgentRoleDescription] = useState('');
 
-  const [selectedOption, setSelectedOption] = useState('No Filter')
-  const [agentRoleDescription, setAgentRoleDescription] = useState('')
-
-  const handleChange = handleFilterBoxChange(setSelectedOption)
+  const handleChange = handleFilterBoxChange(setSelectedOption);
 
   useEffect(() => {
-    setSelectedOption('No Filter')
-  }, [])
+    setSelectedOption('No Filter');
+  }, []);
 
   useEffect(() => {
     const agentRole = agentRoles.find((role) => role.category === selectedOption);
@@ -32,14 +32,20 @@ export default function Agents() {
     }
   }, [selectedOption]);
 
-  const agents = useFetchArray(fetchAgents, selectedOption)
+  const router = useRouter(); // Get the router object using useRouter
 
-  if (!agents) return null
+  const agents = useFetchArray({
+    fetchFunction: fetchAgents,
+    selectedOption: selectedOption,
+    router: router, // Pass the router object here
+  });
+
+  if (!agents) return null;
 
   return (
     <>
       <div className='flex flex-wrap items-center justify-center'>
-          <Header text='Agents' />
+        <Header text='Agents' />
       </div>
       <FlexBasisFull />
       {agents && agents.length > 0 && (

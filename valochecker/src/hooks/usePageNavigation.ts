@@ -1,39 +1,52 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 export const usePageNavigation = (
   filteredDataLength: number,
   pageSize: number,
   searchValue: string,
 ) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const pageParam = queryParams.get('page');
+  const router = useRouter();
+  const pathname = usePathname()
+  const searchParams  = useSearchParams();
+  const searchParam = searchParams.get('query')
+  const pageParam = searchParams.get('page')
   const [currentPage, setCurrentPage] = useState(1);
   const [desiredPage, setDesiredPage] = useState(1);
 
   useEffect(() => {
     const totalPages = Math.ceil(filteredDataLength / pageSize);
-    const parsedPage = pageParam ? parseInt(pageParam, 10) : 1;
+    const parsedPage = pageParam ? parseInt(pageParam as string, 10) : 1;
     if (parsedPage !== currentPage) {
       setDesiredPage(parsedPage);
     }
     if (totalPages > 1) {
       if (desiredPage < 1) {
         setCurrentPage(1);
-        navigate(`${location.pathname}?page=1${searchValue ? `&search=${searchValue}` : ''}`);
+        router.push(
+          `${pathname}?page=1${searchValue ? `&search=${searchValue}` : ''}`,
+          undefined,
+          { shallow: true }
+        );
       } else if (desiredPage > totalPages) {
         setCurrentPage(totalPages);
       } else {
         setCurrentPage(desiredPage);
-        navigate(`${location.pathname}?page=${desiredPage}${searchValue ? `&search=${searchValue}` : ''}`);
+        router.push(
+          `${pathname}?page=${desiredPage}${searchValue ? `&search=${searchValue}` : ''}`,
+          undefined,
+          { shallow: true }
+        );
       }
     } else {
       setCurrentPage(1);
-      navigate(`${location.pathname}?page=1${searchValue ? `&search=${searchValue}` : ''}`);
+      router.push(
+        `${pathname}?page=1${searchValue ? `&search=${searchValue}` : ''}`,
+        undefined,
+        { shallow: true }
+      );
     }
-  }, [location.pathname, pageParam, navigate, filteredDataLength, pageSize, searchValue]);
+  }, [pathname, pageParam, router, filteredDataLength, pageSize, searchValue]);
 
   return {
     currentPage,

@@ -7,7 +7,6 @@ type UseSearchValueProps = {
 };
 
 export function useSearchValue({ searchParam }: UseSearchValueProps) {
-
   const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
@@ -22,14 +21,14 @@ export function useSearchValue({ searchParam }: UseSearchValueProps) {
 
   const handleSearchSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     const router = useRouter();
-    const newSearchValue = event.target.value;
+    const newSearchValue = event.target.value.trim(); // Trim the search value to remove leading/trailing spaces
     debouncedHandleSearchSubmit(newSearchValue);
+
+    // Remove the search query parameter from the URL if the new search value is empty
+    const query = newSearchValue ? { page: '1', search: newSearchValue } : { page: '1' };
     router.push({
       pathname: router.pathname,
-      query: {
-        page: '1',
-        search: newSearchValue || undefined,
-      },
+      query,
     });
   };
 

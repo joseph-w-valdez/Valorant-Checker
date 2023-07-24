@@ -1,5 +1,6 @@
+'use client'
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { DataRow, DataRowIndividualWeapon } from './DataRows';
 import FilterSearchBar from './FilterSearchBar';
 import constructPath from '../utilities/constructLinkPath';
@@ -18,24 +19,27 @@ export type DataTableProps = {
 };
 
 const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const searchParam = queryParams.get('search') || '';
+  const router = useRouter(); // Use the useRouter hook
+  const searchParams  = useSearchParams();
+  const searchParam = searchParams.get('query')
   const pageSize = 25; // Amount of results per page
 
-  const { searchValue, handleSearchSubmit } = useSearchValue({ searchParam, navigate, location }); // custom hook for handling searches
-  const filteredData = useDataFilter(data, searchValue, dataType); // custom hook for handling filtering if a search has been made
+  const { searchValue, handleSearchSubmit } = useSearchValue({
+    searchParam,
+    navigate: (path: string) => router.push(path), // Use router.push instead of navigate
+    location: router.asPath, // Use router.asPath for the location
+  });
+  const filteredData = useDataFilter(data, searchValue, dataType);
 
   const { currentPage, setCurrentPage, setDesiredPage } = usePageNavigation(
-  filteredData.length,
-  pageSize,
-  searchValue
-);
+    filteredData.length,
+    pageSize,
+    searchValue
+  );
 
   const handleRowClick = (item: any) => {
     const linkPath = constructPath(item, dataType, weapon);
-    navigate(linkPath);
+    router.push(linkPath); // Use router.push instead of navigate
   };
 
   const renderIcon = (item: any) => {
@@ -47,7 +51,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
       setCurrentPage(pageNumber);
       setDesiredPage(pageNumber);
       const searchQuery = searchValue ? `&search=${searchValue}` : '';
-      navigate(`?page=${pageNumber}${searchQuery}`);
+      router.push(`?page=${pageNumber}${searchQuery}`); // Use router.push instead of navigate
       setTimeout(() => {
         window.scrollTo({
           top: 0,
@@ -83,7 +87,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
            ?.filter((item) => !item.displayName.includes('Standard') && !item.displayName.includes('Random'))
            .map((item, index) => (
              <DataRow
-               key={`${item.id}-${index}`} // use a template literal to create a unique key value for React, since item.id is not unique from the API
+               key={`${item.id}-${index}`}
                item={item}
                index={index}
                onClick={handleRowClick}
@@ -96,7 +100,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
          <>
           {slicedData.map((item, index) => (
             <DataRowIndividualWeapon
-            key={`${item.id}-${index}`} // use a template literal to create a unique key value for React, since item.id is not unique from the API
+            key={`${item.id}-${index}`}
             item={item}
             index={index}
             onClick={handleRowClick}
