@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useLoadingContext } from '../contexts/LoadingContext';
+import { useLoadingContext } from '@/contexts/LoadingContext';
 import { NextRouter } from 'next/router';
+import { useRouter } from 'next/navigation'
 
 interface FetchArrayOptions {
   fetchFunction: (option: string) => Promise<any[]>
@@ -10,11 +11,10 @@ interface FetchArrayOptions {
 export function useFetchArray({
   fetchFunction,
   selectedOption,
-  router
-}: FetchArrayOptions & { router: NextRouter }) {
+}: FetchArrayOptions) {
   const { setIsLoading } = useLoadingContext();
   const [data, setData] = useState<any[]>([]);
-
+  const router = useRouter()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,10 +50,10 @@ interface FetchObjectOptions {
 export function useFetchObject({
   fetchFunction,
   arg,
-  router
-}: FetchObjectOptions & { router: NextRouter }) {
+}: FetchObjectOptions) {
   const { setIsLoading } = useLoadingContext();
   const [data, setData] = useState<any | null>(null);
+  const router = useRouter()
 
   useEffect(() => {
     const fetchData = async () => {

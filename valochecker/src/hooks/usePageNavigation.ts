@@ -26,7 +26,6 @@ export const usePageNavigation = (
         router.push(
           `${pathname}?page=1${searchValue ? `&search=${searchValue}` : ''}`,
           undefined,
-          { shallow: true }
         );
       } else if (desiredPage > totalPages) {
         setCurrentPage(totalPages);
@@ -35,7 +34,6 @@ export const usePageNavigation = (
         router.push(
           `${pathname}?page=${desiredPage}${searchValue ? `&search=${searchValue}` : ''}`,
           undefined,
-          { shallow: true }
         );
       }
     } else {
@@ -43,7 +41,6 @@ export const usePageNavigation = (
       router.push(
         `${pathname}?page=1${searchValue ? `&search=${searchValue}` : ''}`,
         undefined,
-        { shallow: true }
       );
     }
   }, [pathname, pageParam, router, filteredDataLength, pageSize, searchValue]);
