@@ -19,16 +19,12 @@ export type DataTableProps = {
 };
 
 const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
-  const router = useRouter(); // Use the useRouter hook
+  const router = useRouter();
   const searchParams  = useSearchParams();
   const searchParam = searchParams.get('query')
   const pageSize = 25; // Amount of results per page
 
-  const { searchValue, handleSearchSubmit } = useSearchValue({
-    searchParam,
-    navigate: (path: string) => router.push(path), // Use router.push instead of navigate
-    location: router.asPath, // Use router.asPath for the location
-  });
+  const { searchValue, handleSearchSubmit } = useSearchValue({searchParam});
   const filteredData = useDataFilter(data, searchValue, dataType);
 
   const { currentPage, setCurrentPage, setDesiredPage } = usePageNavigation(
@@ -39,7 +35,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
 
   const handleRowClick = (item: any) => {
     const linkPath = constructPath(item, dataType, weapon);
-    router.push(linkPath); // Use router.push instead of navigate
+    router.push(linkPath);
   };
 
   const renderIcon = (item: any) => {

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { debounce } from 'lodash';
 
 type UseSearchValueProps = {
-  searchParam: string;
+  searchParam: string | null;
 };
 
 export function useSearchValue({ searchParam }: UseSearchValueProps) {
@@ -20,16 +20,12 @@ export function useSearchValue({ searchParam }: UseSearchValueProps) {
   }, 40);
 
   const handleSearchSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const router = useRouter();
+
     const newSearchValue = event.target.value.trim(); // Trim the search value to remove leading/trailing spaces
     debouncedHandleSearchSubmit(newSearchValue);
 
     // Remove the search query parameter from the URL if the new search value is empty
     const query = newSearchValue ? { page: '1', search: newSearchValue } : { page: '1' };
-    router.push({
-      pathname: router.pathname,
-      query,
-    });
   };
 
   return {

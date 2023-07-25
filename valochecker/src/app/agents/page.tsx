@@ -32,12 +32,12 @@ export default function Agents() {
     }
   }, [selectedOption]);
 
-  const router = useRouter(); // Get the router object using useRouter
+  const router = useRouter();
 
   const agents = useFetchArray({
     fetchFunction: fetchAgents,
     selectedOption: selectedOption,
-    router: router, // Pass the router object here
+    router: router,
   });
 
   if (!agents) return null;
