@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
      <LoadingProvider>
        <html>
-        <body className='App flex flex-col min-h-screen'>
+        <body className='App flex flex-col min-h-screen bg-[#212121]'>
           {isLoading && (
             <div className="fixed flex flex-wrap justify-center items-center z-[100] w-full h-full">
               <ReactLoading type="spin" color="#fff" />

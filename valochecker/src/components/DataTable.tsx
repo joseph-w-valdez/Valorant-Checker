@@ -35,6 +35,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
 
   const handleRowClick = (item: any) => {
     const linkPath = constructPath(item, dataType, weapon);
+    console.log('linkpath', linkPath)
     router.push(linkPath);
   };
 

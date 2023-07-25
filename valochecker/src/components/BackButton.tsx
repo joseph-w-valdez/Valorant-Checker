@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation'
 import { FiArrowLeft } from 'react-icons/fi';
 
 interface BackButtonProps {
@@ -7,13 +7,13 @@ interface BackButtonProps {
 }
 
 const BackButton: React.FC<BackButtonProps> = ({ targetPage }) => {
-  const navigate = useNavigate();
+  const router = useRouter()
 
   const handleClick = (): void => {
     if (targetPage) {
-      navigate(targetPage); // Navigate to the specified target page
+      router.push(targetPage); // Navigate to the specified target page
     } else {
-      navigate(-1); // Go back to the previous page if targetPage is not specified
+      router.back() // Go back to the previous page if targetPage is not specified
     }
     window.scrollTo(0, 0);
   };

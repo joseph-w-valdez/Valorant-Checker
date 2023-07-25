@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import Header from '@/components/Header';
 import FlexBasisFull from '@/components/FlexBasisFull';
 import FullAgentPortrait from '@/components/FullAgentPortrait';
@@ -10,18 +10,18 @@ import { useFetchObject } from '@/hooks/useFetchRequest';
 import { fetchAgent } from '@/utilities/fetchAgents';
 
 const IndividualAgent: React.FC<{ setSelectedOption: (option: string) => void }> = ({ setSelectedOption }) => {
-  const { agentName } = useParams<{ agentName: string }>();
+  const params = useParams()
+  const { agentName } = params
 
-  const agentData = useFetchObject(fetchAgent, agentName);
+  const agentData = useFetchObject({ fetchFunction: fetchAgent, arg: agentName });
+
 
   const handleRoleClick = (role: any) => {
     setSelectedOption(role.displayName);
-    navigate('/agents');
   };
 
   const handleAbilityClick = (ability: any) => {
     const abilityName = onlyLettersAndNumbers(ability.displayName);
-    navigate(`/agent/${agentName}/${abilityName}`);
   };
 
   if (!agentData) {

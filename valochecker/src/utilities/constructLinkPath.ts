@@ -3,7 +3,7 @@ import { onlyLettersAndNumbers } from '../utilities/stringConversions';
 const constructPath = (item: any, dataType: string, weapon?: string) => {
   const getAgentLinkPath = (displayName: string) => {
     const agentName = displayName === 'KAY/O' ? 'Kayo' : displayName.replace('/', '');
-    return `/agent/${agentName}`;
+    return `/agent/${[agentName]}`;
   };
 
   const getWeaponLinkPath = (displayName: string) => {

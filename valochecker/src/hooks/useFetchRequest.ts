@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useLoadingContext } from '@/contexts/LoadingContext';
-import { NextRouter } from 'next/router';
 import { useRouter } from 'next/navigation'
 
 interface FetchArrayOptions {
