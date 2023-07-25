@@ -33,7 +33,7 @@ export default function RootLayout({
             </div>
           )}
           <Navbar />
-          <main className='flex-grow relative top-14'>
+          <main className='flex-grow relative top-16 bg-[#212121]'>
             <div className="flex flex-wrap justify-center">
               {children}
             </div>

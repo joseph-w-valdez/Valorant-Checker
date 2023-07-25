@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, } from 'next/navigation';
 import Header from '@/components/Header';
 import FlexBasisFull from '@/components/FlexBasisFull';
 import FullAgentPortrait from '@/components/FullAgentPortrait';
@@ -68,7 +68,7 @@ const IndividualAgent: React.FC<{ setSelectedOption: (option: string) => void }>
                   className='w-1/2 p-2 flex flex-wrap justify-center cursor-pointer mb-6 hover:scale-125'
                   onClick={() => handleAbilityClick(ability)}
                 >
-                  <h4 className='w-full'>{ability.displayName} ({normalizeAbilitySlot(ability.slot)})</h4>
+                  <h4 className='w-full text-center'>{ability.displayName} ({normalizeAbilitySlot(ability.slot)})</h4>
                   {ability.slot === 'Passive' ? (
                     <img
                       src={agentData.displayIcon}
