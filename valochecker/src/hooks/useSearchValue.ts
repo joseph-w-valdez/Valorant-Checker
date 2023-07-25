@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { debounce } from 'lodash';
 
-type UseSearchValueProps = {
-  searchParam: string | null;
-};
-
-export function useSearchValue({ searchParam }: UseSearchValueProps) {
+export function useSearchValue(searchParam: string | null) {
   const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {

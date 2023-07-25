@@ -1,6 +1,5 @@
 'use client'
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import Header from '@/components/Header';
 import DataTable from '@/components/DataTable';
 import FlexBasisFull from '@/components/FlexBasisFull';
@@ -32,12 +31,9 @@ export default function Agents() {
     }
   }, [selectedOption]);
 
-  const router = useRouter();
-
   const agents = useFetchArray({
     fetchFunction: fetchAgents,
     selectedOption: selectedOption,
-    router: router,
   });
 
   if (!agents) return null;

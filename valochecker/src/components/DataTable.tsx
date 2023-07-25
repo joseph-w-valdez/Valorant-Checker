@@ -21,10 +21,10 @@ export type DataTableProps = {
 const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
   const router = useRouter();
   const searchParams  = useSearchParams();
-  const searchParam = searchParams.get('query')
+  const searchParam = searchParams.get('query') || null
   const pageSize = 25; // Amount of results per page
 
-  const { searchValue, handleSearchSubmit } = useSearchValue({searchParam});
+  const { searchValue, handleSearchSubmit } = useSearchValue(searchParam);
   const filteredData = useDataFilter(data, searchValue, dataType);
 
   const { currentPage, setCurrentPage, setDesiredPage } = usePageNavigation(
