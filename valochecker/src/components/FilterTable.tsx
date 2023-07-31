@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface Option {
   category: string;
@@ -56,6 +57,11 @@ interface FilterTableProps {
 
 const FilterTable: React.FC<FilterTableProps> = ({ selectedOption, handleOptionChange, filterData }) => {
   const shouldRenderBasisFull = filterData.length % 2 !== 1;
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const queryParam = searchParams.get('query') || null
+  const pageParam = 1
+  const filterParam = selectedOption
 
   return (
     <div className='flex justify-center'>

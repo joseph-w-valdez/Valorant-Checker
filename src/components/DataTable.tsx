@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { DataRow, DataRowIndividualWeapon } from './DataRows';
 import FilterSearchBar from './FilterSearchBar';
 import constructPath from '../utilities/constructLinkPath';
@@ -18,13 +17,11 @@ export type DataTableProps = {
 };
 
 const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const searchParam = queryParams.get('search') || '';
   const pageSize = 25; // Amount of results per page
 
-  const { searchValue, handleSearchSubmit } = useSearchValue({ searchParam, navigate, location }); // custom hook for handling searches
+  const { searchValue, handleSearchSubmit } = useSearchValue(searchParam); // custom hook for handling searches
   const filteredData = useDataFilter(data, searchValue, dataType); // custom hook for handling filtering if a search has been made
 
   const { currentPage, setCurrentPage, setDesiredPage } = usePageNavigation(
@@ -35,7 +32,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
 
   const handleRowClick = (item: any) => {
     const linkPath = constructPath(item, dataType, weapon);
-    navigate(linkPath);
+    console.log('linkpath', linkPath)
   };
 
   const renderIcon = (item: any) => {
@@ -47,7 +44,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, dataType, weapon }) => {
       setCurrentPage(pageNumber);
       setDesiredPage(pageNumber);
       const searchQuery = searchValue ? `&search=${searchValue}` : '';
-      navigate(`?page=${pageNumber}${searchQuery}`);
+      console.log('navigate(`?page=${pageNumber}${searchQuery}`);', searchQuery)
       setTimeout(() => {
         window.scrollTo({
           top: 0,
