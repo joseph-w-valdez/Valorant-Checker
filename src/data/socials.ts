@@ -7,7 +7,7 @@ export const socials: { name: string; imageSource: string; link: string }[] = [
   {
     name: 'Portfolio',
     imageSource: '/assets/images/portfolio.png',
-    link: 'http://jwv-portfolio.herokuapp.com/',
+    link: 'https://josephvaldez.vercel.app/',
   },
   {
     name: 'GitHub',
