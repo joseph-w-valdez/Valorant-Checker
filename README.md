@@ -33,7 +33,7 @@ ValoChecker is a dynamic web application that retrieves and displays information
 
 Before running the ValoChecker project on your local machine, ensure that you have the following dependencies installed:
 
-- Node.js: Minimum version v14.15.1. You can download the latest version of Node.js from the official website: [https://nodejs.org/en/download/](https://nodejs.org/en/download/)
+- Node.js: Minimum version v24.0.0. You can download the latest version of Node.js from the official website: [https://nodejs.org/en/download/](https://nodejs.org/en/download/)
 - Git: You will need Git installed on your computer to clone the repository and manage your codebase. You can download Git from the official website: [https://git-scm.com/downloads](https://git-scm.com/downloads)
 
 
